@@ -1,0 +1,86 @@
+# Pinned inputs for the benchmark. Everything the harness reads is fixed to a
+# commit here, so a rerun on another machine sees the same bytes.
+#
+# Rebuild the local copy with:  python -m eval.corpus --fetch
+
+sources:
+  security_datasets:
+    url: https://github.com/OTRF/Security-Datasets.git
+    commit: d9d40ef123d2c87d5d3df28c96bcab4f0faccc87
+    # cone-mode sparse paths. the repo carries a lot of data we do not read.
+    sparse:
+      - datasets/atomic/_metadata
+      - datasets/atomic/windows
+      - datasets/compound/_metadata
+      - datasets/compound/LSASS_campaign_01
+      - datasets/compound/LSASS_campaign_02
+      - datasets/compound/LSASS_campaign_03
+      - datasets/compound/LSASS_campaign_04
+      - datasets/compound/LSASS_campaign_05
+      - datasets/compound/LSASS_campaign_06
+      - datasets/compound/LSASS_campaign_07
+      - datasets/compound/apt29
+  sigmahq:
+    url: https://github.com/SigmaHQ/sigma.git
+    commit: 1aacbedf7fc04067e6b1b2594c4b7c1c2ff649a9
+    sparse:
+      - rules
+      - rules-emerging-threats
+      - rules-threat-hunting
+
+# The controlled comparison. Same lab, same victim host, same Sysmon config,
+# seven different tools reading LSASS memory. Differences in detection come
+# from the tool, not from the environment.
+lsass_campaigns:
+  - id: LSASS_campaign_01
+    tool: logonpasswords
+    note: mimikatz-style in-process read
+    archive: datasets/compound/LSASS_campaign_01/metasploit_logonpasswords_lsass_memory_dump.zip
+    sha256: 79045fcc5a8689efed8db4911cadc11b554ef8b0bed1428ee490bb8c3f2578e6
+  - id: LSASS_campaign_02
+    tool: procdump
+    note: signed sysinternals binary
+    archive: datasets/compound/LSASS_campaign_02/metasploit_procdump_lsass_memory_dump.zip
+    sha256: 2b32f11b1465f49df8bb4040652b001e4bb8a92de6ae7e84c2977abe68273f04
+  - id: LSASS_campaign_03
+    tool: comsvcs
+    note: lolbin, rundll32 comsvcs.dll MiniDump
+    archive: datasets/compound/LSASS_campaign_03/metasploit_comsvcs_lsass_memory_dump.zip
+    sha256: 97a834cd72b0803d544c62cc45a41b18a4cc04a605735096be4bc5dad5e9fe7b
+  - id: LSASS_campaign_04
+    tool: out-minidump
+    note: powershell reflective MiniDumpWriteDump
+    archive: datasets/compound/LSASS_campaign_04/metasploit_out-minidump_lsass_memory_dump.zip
+    sha256: d6150eab4013ed0a7fc9c6b7266187214706c543c9dc3a370603f524def5de63
+  - id: LSASS_campaign_05
+    tool: sharpdump
+    note: .net port of out-minidump
+    archive: datasets/compound/LSASS_campaign_05/metasploit_sharpdump_lsass_memory_dump.zip
+    sha256: 79e347b411beefaf5c7d0c951fdcb9d308fce20f8eabe666c11fa7b6165053b8
+  - id: LSASS_campaign_06
+    tool: outflank-dumpert
+    note: direct syscalls, bypasses userland hooks
+    archive: datasets/compound/LSASS_campaign_06/metasploit_outflank-dumpert_lsass_memory_dump.zip
+    sha256: ee996c0ddc32611c572f59a68869f7d4327aaac04a3aeee65916b7221347dc1d
+  - id: LSASS_campaign_07
+    tool: nanodump
+    note: syscalls plus a hand-rolled minidump writer
+    archive: datasets/compound/LSASS_campaign_07/metasploit_nanodump_lsass_memory_dump.zip
+    sha256: 5335635ef2bce0fb3f8704e17fb04a3be7400ac7c4bcd6ec7c14454632acaaaf
+
+# Multi-stage intrusion, used for the chain timeline rather than per-rule scoring.
+chain_captures:
+  - id: apt29_day1
+    archive: datasets/compound/apt29/day1/apt29_evals_day1_manual.zip
+  - id: apt29_day2
+    archive: datasets/compound/apt29/day2/apt29_evals_day2_manual.zip
+
+# Benign corpus scope. Atomic Windows host captures are full host telemetry for
+# the capture window, so events unrelated to the simulated technique are real
+# background activity. A capture is eligible as benign for technique T when its
+# labelled techniques exclude T and every sibling of T.
+benign:
+  root: datasets/atomic/windows
+  # captures with no attack_mappings entry in _metadata. we cannot show these
+  # are free of a given technique, so they are never counted as benign.
+  require_labels: true
