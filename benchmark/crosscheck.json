@@ -1,0 +1,76 @@
+[
+  {
+    "capture": "LSASS_campaign_01",
+    "tool": "logonpasswords",
+    "agreed": [],
+    "only_this_harness": [],
+    "only_zircolite": [],
+    "count_mismatches": {}
+  },
+  {
+    "capture": "LSASS_campaign_02",
+    "tool": "procdump",
+    "agreed": [
+      "LSASS Memory Access by Tool With Dump Keyword In Name",
+      "Potential Credential Dumping Activity Via LSASS"
+    ],
+    "only_this_harness": [],
+    "only_zircolite": [],
+    "count_mismatches": {}
+  },
+  {
+    "capture": "LSASS_campaign_03",
+    "tool": "comsvcs",
+    "agreed": [
+      "Lsass Memory Dump via Comsvcs DLL"
+    ],
+    "only_this_harness": [],
+    "only_zircolite": [],
+    "count_mismatches": {}
+  },
+  {
+    "capture": "LSASS_campaign_04",
+    "tool": "out-minidump",
+    "agreed": [
+      "Potential Credential Dumping Activity Via LSASS",
+      "Potentially Suspicious GrantedAccess Flags On LSASS",
+      "Suspicious Process Access to LSASS with Dbgcore/Dbghelp DLLs"
+    ],
+    "only_this_harness": [],
+    "only_zircolite": [],
+    "count_mismatches": {}
+  },
+  {
+    "capture": "LSASS_campaign_05",
+    "tool": "sharpdump",
+    "agreed": [
+      "LSASS Memory Access by Tool With Dump Keyword In Name",
+      "Potential Credential Dumping Activity Via LSASS"
+    ],
+    "only_this_harness": [],
+    "only_zircolite": [],
+    "count_mismatches": {}
+  },
+  {
+    "capture": "LSASS_campaign_06",
+    "tool": "outflank-dumpert",
+    "agreed": [
+      "LSASS Memory Access by Tool With Dump Keyword In Name",
+      "Potential Credential Dumping Activity Via LSASS",
+      "Suspicious Process Access to LSASS with Dbgcore/Dbghelp DLLs"
+    ],
+    "only_this_harness": [],
+    "only_zircolite": [],
+    "count_mismatches": {}
+  },
+  {
+    "capture": "LSASS_campaign_07",
+    "tool": "nanodump",
+    "agreed": [
+      "LSASS Memory Access by Tool With Dump Keyword In Name"
+    ],
+    "only_this_harness": [],
+    "only_zircolite": [],
+    "count_mismatches": {}
+  }
+]
