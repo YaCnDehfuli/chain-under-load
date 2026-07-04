@@ -1,0 +1,33 @@
+title: Process Started From A User Download Directory
+id: b12cefde-6646-4e7d-b8cb-ddcb5443648d
+status: experimental
+description: |
+    Detects a process image running out of a per-user download folder. Every one of
+    the seven captured intrusions begins this way, with the operator's payload
+    executed from the profile of the user who fetched it.
+    Written against Security 4688 rather than Sysmon EventID 1 on purpose. The
+    Sysmon configuration in these captures records process access in detail and
+    process creation barely at all, so a Sysmon rule sees almost nothing here.
+references:
+    - https://github.com/OTRF/Security-Datasets/tree/master/datasets/compound
+author: Yasin Dehfuli
+date: 2026/07/08
+tags:
+    - attack.execution
+    - attack.t1204.002
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4688
+        NewProcessName|contains: '\Users\'
+    downloads:
+        NewProcessName|contains:
+            - '\Downloads\'
+            - '\Downloaded Program Files\'
+    condition: all of them
+falsepositives:
+    - Installers and updaters that users run from where they landed. Common on
+      workstations, much less so on servers.
+level: medium

@@ -1,0 +1,30 @@
+title: Remote Thread Started From Unbacked Memory
+id: 470590c3-ea57-4548-99c6-fb44fc592539
+status: experimental
+description: |
+    Detects a thread created in another process whose start address Sysmon could not
+    attribute to a loaded module. Shellcode injected into a host process runs from
+    private memory, so Sysmon reports no start module.
+    Blind spot: only covers injection that goes through CreateRemoteThread. Thread
+    hijacking and APC queueing do not raise this event at all.
+references:
+    - https://learn.microsoft.com/en-us/sysinternals/downloads/sysmon
+author: Yasin Dehfuli
+date: 2026/07/08
+tags:
+    - attack.defense-evasion
+    - attack.privilege-escalation
+    - attack.t1055.002
+logsource:
+    category: create_remote_thread
+    product: windows
+detection:
+    selection:
+        # sysmon writes a bare dash when the start address is not inside a
+        # loaded module
+        StartModule: '-'
+    condition: selection
+falsepositives:
+    - Runtimes that generate code at run time, .NET and Java among them, start
+      threads in memory that is not backed by a module.
+level: medium
