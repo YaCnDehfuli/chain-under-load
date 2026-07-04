@@ -1,0 +1,66 @@
+title: LSASS Handle Request From Unexpected Process
+id: 4b447e9d-1c82-47f6-9a01-a1bb0a22d684
+status: experimental
+description: |
+    Detects a process opening LSASS with an access mask that grants memory read or
+    full access, where the caller is not one of the Windows components that do this
+    during normal operation. Written against seven captured dumping tools after
+    measuring that the published rules for this technique mostly key on the string
+    "dump" appearing in a filename or command line.
+    Main blind spot: the mask list is enumerated rather than evaluated bitwise, so a
+    caller granted an unlisted mask that still includes VM_READ is missed.
+references:
+    - https://learn.microsoft.com/en-us/windows/win32/procthread/process-security-and-access-rights
+    - https://github.com/OTRF/Security-Datasets/tree/master/datasets/compound
+author: Yasin Dehfuli
+date: 2026/07/02
+tags:
+    - attack.credential-access
+    - attack.t1003.001
+logsource:
+    category: process_access
+    product: windows
+detection:
+    selection:
+        TargetImage|endswith: '\lsass.exe'
+        # masks granting VM_READ (0x0010) or effectively full access. the first
+        # four are the ones the seven captured tools actually asked for.
+        GrantedAccess:
+            - '0x1010'
+            - '0x1410'
+            - '0x1f3fff'
+            - '0x1fffff'
+            - '0x1038'
+            - '0x1418'
+            - '0x1438'
+            - '0x143a'
+            - '0x1f0fff'
+            - '0x1f1fff'
+            - '0x1f2fff'
+            - '0x101010'
+            - '0x141010'
+    # filters pin the binary and its directory together. a tool named after a
+    # system binary but running from elsewhere still fires, which is the point:
+    # nanodump was dropped into System32 under its own name.
+    filter_session:
+        SourceImage|endswith:
+            - ':\Windows\System32\wininit.exe'
+            - ':\Windows\System32\csrss.exe'
+            - ':\Windows\System32\services.exe'
+            - ':\Windows\System32\lsass.exe'
+    filter_wmi:
+        SourceImage|endswith: ':\Windows\System32\wbem\WmiPrvSE.exe'
+    filter_winrm:
+        SourceImage|endswith: ':\Windows\System32\wsmprovhost.exe'
+    filter_defender:
+        SourceImage|contains: ':\ProgramData\Microsoft\Windows Defender\'
+        SourceImage|endswith: '\MsMpEng.exe'
+    condition: selection and not 1 of filter_*
+falsepositives:
+    - Cloud and hypervisor guest agents read LSASS on some hosts. On this corpus an
+      Azure CollectGuestLogs build accounts for most of what survives the filters
+      above. Environment-specific paths belong in a deployment filter rather than
+      in the rule.
+    - PowerShell reading LSASS is not filtered on purpose, since that is how
+      Out-Minidump works.
+level: high
