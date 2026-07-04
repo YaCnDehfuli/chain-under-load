@@ -1,0 +1,31 @@
+title: LSASS Dump Via Comsvcs MiniDump Export
+id: ee2324b0-6673-4767-9e34-c84cdd893483
+status: experimental
+description: |
+    Detects rundll32 calling the MiniDump export of comsvcs.dll, which dumps a
+    process by pid without the operator bringing a tool to the host.
+    Narrow on purpose. It covers one LOLBin path and nothing else, and the ordinal
+    form of the export is a known way around the string match.
+references:
+    - https://lolbas-project.github.io/lolbas/Libraries/Comsvcs/
+author: Yasin Dehfuli
+date: 2026/07/08
+tags:
+    - attack.credential-access
+    - attack.t1003.001
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4688
+    comsvcs:
+        ProcessCommandLine|contains: 'comsvcs'
+    dump:
+        ProcessCommandLine|contains:
+            - 'MiniDump'
+            - '#24'   # the export by ordinal, which skips the name match
+    condition: all of them
+falsepositives:
+    - No legitimate use seen on this corpus.
+level: high

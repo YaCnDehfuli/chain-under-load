@@ -1,0 +1,33 @@
+title: PowerShell Script Block Calling MiniDumpWriteDump
+id: 743c314e-3154-4e7c-b209-8211c9b1d2af
+status: experimental
+description: |
+    Detects script block content that reaches for the dbghelp MiniDumpWriteDump
+    export. Out-Minidump and the ports of it work this way, staying inside the
+    PowerShell process rather than dropping a dumper on disk.
+    Depends entirely on script block logging being on. Where it is off this rule
+    sees nothing at all.
+references:
+    - https://github.com/PowerShellMafia/PowerSploit
+author: Yasin Dehfuli
+date: 2026/07/08
+tags:
+    - attack.credential-access
+    - attack.execution
+    - attack.t1059.001
+    - attack.t1003.001
+logsource:
+    product: windows
+    service: powershell
+    definition: script block logging must be enabled
+detection:
+    selection:
+        EventID: 4104
+    dump_api:
+        ScriptBlockText|contains:
+            - 'MiniDumpWriteDump'
+            - 'Out-Minidump'
+    condition: all of them
+falsepositives:
+    - Defensive tooling and crash-dump helpers written in PowerShell.
+level: high

@@ -1,0 +1,31 @@
+title: SeDebugPrivilege Enabled On A Token
+id: 34f6cc31-bd6b-482d-b81f-88828475af05
+status: experimental
+description: |
+    Detects a token adjustment that enables SeDebugPrivilege. Reading another
+    process's memory needs it, so tooling that opens LSASS usually turns it on
+    first.
+    Blind spot: this fires on the privilege being enabled, not on it being used, so
+    it says nothing on its own. It is worth having as a second signal next to the
+    LSASS handle rule, not as a standalone alert.
+references:
+    - https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4703
+author: Yasin Dehfuli
+date: 2026/07/08
+tags:
+    - attack.privilege-escalation
+    - attack.t1134.001
+logsource:
+    product: windows
+    service: security
+detection:
+    selection:
+        EventID: 4703
+        EnabledPrivilegeList|contains: 'SeDebugPrivilege'
+    filter_system:
+        SubjectUserName|endswith: '$'
+    condition: selection and not filter_system
+falsepositives:
+    - Debuggers, profilers and backup agents enable this legitimately.
+    - Noisy by itself. Measured rates for this rule are in benchmark/results.json.
+level: low
