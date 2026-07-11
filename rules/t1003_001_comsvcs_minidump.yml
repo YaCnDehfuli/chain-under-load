@@ -14,15 +14,13 @@ tags:
     - attack.credential-access
     - attack.t1003.001
 logsource:
+    category: process_creation
     product: windows
-    service: security
 detection:
     selection:
-        EventID: 4688
-    comsvcs:
-        ProcessCommandLine|contains: 'comsvcs'
+        CommandLine|contains: 'comsvcs'
     dump:
-        ProcessCommandLine|contains:
+        CommandLine|contains:
             - 'MiniDump'
             - '#24'   # the export by ordinal, which skips the name match
     condition: all of them
