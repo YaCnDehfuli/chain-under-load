@@ -1,7 +1,7 @@
 """Miss classification.
 
 Getting this wrong means blaming a rule for a Sysmon configuration, or
-excusing a rule that genuinely did not match. Both distort the benchmark.
+excusing a rule that did not match on its own merits. Both distort the benchmark.
 """
 
 from __future__ import annotations

@@ -146,12 +146,27 @@ def headline(rows: Sequence[dict], per_capture: dict) -> dict:
         entry["tool"]: sum(1 for v in entry["rules"].values() if v["class"] == DETECTED)
         for entry in per_capture.values()
     }
+    # the same count over published rules only. rules written in this repo were
+    # built after reading these results, so they do not belong in a statement
+    # about what the published rule set catches.
+    published = {r["id"] for r in rows if r["selected_by"] != "own"}
+    depth_published = {
+        entry["tool"]: sum(1 for rid, v in entry["rules"].items()
+                           if v["class"] == DETECTED and rid in published)
+        for entry in per_capture.values()
+    }
     scored = [r for r in rows if r["in_scope"] > 0]
     detections = [r["detected"] for r in scored]
 
     return {
         "captures": total_captures,
         "rules_selected": len(rows),
+        "rules_published": len(published),
+        "rules_per_tool_published": depth_published,
+        "min_rules_per_tool_published": min(depth_published.values()) if depth_published else 0,
+        "max_rules_per_tool_published": max(depth_published.values()) if depth_published else 0,
+        "median_rules_per_tool_published": statistics.median(depth_published.values())
+        if depth_published else 0,
         "rules_firing_somewhere": sum(1 for r in rows if r["detected"] > 0),
         "rules_never_firing": sum(1 for r in rows if r["detected"] == 0),
         # the headline: independent rules covering each tool
@@ -231,17 +246,18 @@ def markdown(results: dict) -> str:
         f"{head['captures']} captures, one per tool, "
         f"{results['total_events']:,} events.",
         "",
-        f"- {head['rules_selected']} published rules select for this technique",
-        f"- each tool trips between {head['min_rules_per_tool']} and "
-        f"{head['max_rules_per_tool']} of them, median "
-        f"{head['median_rules_per_tool']}",
+        f"- {head['rules_published']} published rules select for this technique",
+        f"- each tool trips between {head['min_rules_per_tool_published']} and "
+        f"{head['max_rules_per_tool_published']} of them, median "
+        f"{head['median_rules_per_tool_published']}",
         f"- {head['rules_firing_somewhere']} rules fire on at least one tool, "
         f"{head['rules_never_firing']} on none",
         "",
-        "| tool | rules firing |",
-        "|---|---|",
+        "| tool | published rules firing | including this repo |",
+        "|---|---|---|",
     ] + [
-        f"| {tool} | {n} |" for tool, n in head["rules_per_tool"].items()
+        f"| {tool} | {head['rules_per_tool_published'][tool]} | {n} |"
+        for tool, n in head["rules_per_tool"].items()
     ] + [""]
 
     if fp:

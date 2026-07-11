@@ -35,7 +35,7 @@ DETECTED = "detected"
 # Fields that name a binary. A required constraint on one of these that nothing
 # in the capture satisfies means the rule is looking for a tool that was not
 # run, which is a scope question rather than a rule defect. Access masks and
-# call traces are deliberately not in this list: those are the detection logic,
+# call traces are left out of this list on purpose: those are the detection logic,
 # and failing to match them is exactly what miss-logic means.
 IDENTITY_FIELDS = frozenset({
     "SourceImage",
