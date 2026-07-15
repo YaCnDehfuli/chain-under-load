@@ -1,0 +1,263 @@
+{
+  "benign": {
+    "34f6cc31-bd6b-482d-b81f-88828475af05": {
+      "captures": 109,
+      "captures_hit": [
+        "credential_access/cmd_lsass_memory_dumpert_syscalls",
+        "credential_access/empire_ninjacopy_dumping_ntds_dit_file",
+        "credential_access/rdp_interactive_taskmanager_lsass_dump",
+        "defense_evasion/cmd_mshta_vbscript_execute_psh",
+        "defense_evasion/purplesharp_pe_injection_createremotethread",
+        "defense_evasion/wmic_remote_xsl_jscript",
+        "lateral_movement/purplesharp_ad_playbook_I",
+        "lateral_movement/schtask_modification",
+        "privilege_escalation/empire_uac_shellapi_fodhelper"
+      ],
+      "events": 608813,
+      "fires": 9,
+      "per_100k": 1.478,
+      "technique": "T1134.001"
+    },
+    "470590c3-ea57-4548-99c6-fb44fc592539": {
+      "captures": 103,
+      "captures_hit": [
+        "credential_access/rdp_interactive_taskmanager_lsass_dump",
+        "defense_evasion/covenant_lolbin_wuauclt_createremotethread",
+        "lateral_movement/covenant_dcom_iertutil_dll_hijack",
+        "lateral_movement/covenant_wmi_wbemcomn_dll_hijack",
+        "lateral_movement/empire_dcom_shellwindows_stager",
+        "persistence/empire_wmi_local_event_subscriptions_elevated_user"
+      ],
+      "events": 589112,
+      "fires": 6,
+      "per_100k": 1.018,
+      "technique": "T1055.002"
+    },
+    "4b447e9d-1c82-47f6-9a01-a1bb0a22d684": {
+      "captures": 91,
+      "captures_hit": [
+        "credential_access/empire_over_pth_patch_lsass",
+        "lateral_movement/covenant_wmi_wbemcomn_dll_hijack",
+        "lateral_movement/empire_dcom_shellwindows_stager",
+        "lateral_movement/empire_smbexec_dcerpc_smb_svcctl",
+        "persistence/empire_wmi_local_event_subscriptions_elevated_user"
+      ],
+      "events": 514202,
+      "fires": 8,
+      "per_100k": 1.556,
+      "technique": "T1003.001"
+    },
+    "743c314e-3154-4e7c-b209-8211c9b1d2af": {
+      "captures": 91,
+      "captures_hit": [],
+      "events": 514202,
+      "fires": 0,
+      "per_100k": 0.0,
+      "technique": "T1003.001"
+    },
+    "b12cefde-6646-4e7d-b8cb-ddcb5443648d": {
+      "captures": 109,
+      "captures_hit": [
+        "credential_access/cmd_psexec_lsa_secrets_dump",
+        "defense_evasion/auditpol_system_user_auditpolicy_modification",
+        "defense_evasion/reg_cmd_process_commandline_logging_disabled",
+        "defense_evasion/reg_meterpreter_process_commandline_logging_disabled",
+        "lateral_movement/mimikatz_CVE-2020-1472_Unauthenticated_NetrServerAuthenticate2",
+        "lateral_movement/purplesharp_ad_playbook_I"
+      ],
+      "events": 608813,
+      "fires": 6,
+      "per_100k": 0.986,
+      "technique": "T1204.002"
+    },
+    "ee2324b0-6673-4767-9e34-c84cdd893483": {
+      "captures": 91,
+      "captures_hit": [],
+      "events": 514202,
+      "fires": 0,
+      "per_100k": 0.0,
+      "technique": "T1003.001"
+    }
+  },
+  "campaigns": {
+    "LSASS_campaign_01": {
+      "detected": [
+        "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+        "470590c3-ea57-4548-99c6-fb44fc592539",
+        "34f6cc31-bd6b-482d-b81f-88828475af05",
+        "b12cefde-6646-4e7d-b8cb-ddcb5443648d"
+      ],
+      "events": 53698,
+      "matches": {
+        "34f6cc31-bd6b-482d-b81f-88828475af05": 4,
+        "470590c3-ea57-4548-99c6-fb44fc592539": 1,
+        "4b447e9d-1c82-47f6-9a01-a1bb0a22d684": 2,
+        "743c314e-3154-4e7c-b209-8211c9b1d2af": 0,
+        "b12cefde-6646-4e7d-b8cb-ddcb5443648d": 1,
+        "ee2324b0-6673-4767-9e34-c84cdd893483": 0
+      },
+      "tool": "logonpasswords"
+    },
+    "LSASS_campaign_02": {
+      "detected": [
+        "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+        "34f6cc31-bd6b-482d-b81f-88828475af05",
+        "b12cefde-6646-4e7d-b8cb-ddcb5443648d"
+      ],
+      "events": 42482,
+      "matches": {
+        "34f6cc31-bd6b-482d-b81f-88828475af05": 4,
+        "470590c3-ea57-4548-99c6-fb44fc592539": 0,
+        "4b447e9d-1c82-47f6-9a01-a1bb0a22d684": 3,
+        "743c314e-3154-4e7c-b209-8211c9b1d2af": 0,
+        "b12cefde-6646-4e7d-b8cb-ddcb5443648d": 1,
+        "ee2324b0-6673-4767-9e34-c84cdd893483": 0
+      },
+      "tool": "procdump"
+    },
+    "LSASS_campaign_03": {
+      "detected": [
+        "ee2324b0-6673-4767-9e34-c84cdd893483",
+        "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+        "470590c3-ea57-4548-99c6-fb44fc592539",
+        "34f6cc31-bd6b-482d-b81f-88828475af05",
+        "b12cefde-6646-4e7d-b8cb-ddcb5443648d"
+      ],
+      "events": 41954,
+      "matches": {
+        "34f6cc31-bd6b-482d-b81f-88828475af05": 4,
+        "470590c3-ea57-4548-99c6-fb44fc592539": 1,
+        "4b447e9d-1c82-47f6-9a01-a1bb0a22d684": 2,
+        "743c314e-3154-4e7c-b209-8211c9b1d2af": 0,
+        "b12cefde-6646-4e7d-b8cb-ddcb5443648d": 1,
+        "ee2324b0-6673-4767-9e34-c84cdd893483": 1
+      },
+      "tool": "comsvcs"
+    },
+    "LSASS_campaign_04": {
+      "detected": [
+        "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+        "743c314e-3154-4e7c-b209-8211c9b1d2af",
+        "34f6cc31-bd6b-482d-b81f-88828475af05",
+        "b12cefde-6646-4e7d-b8cb-ddcb5443648d"
+      ],
+      "events": 40568,
+      "matches": {
+        "34f6cc31-bd6b-482d-b81f-88828475af05": 5,
+        "470590c3-ea57-4548-99c6-fb44fc592539": 0,
+        "4b447e9d-1c82-47f6-9a01-a1bb0a22d684": 2,
+        "743c314e-3154-4e7c-b209-8211c9b1d2af": 2,
+        "b12cefde-6646-4e7d-b8cb-ddcb5443648d": 1,
+        "ee2324b0-6673-4767-9e34-c84cdd893483": 0
+      },
+      "tool": "out-minidump"
+    },
+    "LSASS_campaign_05": {
+      "detected": [
+        "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+        "470590c3-ea57-4548-99c6-fb44fc592539",
+        "b12cefde-6646-4e7d-b8cb-ddcb5443648d"
+      ],
+      "events": 59707,
+      "matches": {
+        "34f6cc31-bd6b-482d-b81f-88828475af05": 0,
+        "470590c3-ea57-4548-99c6-fb44fc592539": 1,
+        "4b447e9d-1c82-47f6-9a01-a1bb0a22d684": 2,
+        "743c314e-3154-4e7c-b209-8211c9b1d2af": 0,
+        "b12cefde-6646-4e7d-b8cb-ddcb5443648d": 1,
+        "ee2324b0-6673-4767-9e34-c84cdd893483": 0
+      },
+      "tool": "sharpdump"
+    },
+    "LSASS_campaign_06": {
+      "detected": [
+        "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+        "b12cefde-6646-4e7d-b8cb-ddcb5443648d"
+      ],
+      "events": 58096,
+      "matches": {
+        "34f6cc31-bd6b-482d-b81f-88828475af05": 0,
+        "470590c3-ea57-4548-99c6-fb44fc592539": 0,
+        "4b447e9d-1c82-47f6-9a01-a1bb0a22d684": 2,
+        "743c314e-3154-4e7c-b209-8211c9b1d2af": 0,
+        "b12cefde-6646-4e7d-b8cb-ddcb5443648d": 1,
+        "ee2324b0-6673-4767-9e34-c84cdd893483": 0
+      },
+      "tool": "outflank-dumpert"
+    },
+    "LSASS_campaign_07": {
+      "detected": [
+        "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+        "b12cefde-6646-4e7d-b8cb-ddcb5443648d"
+      ],
+      "events": 57724,
+      "matches": {
+        "34f6cc31-bd6b-482d-b81f-88828475af05": 0,
+        "470590c3-ea57-4548-99c6-fb44fc592539": 0,
+        "4b447e9d-1c82-47f6-9a01-a1bb0a22d684": 1,
+        "743c314e-3154-4e7c-b209-8211c9b1d2af": 0,
+        "b12cefde-6646-4e7d-b8cb-ddcb5443648d": 1,
+        "ee2324b0-6673-4767-9e34-c84cdd893483": 0
+      },
+      "tool": "nanodump"
+    }
+  },
+  "intrusion": {
+    "apt29_day1": {
+      "events": 196081,
+      "fired": {
+        "34f6cc31-bd6b-482d-b81f-88828475af05": {
+          "hosts": [
+            "SCRANTON.dmevals.local"
+          ],
+          "matches": 1
+        },
+        "470590c3-ea57-4548-99c6-fb44fc592539": {
+          "hosts": [
+            "SCRANTON.dmevals.local"
+          ],
+          "matches": 2
+        },
+        "4b447e9d-1c82-47f6-9a01-a1bb0a22d684": {
+          "hosts": [
+            "SCRANTON.dmevals.local"
+          ],
+          "matches": 2
+        }
+      }
+    },
+    "apt29_day2": {
+      "events": 587286,
+      "fired": {
+        "34f6cc31-bd6b-482d-b81f-88828475af05": {
+          "hosts": [
+            "UTICA.dmevals.local"
+          ],
+          "matches": 2
+        },
+        "470590c3-ea57-4548-99c6-fb44fc592539": {
+          "hosts": [
+            "NEWYORK.dmevals.local",
+            "UTICA.dmevals.local"
+          ],
+          "matches": 2
+        },
+        "4b447e9d-1c82-47f6-9a01-a1bb0a22d684": {
+          "hosts": [
+            "NEWYORK.dmevals.local",
+            "UTICA.dmevals.local"
+          ],
+          "matches": 2
+        }
+      }
+    }
+  },
+  "titles": {
+    "34f6cc31-bd6b-482d-b81f-88828475af05": "SeDebugPrivilege Enabled On A Token",
+    "470590c3-ea57-4548-99c6-fb44fc592539": "Remote Thread Started From Unbacked Memory",
+    "4b447e9d-1c82-47f6-9a01-a1bb0a22d684": "LSASS Handle Request From Unexpected Process",
+    "743c314e-3154-4e7c-b209-8211c9b1d2af": "PowerShell Script Block Calling MiniDumpWriteDump",
+    "b12cefde-6646-4e7d-b8cb-ddcb5443648d": "Process Started From A User Download Directory",
+    "ee2324b0-6673-4767-9e34-c84cdd893483": "LSASS Dump Via Comsvcs MiniDump Export"
+  }
+}
