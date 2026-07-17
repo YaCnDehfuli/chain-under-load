@@ -51,9 +51,42 @@ windows-logsources, never a fixed one. A `process_access` rule gets EventID 10
 injected by the sysmon pipeline. Running a rule through the wrong pipeline
 produces a miss that says nothing about the rule.
 
+## The headline is per tool, not per rule
+
+The obvious summary is a per-rule score: median rule detects N of 7. I dropped
+it as the headline because it depends on a call I cannot make mechanically.
+Scoring "Potential LSASS Process Dump Via Procdump" as 1 of 7 treats it as
+having failed six times, when it was written for one tool. Scoring it 1 of 1
+means deciding which rules are tool-specific, and the signals for that are
+partial: some rules name a binary in a field I can check, others encode the
+same intent in a command-line pattern I cannot separate from generic logic.
+
+Counting how many rules fire on each capture needs none of that. Both numbers
+are in the results; only the per-tool one is quoted up front.
+
 ## Unlabelled captures are never benign
 
 A capture counts as benign for technique T only when its metadata lists
 techniques and none of them is T or a sibling of T. Thirteen Windows host
 captures carry no ATT&CK mapping, and one of those is an LSASS dump variant. If
 the label is missing, the capture is dropped rather than assumed clean.
+
+## Own rules are separated from published ones in the headline
+
+The rules in this repo were written after reading the benchmark, against gaps
+the benchmark found. Counting them in a statement about what the published rule
+set catches would be circular. Results carry both counts, and the per-tool
+headline quotes the published one.
+
+## Fix the rule, keep the finding
+
+Two of my chain rules were written against Security 4688 using the documented
+`ProcessCommandLine` field. They detected nothing, because the flattened
+captures expose that field as `CommandLine`. Rewriting them against
+`process_creation` fixed it.
+
+I kept the episode in the report. It is the exact case the miss classifier
+exists for: a rule that looks broken but is reading a field the capture spells
+differently, which is a telemetry gap rather than a logic error. Having been
+caught by it while holding the classifier in my hands is worth more in the
+write-up than a clean story would be.
