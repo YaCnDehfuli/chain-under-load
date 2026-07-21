@@ -1,0 +1,59 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    # the pinned SigmaHQ commit does not move, but the toolchain resolves
+    # fresh, so this catches a pySigma change breaking the evaluator
+    - cron: "0 6 * * 1"
+
+jobs:
+  tests:
+    # unit tests do not touch the corpus, so they run on every push
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt pyyaml
+      - run: python -m pytest tests -q
+
+  rules:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt pyyaml
+      - name: validate rule syntax
+        run: sigma check rules/
+      - name: rules must convert
+        run: sigma convert -t splunk -p sysmon -p windows-logsources rules/ > /dev/null
+
+  benchmark:
+    # fetches roughly 1.5 GB and takes about twenty minutes, so it is cached
+    # and does not run on pull requests from forks
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt pyyaml
+      - name: cache corpus
+        uses: actions/cache@v4
+        with:
+          path: corpus
+          key: corpus-${{ hashFiles('benchmark/manifest.yml') }}
+      - name: fetch and verify
+        run: python -m eval.corpus --fetch
+      - name: results must match a fresh run
+        run: python -m eval.report --check

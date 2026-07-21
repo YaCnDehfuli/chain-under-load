@@ -6,3 +6,4 @@ venv/
 
 # fetched corpus, rebuilt by eval.corpus from benchmark/manifest.yml
 corpus/
+.venv-zircolite/
