@@ -48,6 +48,13 @@ jobs:
           python-version: "3.11"
           cache: pip
       - run: pip install -r requirements.txt pyyaml
+      - name: what is being run
+        # a drift failure is only diagnosable if the log says which commit and
+        # which toolchain produced it
+        run: |
+          echo "commit:   $(git rev-parse HEAD)"
+          echo "subject:  $(git log -1 --format=%s)"
+          pip list 2>/dev/null | grep -iE "^(pysigma|sigma-cli|pyyaml)" || true
       - name: cache corpus
         uses: actions/cache@v4
         with:
