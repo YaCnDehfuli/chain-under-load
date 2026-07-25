@@ -6006,7 +6006,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 0,
-        "file": "sigma/rules/category/antivirus/av_password_dumper.yml",
+        "file": "corpus/sigma/rules/category/antivirus/av_password_dumper.yml",
         "id": "78cc2dd2-7d20-4d32-93ff-057084c38b93",
         "in_scope": 7,
         "level": "critical",
@@ -6025,7 +6025,7 @@
           "LSASS_campaign_07": "miss-telemetry"
         },
         "detected": 0,
-        "file": "sigma/rules/network/zeek/zeek_smb_converted_win_transferring_files_with_credential_data.yml",
+        "file": "corpus/sigma/rules/network/zeek/zeek_smb_converted_win_transferring_files_with_credential_data.yml",
         "id": "2e69f167-47b5-4ae7-a390-47764529eff5",
         "in_scope": 7,
         "level": "medium",
@@ -6044,7 +6044,7 @@
           "LSASS_campaign_07": "miss-telemetry"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/builtin/application/application_error/win_application_error_lsass_crash.yml",
+        "file": "corpus/sigma/rules/windows/builtin/application/application_error/win_application_error_lsass_crash.yml",
         "id": "a18e0862-127b-43ca-be12-1a542c75c7c5",
         "in_scope": 7,
         "level": "high",
@@ -6063,7 +6063,7 @@
           "LSASS_campaign_07": "miss-telemetry"
         },
         "detected": 1,
-        "file": "sigma/rules/windows/builtin/security/win_security_lsass_access_non_system_account.yml",
+        "file": "corpus/sigma/rules/windows/builtin/security/win_security_lsass_access_non_system_account.yml",
         "id": "962fe167-e48d-4fd6-9974-11e5b9a5d6d1",
         "in_scope": 7,
         "level": "medium",
@@ -6084,7 +6084,7 @@
           "LSASS_campaign_07": "miss-telemetry"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/builtin/security/win_security_mal_creddumper.yml",
+        "file": "corpus/sigma/rules/windows/builtin/security/win_security_mal_creddumper.yml",
         "id": "f0d1feba-4344-4ca9-8121-a6c97bd6df52",
         "in_scope": 7,
         "level": "high",
@@ -6103,7 +6103,7 @@
           "LSASS_campaign_07": "miss-telemetry"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/builtin/security/win_security_susp_lsass_dump.yml",
+        "file": "corpus/sigma/rules/windows/builtin/security/win_security_susp_lsass_dump.yml",
         "id": "aa1697b7-d611-4f9a-9cb2-5125b4ccfd5c",
         "in_scope": 6,
         "level": "high",
@@ -6122,7 +6122,7 @@
           "LSASS_campaign_07": "miss-telemetry"
         },
         "detected": 3,
-        "file": "sigma/rules/windows/builtin/security/win_security_susp_lsass_dump_generic.yml",
+        "file": "corpus/sigma/rules/windows/builtin/security/win_security_susp_lsass_dump_generic.yml",
         "id": "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
         "in_scope": 7,
         "level": "medium",
@@ -6145,7 +6145,7 @@
           "LSASS_campaign_07": "miss-telemetry"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/builtin/security/win_security_transf_files_with_cred_data_via_network_shares.yml",
+        "file": "corpus/sigma/rules/windows/builtin/security/win_security_transf_files_with_cred_data_via_network_shares.yml",
         "id": "910ab938-668b-401b-b08c-b596e80fdca5",
         "in_scope": 7,
         "level": "medium",
@@ -6164,7 +6164,7 @@
           "LSASS_campaign_07": "miss-telemetry"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/builtin/system/service_control_manager/win_system_mal_creddumper.yml",
+        "file": "corpus/sigma/rules/windows/builtin/system/service_control_manager/win_system_mal_creddumper.yml",
         "id": "4976aa50-8f41-45c6-8b15-ab3fc10e79ed",
         "in_scope": 7,
         "level": "high",
@@ -6183,7 +6183,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/builtin/win_alert_mimikatz_keywords.yml",
+        "file": "corpus/sigma/rules/windows/builtin/win_alert_mimikatz_keywords.yml",
         "id": "06d71506-7beb-4f22-8888-e2e5e2ca7fd8",
         "in_scope": 7,
         "level": "high",
@@ -6202,7 +6202,7 @@
           "LSASS_campaign_07": "miss-telemetry"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/builtin/windefend/win_defender_asr_lsass_access.yml",
+        "file": "corpus/sigma/rules/windows/builtin/windefend/win_defender_asr_lsass_access.yml",
         "id": "a0a278fe-2c0e-4de2-ac3c-c68b08a9ba98",
         "in_scope": 7,
         "level": "high",
@@ -6221,7 +6221,7 @@
           "LSASS_campaign_07": "miss-telemetry"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/create_remote_thread/create_remote_thread_win_powershell_lsass.yml",
+        "file": "corpus/sigma/rules/windows/create_remote_thread/create_remote_thread_win_powershell_lsass.yml",
         "id": "fb656378-f909-47c1-8747-278bf09f4f4f",
         "in_scope": 4,
         "level": "high",
@@ -6240,7 +6240,7 @@
           "LSASS_campaign_07": "miss-telemetry"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/create_remote_thread/create_remote_thread_win_susp_password_dumper_lsass.yml",
+        "file": "corpus/sigma/rules/windows/create_remote_thread/create_remote_thread_win_susp_password_dumper_lsass.yml",
         "id": "f239b326-2f41-4d6b-9dfa-c846a60ef505",
         "in_scope": 7,
         "level": "high",
@@ -6259,7 +6259,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 1,
-        "file": "sigma/rules/windows/file/file_event/file_event_win_cred_dump_tools_dropped_files.yml",
+        "file": "corpus/sigma/rules/windows/file/file_event/file_event_win_cred_dump_tools_dropped_files.yml",
         "id": "8fbf3271-1ef6-4e94-8210-03c2317947f6",
         "in_scope": 7,
         "level": "high",
@@ -6280,7 +6280,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/file/file_event/file_event_win_hktl_crackmapexec_indicators.yml",
+        "file": "corpus/sigma/rules/windows/file/file_event/file_event_win_hktl_crackmapexec_indicators.yml",
         "id": "736ffa74-5f6f-44ca-94ef-1c0df4f51d2a",
         "in_scope": 0,
         "level": "high",
@@ -6299,7 +6299,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 1,
-        "file": "sigma/rules/windows/file/file_event/file_event_win_hktl_dumpert.yml",
+        "file": "corpus/sigma/rules/windows/file/file_event/file_event_win_hktl_dumpert.yml",
         "id": "93d94efc-d7ad-4161-ad7d-1638c4f908d8",
         "in_scope": 1,
         "level": "critical",
@@ -6320,7 +6320,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/file/file_event/file_event_win_hktl_safetykatz.yml",
+        "file": "corpus/sigma/rules/windows/file/file_event/file_event_win_hktl_safetykatz.yml",
         "id": "e074832a-eada-4fd7-94a1-10642b130e16",
         "in_scope": 0,
         "level": "high",
@@ -6339,7 +6339,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/file/file_event/file_event_win_impacket_file_indicators.yml",
+        "file": "corpus/sigma/rules/windows/file/file_event/file_event_win_impacket_file_indicators.yml",
         "id": "03f4ca17-de95-428d-a75a-4ee78b047256",
         "in_scope": 7,
         "level": "high",
@@ -6358,7 +6358,7 @@
           "LSASS_campaign_07": "detected"
         },
         "detected": 3,
-        "file": "sigma/rules/windows/file/file_event/file_event_win_lsass_default_dump_file_names.yml",
+        "file": "corpus/sigma/rules/windows/file/file_event/file_event_win_lsass_default_dump_file_names.yml",
         "id": "a5a2d357-1ab8-4675-a967-ef9990a59391",
         "in_scope": 7,
         "level": "high",
@@ -6381,7 +6381,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/file/file_event/file_event_win_lsass_shtinkering.yml",
+        "file": "corpus/sigma/rules/windows/file/file_event/file_event_win_lsass_shtinkering.yml",
         "id": "6902955a-01b7-432c-b32a-6f5f81d8f625",
         "in_scope": 7,
         "level": "high",
@@ -6400,7 +6400,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/file/file_event/file_event_win_lsass_werfault_dump.yml",
+        "file": "corpus/sigma/rules/windows/file/file_event/file_event_win_lsass_werfault_dump.yml",
         "id": "c3e76af5-4ce0-4a14-9c9a-25ceb8fda182",
         "in_scope": 0,
         "level": "high",
@@ -6419,7 +6419,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/file/file_event/file_event_win_taskmgr_lsass_dump.yml",
+        "file": "corpus/sigma/rules/windows/file/file_event/file_event_win_taskmgr_lsass_dump.yml",
         "id": "69ca12af-119d-44ed-b50f-a47af0ebc364",
         "in_scope": 0,
         "level": "high",
@@ -6438,7 +6438,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/image_load/image_load_dll_comsvcs_load_renamed_version_by_rundll32.yml",
+        "file": "corpus/sigma/rules/windows/image_load/image_load_dll_comsvcs_load_renamed_version_by_rundll32.yml",
         "id": "8cde342c-ba48-4b74-b615-172c330f2e93",
         "in_scope": 3,
         "level": "high",
@@ -6457,7 +6457,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/image_load/image_load_dll_dbghelp_dbgcore_unsigned_load.yml",
+        "file": "corpus/sigma/rules/windows/image_load/image_load_dll_dbghelp_dbgcore_unsigned_load.yml",
         "id": "bdc64095-d59a-42a2-8588-71fd9c9d9abc",
         "in_scope": 7,
         "level": "high",
@@ -6476,7 +6476,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/image_load/image_load_dll_tttracer_module_load.yml",
+        "file": "corpus/sigma/rules/windows/image_load/image_load_dll_tttracer_module_load.yml",
         "id": "e76c8240-d68f-4773-8880-5c6f63595aaf",
         "in_scope": 7,
         "level": "high",
@@ -6495,7 +6495,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/image_load/image_load_lsass_unsigned_image_load.yml",
+        "file": "corpus/sigma/rules/windows/image_load/image_load_lsass_unsigned_image_load.yml",
         "id": "857c8db3-c89b-42fb-882b-f681c7cf4da2",
         "in_scope": 5,
         "level": "medium",
@@ -6514,7 +6514,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/pipe_created/pipe_created_hktl_generic_cred_dump_tools_pipes.yml",
+        "file": "corpus/sigma/rules/windows/pipe_created/pipe_created_hktl_generic_cred_dump_tools_pipes.yml",
         "id": "961d0ba2-3eea-4303-a930-2cf78bbfcc5e",
         "in_scope": 0,
         "level": "critical",
@@ -6533,7 +6533,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 1,
-        "file": "sigma/rules/windows/powershell/powershell_script/posh_ps_susp_getprocess_lsass.yml",
+        "file": "corpus/sigma/rules/windows/powershell/powershell_script/posh_ps_susp_getprocess_lsass.yml",
         "id": "84c174ab-d3ef-481f-9c86-a50d0b8e3edb",
         "in_scope": 7,
         "level": "high",
@@ -6554,7 +6554,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_access/proc_access_win_hktl_generic_access.yml",
+        "file": "corpus/sigma/rules/windows/process_access/proc_access_win_hktl_generic_access.yml",
         "id": "d0d2f720-d14f-448d-8242-51ff396a334e",
         "in_scope": 0,
         "level": "high",
@@ -6573,7 +6573,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_access/proc_access_win_hktl_handlekatz_lsass_access.yml",
+        "file": "corpus/sigma/rules/windows/process_access/proc_access_win_hktl_handlekatz_lsass_access.yml",
         "id": "b1bd3a59-c1fd-4860-9f40-4dd161a7d1f5",
         "in_scope": 0,
         "level": "high",
@@ -6592,7 +6592,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 1,
-        "file": "sigma/rules/windows/process_access/proc_access_win_lsass_dump_comsvcs_dll.yml",
+        "file": "corpus/sigma/rules/windows/process_access/proc_access_win_lsass_dump_comsvcs_dll.yml",
         "id": "a49fa4d5-11db-418c-8473-1e014a8dd462",
         "in_scope": 1,
         "level": "high",
@@ -6613,7 +6613,7 @@
           "LSASS_campaign_07": "detected"
         },
         "detected": 4,
-        "file": "sigma/rules/windows/process_access/proc_access_win_lsass_dump_keyword_image.yml",
+        "file": "corpus/sigma/rules/windows/process_access/proc_access_win_lsass_dump_keyword_image.yml",
         "id": "9bd012ee-0dff-44d7-84a0-aa698cfd87a3",
         "in_scope": 4,
         "level": "high",
@@ -6637,7 +6637,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 4,
-        "file": "sigma/rules/windows/process_access/proc_access_win_lsass_memdump.yml",
+        "file": "corpus/sigma/rules/windows/process_access/proc_access_win_lsass_memdump.yml",
         "id": "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
         "in_scope": 7,
         "level": "medium",
@@ -6661,7 +6661,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_access/proc_access_win_lsass_python_based_tool.yml",
+        "file": "corpus/sigma/rules/windows/process_access/proc_access_win_lsass_python_based_tool.yml",
         "id": "f8be3e82-46a3-4e4e-ada5-8e538ae8b9c9",
         "in_scope": 7,
         "level": "high",
@@ -6680,7 +6680,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_access/proc_access_win_lsass_remote_access_trough_winrm.yml",
+        "file": "corpus/sigma/rules/windows/process_access/proc_access_win_lsass_remote_access_trough_winrm.yml",
         "id": "aa35a627-33fb-4d04-a165-d33b4afca3e8",
         "in_scope": 0,
         "level": "high",
@@ -6699,7 +6699,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_access/proc_access_win_lsass_seclogon_access.yml",
+        "file": "corpus/sigma/rules/windows/process_access/proc_access_win_lsass_seclogon_access.yml",
         "id": "472159c5-31b9-4f56-b794-b766faa8b0a7",
         "in_scope": 7,
         "level": "high",
@@ -6718,7 +6718,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 1,
-        "file": "sigma/rules/windows/process_access/proc_access_win_lsass_susp_access_flag.yml",
+        "file": "corpus/sigma/rules/windows/process_access/proc_access_win_lsass_susp_access_flag.yml",
         "id": "a18dd26b-6450-46de-8c91-9659150cf088",
         "in_scope": 7,
         "level": "medium",
@@ -6739,7 +6739,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_access/proc_access_win_lsass_werfault.yml",
+        "file": "corpus/sigma/rules/windows/process_access/proc_access_win_lsass_werfault.yml",
         "id": "e5b33f7d-eb93-48b6-9851-09e1e610b6d7",
         "in_scope": 0,
         "level": "high",
@@ -6758,7 +6758,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_access/proc_access_win_lsass_whitelisted_process_names.yml",
+        "file": "corpus/sigma/rules/windows/process_access/proc_access_win_lsass_whitelisted_process_names.yml",
         "id": "4be8b654-0c01-4c9d-a10c-6b28467fc651",
         "in_scope": 0,
         "level": "high",
@@ -6777,7 +6777,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 2,
-        "file": "sigma/rules/windows/process_access/proc_access_win_susp_dbgcore_dbghelp_load.yml",
+        "file": "corpus/sigma/rules/windows/process_access/proc_access_win_susp_dbgcore_dbghelp_load.yml",
         "id": "9f5c1d59-33be-4e60-bcab-85d2f566effd",
         "in_scope": 7,
         "level": "high",
@@ -6799,7 +6799,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_adplus_memory_dump.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_adplus_memory_dump.yml",
         "id": "2f869d59-7f6a-4931-992c-cce556ff2d53",
         "in_scope": 0,
         "level": "high",
@@ -6818,7 +6818,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_citrix_trolleyexpress_procdump.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_citrix_trolleyexpress_procdump.yml",
         "id": "4c0aaedc-154c-4427-ada0-d80ef9c9deb6",
         "in_scope": 7,
         "level": "high",
@@ -6837,7 +6837,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_createdump_lolbin_execution.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_createdump_lolbin_execution.yml",
         "id": "515c8be5-e5df-4c5e-8f6d-a4a2f05e4b48",
         "in_scope": 0,
         "level": "high",
@@ -6856,7 +6856,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_dump64_defender_av_bypass_rename.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_dump64_defender_av_bypass_rename.yml",
         "id": "129966c9-de17-4334-a123-8b58172e664d",
         "in_scope": 0,
         "level": "high",
@@ -6875,7 +6875,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_dumpminitool_execution.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_dumpminitool_execution.yml",
         "id": "dee0a7a3-f200-4112-a99b-952196d81e42",
         "in_scope": 0,
         "level": "medium",
@@ -6894,7 +6894,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_dumpminitool_susp_execution.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_dumpminitool_susp_execution.yml",
         "id": "eb1c4225-1c23-4241-8dd4-051389fde4ce",
         "in_scope": 0,
         "level": "high",
@@ -6913,7 +6913,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_hktl_crackmapexec_patterns.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_hktl_crackmapexec_patterns.yml",
         "id": "f26307d8-14cd-47e3-a26b-4b4769f24af6",
         "in_scope": 0,
         "level": "high",
@@ -6932,7 +6932,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_hktl_createminidump.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_hktl_createminidump.yml",
         "id": "36d88494-1d43-4dc0-b3fa-35c8fea0ca9d",
         "in_scope": 0,
         "level": "high",
@@ -6951,7 +6951,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_hktl_doppelganger.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_hktl_doppelganger.yml",
         "id": "d474c8fe-bb69-4ea0-b7d9-f682b56d52d3",
         "in_scope": 0,
         "level": "high",
@@ -6970,7 +6970,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_hktl_dumpert.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_hktl_dumpert.yml",
         "id": "2704ab9e-afe2-4854-a3b1-0c0706d03578",
         "in_scope": 0,
         "level": "critical",
@@ -6989,7 +6989,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_hktl_handlekatz.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_hktl_handlekatz.yml",
         "id": "ca621ba5-54ab-4035-9942-d378e6fcde3c",
         "in_scope": 0,
         "level": "high",
@@ -7008,7 +7008,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_hktl_inveigh.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_hktl_inveigh.yml",
         "id": "b99a1518-1ad5-4f65-bc95-1ffff97a8fd0",
         "in_scope": 0,
         "level": "critical",
@@ -7027,7 +7027,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_hktl_mimikatz_command_line.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_hktl_mimikatz_command_line.yml",
         "id": "a642964e-bead-4bed-8910-1bb4d63e3b4d",
         "in_scope": 0,
         "level": "high",
@@ -7046,7 +7046,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_hktl_safetykatz.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_hktl_safetykatz.yml",
         "id": "b1876533-4ed5-4a83-90f3-b8645840a413",
         "in_scope": 0,
         "level": "critical",
@@ -7065,7 +7065,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_hktl_wce.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_hktl_wce.yml",
         "id": "7aa7009a-28b9-4344-8c1f-159489a390df",
         "in_scope": 0,
         "level": "critical",
@@ -7084,7 +7084,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_hktl_wsass.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_hktl_wsass.yml",
         "id": "589ac73f-8e12-409c-964e-31a2f5775ae2",
         "in_scope": 0,
         "level": "high",
@@ -7103,7 +7103,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_hktl_xordump.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_hktl_xordump.yml",
         "id": "66e563f9-1cbd-4a22-a957-d8b7c0f44372",
         "in_scope": 0,
         "level": "high",
@@ -7122,7 +7122,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_lolbin_susp_sqldumper_activity.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_lolbin_susp_sqldumper_activity.yml",
         "id": "23ceaf5c-b6f1-4a32-8559-f2ff734be516",
         "in_scope": 0,
         "level": "medium",
@@ -7141,7 +7141,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_lolbin_tttracer_mod_load.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_lolbin_tttracer_mod_load.yml",
         "id": "0b4ae027-2a2d-4b93-8c7e-962caaba5b2a",
         "in_scope": 0,
         "level": "high",
@@ -7160,7 +7160,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_lsass_process_clone.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_lsass_process_clone.yml",
         "id": "c8da0dfd-4ed0-4b68-962d-13c9c884384e",
         "in_scope": 0,
         "level": "critical",
@@ -7179,7 +7179,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_pua_memprocfs.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_pua_memprocfs.yml",
         "id": "8a1b2c3d-4e5f-6789-abcd-ef1234567890",
         "in_scope": 0,
         "level": "high",
@@ -7198,7 +7198,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_rdrleakdiag_process_dumping.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_rdrleakdiag_process_dumping.yml",
         "id": "edadb1e5-5919-4e4c-8462-a9e643b02c4b",
         "in_scope": 0,
         "level": "high",
@@ -7217,7 +7217,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_renamed_createdump.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_renamed_createdump.yml",
         "id": "1a1ed54a-2ba4-4221-94d5-01dee560d71e",
         "in_scope": 7,
         "level": "high",
@@ -7236,7 +7236,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 1,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_rundll32_process_dump_via_comsvcs.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_rundll32_process_dump_via_comsvcs.yml",
         "id": "646ea171-dded-4578-8a4d-65e9822892e3",
         "in_scope": 7,
         "level": "high",
@@ -7257,7 +7257,7 @@
           "LSASS_campaign_07": "detected"
         },
         "detected": 3,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_susp_lsass_dmp_cli_keywords.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_susp_lsass_dmp_cli_keywords.yml",
         "id": "ffa6861c-4461-4f59-8a41-578c39f3f23e",
         "in_scope": 7,
         "level": "high",
@@ -7280,7 +7280,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 1,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_sysinternals_procdump.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_sysinternals_procdump.yml",
         "id": "2e65275c-8288-4ab4-aeb7-6274f58b6b20",
         "in_scope": 1,
         "level": "medium",
@@ -7301,7 +7301,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_sysinternals_procdump_evasion.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_sysinternals_procdump_evasion.yml",
         "id": "79b06761-465f-4f88-9ef2-150e24d3d737",
         "in_scope": 7,
         "level": "high",
@@ -7320,7 +7320,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 1,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_sysinternals_procdump_lsass.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_sysinternals_procdump_lsass.yml",
         "id": "5afee48e-67dd-4e03-a783-f74259dcf998",
         "in_scope": 7,
         "level": "high",
@@ -7341,7 +7341,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_werfault_lsass_shtinkering.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_werfault_lsass_shtinkering.yml",
         "id": "9a4ccd1a-3526-4d99-b980-9f9c5d3a6ff3",
         "in_scope": 0,
         "level": "high",
@@ -7360,7 +7360,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/process_creation/proc_creation_win_werfaultsecure_abuse.yml",
+        "file": "corpus/sigma/rules/windows/process_creation/proc_creation_win_werfaultsecure_abuse.yml",
         "id": "1f0b4cac-9c81-41f4-95d0-8475ff46b3e2",
         "in_scope": 0,
         "level": "high",
@@ -7379,7 +7379,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/registry/registry_event/registry_event_hack_wce_reg.yml",
+        "file": "corpus/sigma/rules/windows/registry/registry_event/registry_event_hack_wce_reg.yml",
         "id": "a6b33c02-8305-488f-8585-03cb2a7763f2",
         "in_scope": 7,
         "level": "critical",
@@ -7398,7 +7398,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/registry/registry_event/registry_event_silentprocessexit_lsass.yml",
+        "file": "corpus/sigma/rules/windows/registry/registry_event/registry_event_silentprocessexit_lsass.yml",
         "id": "55e29995-75e7-451a-bef0-6225e2f13597",
         "in_scope": 7,
         "level": "critical",
@@ -7417,7 +7417,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 0,
-        "file": "sigma/rules/windows/registry/registry_set/registry_set_lsass_usermode_dumping.yml",
+        "file": "corpus/sigma/rules/windows/registry/registry_set/registry_set_lsass_usermode_dumping.yml",
         "id": "33efc23c-6ea2-4503-8cfe-bdf82ce8f719",
         "in_scope": 7,
         "level": "high",
@@ -7436,7 +7436,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 0,
-        "file": "sigma/rules-threat-hunting/windows/image_load/image_load_dll_dbghelp_dbgcore_susp_load.yml",
+        "file": "corpus/sigma/rules-threat-hunting/windows/image_load/image_load_dll_dbghelp_dbgcore_susp_load.yml",
         "id": "0e277796-5f23-4e49-a490-483131d4f6e1",
         "in_scope": 7,
         "level": "medium",
@@ -7455,7 +7455,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 0,
-        "file": "sigma/rules-threat-hunting/windows/process_access/proc_access_win_lsass_powershell_access.yml",
+        "file": "corpus/sigma/rules-threat-hunting/windows/process_access/proc_access_win_lsass_powershell_access.yml",
         "id": "0f920ebe-7aea-4c54-b202-9aa0c609cfe5",
         "in_scope": 0,
         "level": "medium",
@@ -7474,7 +7474,7 @@
           "LSASS_campaign_07": "out-of-scope"
         },
         "detected": 1,
-        "file": "sigma/rules-threat-hunting/windows/process_access/proc_access_win_lsass_susp_source_process.yml",
+        "file": "corpus/sigma/rules-threat-hunting/windows/process_access/proc_access_win_lsass_susp_source_process.yml",
         "id": "fa34b441-961a-42fa-a100-ecc28c886725",
         "in_scope": 3,
         "level": "medium",
@@ -7495,7 +7495,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 2,
-        "file": "sigma/rules-threat-hunting/windows/process_access/proc_access_win_lsass_uncommon_access_flag.yml",
+        "file": "corpus/sigma/rules-threat-hunting/windows/process_access/proc_access_win_lsass_uncommon_access_flag.yml",
         "id": "678dfc63-fefb-47a5-a04c-26bcf8cc9f65",
         "in_scope": 7,
         "level": "medium",
@@ -7517,7 +7517,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 4,
-        "file": "sigma/rules-threat-hunting/windows/process_access/proc_access_win_susp_potential_shellcode_injection.yml",
+        "file": "corpus/sigma/rules-threat-hunting/windows/process_access/proc_access_win_susp_potential_shellcode_injection.yml",
         "id": "250ae82f-736e-4844-a68b-0b5e8cc887da",
         "in_scope": 7,
         "level": "medium",
@@ -7541,7 +7541,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 0,
-        "file": "sigma/rules-emerging-threats/2017/Malware/NotPetya/proc_creation_win_malware_notpetya.yml",
+        "file": "corpus/sigma/rules-emerging-threats/2017/Malware/NotPetya/proc_creation_win_malware_notpetya.yml",
         "id": "79aeeb41-8156-4fac-a0cd-076495ab82a1",
         "in_scope": 7,
         "level": "critical",
@@ -7560,7 +7560,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 0,
-        "file": "sigma/rules-emerging-threats/2019/TA/APT31/proc_creation_win_apt_apt31_judgement_panda.yml",
+        "file": "corpus/sigma/rules-emerging-threats/2019/TA/APT31/proc_creation_win_apt_apt31_judgement_panda.yml",
         "id": "03e2746e-2b31-42f1-ab7a-eb39365b2422",
         "in_scope": 7,
         "level": "critical",
@@ -7579,7 +7579,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 1,
-        "file": "/home/user/chain-under-load/rules/t1003_001_comsvcs_minidump.yml",
+        "file": "rules/t1003_001_comsvcs_minidump.yml",
         "id": "ee2324b0-6673-4767-9e34-c84cdd893483",
         "in_scope": 7,
         "level": "high",
@@ -7600,7 +7600,7 @@
           "LSASS_campaign_07": "detected"
         },
         "detected": 7,
-        "file": "/home/user/chain-under-load/rules/t1003_001_lsass_handle.yml",
+        "file": "rules/t1003_001_lsass_handle.yml",
         "id": "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
         "in_scope": 7,
         "level": "high",
@@ -7627,7 +7627,7 @@
           "LSASS_campaign_07": "miss-logic"
         },
         "detected": 1,
-        "file": "/home/user/chain-under-load/rules/t1059_001_powershell_minidump.yml",
+        "file": "rules/t1059_001_powershell_minidump.yml",
         "id": "743c314e-3154-4e7c-b209-8211c9b1d2af",
         "in_scope": 7,
         "level": "high",

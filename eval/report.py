@@ -105,6 +105,27 @@ def score_rules(rules: Sequence[CompiledRule], captures: Iterable) -> dict:
     return per_capture
 
 
+def rule_path(rule: CompiledRule) -> str:
+    """Repo-relative path for a rule, for the results file.
+
+    Never absolute. Committed results are compared against a fresh run by
+    `--check`, and a checkout path baked into the json makes that comparison
+    fail on every machine except the one that generated it.
+    """
+    # try the path as given before resolving. resolving first follows any
+    # symlink on the way to the repo root and lands outside it, which turns
+    # every rule into a bare filename.
+    bases = (corpus.REPO_ROOT, corpus.REPO_ROOT.resolve())
+    for candidate in (rule.path, rule.path.resolve()):
+        for base in bases:
+            try:
+                return candidate.relative_to(base).as_posix()
+            except ValueError:
+                continue
+    # rule loaded from outside the repo, keep the filename and nothing else
+    return rule.path.name
+
+
 def summarise(rules: Sequence[CompiledRule], per_capture: dict,
               reasons: dict[str, str]) -> dict:
     """Per-rule coverage across the campaign set."""
@@ -117,8 +138,7 @@ def summarise(rules: Sequence[CompiledRule], per_capture: dict,
         rows.append({
             "id": rule.id,
             "title": rule.title,
-            "file": str(rule.path.relative_to(corpus.CORPUS_ROOT))
-            if corpus.CORPUS_ROOT in rule.path.parents else str(rule.path),
+            "file": rule_path(rule),
             "level": rule.level,
             "selected_by": reasons.get(rule.id, "own"),
             "detected": len(detected),
@@ -343,6 +363,37 @@ def _comparable(results: dict) -> dict:
     return trimmed
 
 
+def _differences(committed, fresh, path: str = "") -> list[str]:
+    """Where two result trees disagree, as dotted paths.
+
+    A bare "results differ" tells a CI reader nothing about whether the rules
+    moved or the harness did.
+    """
+    out: list[str] = []
+    if type(committed) is not type(fresh):
+        return [f"{path or 'results'}: type {type(committed).__name__} "
+                f"vs {type(fresh).__name__}"]
+
+    if isinstance(committed, dict):
+        for key in sorted(set(committed) | set(fresh)):
+            where = f"{path}.{key}" if path else str(key)
+            if key not in committed:
+                out.append(f"{where}: only in fresh run")
+            elif key not in fresh:
+                out.append(f"{where}: only in committed results")
+            else:
+                out.extend(_differences(committed[key], fresh[key], where))
+    elif isinstance(committed, list):
+        if len(committed) != len(fresh):
+            out.append(f"{path}: {len(committed)} entries committed, {len(fresh)} fresh")
+        else:
+            for index, (a, b) in enumerate(zip(committed, fresh)):
+                out.extend(_differences(a, b, f"{path}[{index}]"))
+    elif committed != fresh:
+        out.append(f"{path}: {committed!r} committed, {fresh!r} fresh")
+    return out
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="run the benchmark")
     parser.add_argument("--run", action="store_true", help="run and write results")
@@ -363,8 +414,15 @@ def main(argv: list[str] | None = None) -> int:
             print("no committed results to compare", file=sys.stderr)
             return 1
         committed = json.loads(RESULTS_PATH.read_text())
-        if _comparable(committed) != _comparable(results):
-            print("committed results differ from a fresh run", file=sys.stderr)
+        diffs = _differences(_comparable(committed), _comparable(results))
+        if diffs:
+            print(f"committed results differ from a fresh run, "
+                  f"{len(diffs)} differences", file=sys.stderr)
+            for line in diffs[:25]:
+                print(f"  {line}", file=sys.stderr)
+            if len(diffs) > 25:
+                print(f"  ... and {len(diffs) - 25} more", file=sys.stderr)
+            print("regenerate with: python -m eval.report --run", file=sys.stderr)
             return 1
         print("results match a fresh run")
         return 0

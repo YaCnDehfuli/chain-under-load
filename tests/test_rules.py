@@ -81,3 +81,37 @@ def test_committed_chain_results_cover_every_rule(rules):
         assert rule.id in results["benign"], (
             f"{rule.path.name} has no committed measurement, rerun eval.chain"
         )
+
+
+# --------------------------------------------------------------------------
+# the committed results have to be portable
+# --------------------------------------------------------------------------
+
+RESULTS_JSON = corpus.REPO_ROOT / "benchmark" / "results.json"
+
+
+@pytest.mark.skipif(not RESULTS_JSON.exists(), reason="results not generated")
+def test_committed_results_carry_no_checkout_paths():
+    """A checkout path in the json makes --check fail on every other machine.
+
+    CI checks out to a different directory than the one that generated the
+    results, so a baked-in path is a guaranteed false failure.
+
+    Sample events are excluded: those are Windows telemetry and are full of
+    absolute paths that belong there.
+    """
+    results = json.loads(RESULTS_JSON.read_text())
+    for entry in results["per_capture"].values():
+        entry.pop("samples", None)
+    text = json.dumps(results)
+    for marker in ("/home/", "/Users/", "/root/", "/tmp/"):
+        assert marker not in text, f"checkout path in results.json: {marker}"
+
+
+@pytest.mark.skipif(not RESULTS_JSON.exists(), reason="results not generated")
+def test_rule_paths_in_results_are_repo_relative():
+    results = json.loads(RESULTS_JSON.read_text())
+    for row in results["summary"]["rules"]:
+        path = row["file"]
+        assert not path.startswith("/"), f"{path} is absolute"
+        assert (corpus.REPO_ROOT / path).exists(), f"{path} does not resolve"
