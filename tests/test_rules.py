@@ -110,8 +110,38 @@ def test_committed_results_carry_no_checkout_paths():
 
 @pytest.mark.skipif(not RESULTS_JSON.exists(), reason="results not generated")
 def test_rule_paths_in_results_are_repo_relative():
+    """Shape only, so this runs without the corpus on disk.
+
+    Rules live under rules/ in the repo and under corpus/ once fetched. The
+    unit test job deliberately skips the corpus fetch, so existence of a
+    corpus path is checked separately.
+    """
     results = json.loads(RESULTS_JSON.read_text())
+    assert results["summary"]["rules"], "no rules in the committed results"
     for row in results["summary"]["rules"]:
         path = row["file"]
         assert not path.startswith("/"), f"{path} is absolute"
-        assert (corpus.REPO_ROOT / path).exists(), f"{path} does not resolve"
+        assert ".." not in path.split("/"), f"{path} escapes the repo"
+        root = path.split("/")[0]
+        assert root in ("rules", "corpus"), f"{path} has an unexpected root"
+
+
+@pytest.mark.skipif(not RESULTS_JSON.exists(), reason="results not generated")
+def test_own_rule_paths_in_results_resolve():
+    """Rules from this repo are tracked, so they resolve with or without a corpus."""
+    results = json.loads(RESULTS_JSON.read_text())
+    own = [r for r in results["summary"]["rules"] if r["selected_by"] == "own"]
+    assert own, "expected this repo's rules in the results"
+    for row in own:
+        assert (corpus.REPO_ROOT / row["file"]).exists(), f"{row['file']} does not resolve"
+
+
+@needs_corpus
+@pytest.mark.skipif(not RESULTS_JSON.exists(), reason="results not generated")
+def test_corpus_rule_paths_in_results_resolve():
+    results = json.loads(RESULTS_JSON.read_text())
+    for row in results["summary"]["rules"]:
+        if row["file"].startswith("corpus/"):
+            assert (corpus.REPO_ROOT / row["file"]).exists(), (
+                f"{row['file']} does not resolve"
+            )
