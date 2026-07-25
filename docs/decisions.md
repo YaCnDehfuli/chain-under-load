@@ -90,3 +90,20 @@ exists for: a rule that looks broken but is reading a field the capture spells
 differently, which is a telemetry gap rather than a logic error. Having been
 caught by it while holding the classifier in my hands is worth more in the
 write-up than a clean story would be.
+
+## Tactic tags follow current ATT&CK, which no longer has defense-evasion
+
+`sigma check` rejected `attack.defense-evasion` on the injection rule. The
+reason turned out to be upstream: ATT&CK renamed TA0005 from Defense Evasion to
+Stealth and added TA0112 Defense Impairment, so the old tactic shortname is not
+in the taxonomy any more. T1055.002 now maps to stealth and
+privilege-escalation.
+
+The rules here use `attack.stealth`. Most published Sigma content still says
+`attack.defense-evasion`, including every rule in the pinned SigmaHQ tree, so a
+reader expecting that tag will not find it.
+
+Worth knowing for anyone running the validator: pySigma fetches the ATT&CK
+taxonomy at validation time rather than pinning it. Tag validation results can
+therefore change without a commit here. It does not break the build, since
+`sigma check` exits zero on issues and reserves a non-zero exit for errors.

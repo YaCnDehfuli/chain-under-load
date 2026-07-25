@@ -17,13 +17,13 @@ logsource:
     category: process_creation
     product: windows
 detection:
-    selection:
+    selection_comsvcs:
         CommandLine|contains: 'comsvcs'
-    dump:
+    selection_dump:
         CommandLine|contains:
             - 'MiniDump'
             - '#24'   # the export by ordinal, which skips the name match
-    condition: all of them
+    condition: all of selection_*
 falsepositives:
     - No legitimate use seen on this corpus.
 level: high

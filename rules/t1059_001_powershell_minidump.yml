@@ -21,13 +21,13 @@ logsource:
     service: powershell
     definition: script block logging must be enabled
 detection:
-    selection:
+    selection_event:
         EventID: 4104
-    dump_api:
+    selection_api:
         ScriptBlockText|contains:
             - 'MiniDumpWriteDump'
             - 'Out-Minidump'
-    condition: all of them
+    condition: all of selection_*
 falsepositives:
     - Defensive tooling and crash-dump helpers written in PowerShell.
 level: high

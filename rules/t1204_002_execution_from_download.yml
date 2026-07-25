@@ -17,13 +17,13 @@ logsource:
     category: process_creation
     product: windows
 detection:
-    selection:
+    selection_profile:
         Image|contains: '\Users\'
-    downloads:
+    selection_downloads:
         Image|contains:
             - '\Downloads\'
             - '\Downloaded Program Files\'
-    condition: all of them
+    condition: all of selection_*
 falsepositives:
     - Installers and updaters that users run from where they landed. Common on
       workstations, much less so on servers.

@@ -12,7 +12,9 @@ references:
 author: Yasin Dehfuli
 date: 2026/07/08
 tags:
-    - attack.defense-evasion
+    # ATT&CK renamed TA0005 to Stealth, so defense-evasion is no longer a
+    # valid tactic tag. T1055.002 maps to stealth and privilege-escalation.
+    - attack.stealth
     - attack.privilege-escalation
     - attack.t1055.002
 logsource:
