@@ -233,6 +233,19 @@ the narrow ones, none of which describes how that intrusion moved.
 
 That is one more dataset, not a deployment.
 
+## Where the rules run
+
+Each rule is converted to Splunk SPL and to Kusto, the query language Sentinel
+and Defender XDR use, and both are committed under
+[`rules/converted/`](rules/converted) so the generated query is readable in a
+diff rather than only inside a CI step. `scripts/convert_rules.py --check`
+fails when they drift from a fresh conversion.
+
+Conversion is not deployment. It says the detection logic expresses cleanly in
+each query language, nothing about field availability, licensing or tuning in
+any particular estate. The measurements in this repo were made by the harness
+in `eval/`, not by either SIEM.
+
 ## Running it
 
 ```bash
