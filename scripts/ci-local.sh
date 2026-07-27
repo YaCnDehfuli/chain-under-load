@@ -46,9 +46,10 @@ tests_without_corpus() {
 run "job tests (no corpus, as CI sees it)" tests_without_corpus
 # sigma-cli ships a console script, not a runnable module
 SIGMA="${SIGMA:-sigma}"
+run "job rules: seed taxonomy cache" "$PYTHON" -m scripts.seed_validator_data
 run "job rules: sigma check" "$SIGMA" check rules/
-run "job rules: sigma convert" bash -c \
-    "$SIGMA convert -t splunk -p sysmon -p windows-logsources rules/ >/dev/null"
+run "job rules: converted queries are current" \
+    "$PYTHON" -m scripts.convert_rules --check --sigma "$SIGMA"
 
 if [ "$FAST" = "1" ]; then
     echo

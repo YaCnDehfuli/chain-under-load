@@ -31,10 +31,16 @@ jobs:
           python-version: "3.11"
           cache: pip
       - run: pip install -r requirements.txt pyyaml
+      - name: seed the taxonomy cache sigma check reads
+        # D3FEND is fetched from a third-party host that has returned 403 here.
+        # pySigma raises rather than degrading, so an outage would fail the job
+        # for a reason unrelated to any rule. See the script for why this cannot
+        # change a verdict.
+        run: python -m scripts.seed_validator_data
       - name: validate rule syntax
         run: sigma check rules/
-      - name: rules must convert
-        run: sigma convert -t splunk -p sysmon -p windows-logsources rules/ > /dev/null
+      - name: rules must convert to every backend
+        run: python -m scripts.convert_rules --check
 
   benchmark:
     # fetches roughly 1.5 GB and takes about twenty minutes, so it is cached
