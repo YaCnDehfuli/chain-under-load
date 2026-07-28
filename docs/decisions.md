@@ -144,3 +144,15 @@ The limit is real and worth stating once. This models an operator who renames a
 file or moves it. Recompiling changes PE metadata too, which is why there is a
 separate tier for it. An operator who changes how the tool reads memory is
 outside what any of this shows.
+
+### Addendum: CallTrace is renamed, its structure is not
+
+The first draft of the mutator left `CallTrace` untouched as behavioural. That
+was wrong, and the corpus said so: 16 events name the dumping binary inside
+their own stack trace. An operator who renames a file does change what a stack
+walk reports, so freezing that field produced telemetry that could not exist
+and would have let a rule look robust while reading a name the operator picked.
+
+The rename now reaches the module paths inside `CallTrace`. The frame count,
+the offsets and the UNKNOWN markers, which are the evidence of how memory was
+actually read, are asserted unchanged.

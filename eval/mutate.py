@@ -49,11 +49,20 @@ MUTABLE_FIELDS = frozenset({
     "ScriptBlockText",
 })
 
+# CallTrace is behavioural, but it embeds module paths, and in this corpus 16
+# events name the dumping binary inside their own stack. A rename on disk does
+# change those paths, so leaving them would make the capture incoherent and
+# would let a rule look robust when it is reading a name the operator picked.
+#
+# The rename therefore reaches the paths inside CallTrace and nothing else. The
+# frame count, the +offsets and the UNKNOWN markers, which are the actual
+# evidence of how memory was read, are asserted unchanged by a test.
+STRUCTURED_PATH_FIELDS = frozenset({"CallTrace"})
+
 # Behavioural evidence. Never rewritten, asserted by tests. Failing to match
 # these is the detection logic falling short, which is the thing being measured.
 BEHAVIOURAL_FIELDS = frozenset({
     "GrantedAccess",
-    "CallTrace",
     "EventID",
     "Channel",
     "StartAddress",
@@ -172,7 +181,7 @@ def mutate_event(event: dict, spec: MutationSpec,
     patterns = patterns if patterns is not None else _compile(spec)
     out = dict(event)
 
-    for field in MUTABLE_FIELDS:
+    for field in MUTABLE_FIELDS | STRUCTURED_PATH_FIELDS:
         value = out.get(field)
         if not isinstance(value, str) or not value:
             continue
