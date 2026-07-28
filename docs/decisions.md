@@ -107,3 +107,40 @@ Worth knowing for anyone running the validator: pySigma fetches the ATT&CK
 taxonomy at validation time rather than pinning it. Tag validation results can
 therefore change without a commit here. It does not break the build, since
 `sigma check` exits zero on issues and reserves a non-zero exit for errors.
+
+## Mutating one field is sensitivity analysis, not a synthetic fixture
+
+Phase 1 ruled out synthetic captures, and that decision stands. It is worth
+being exact about why perturbing a recorded capture is a different act, because
+the two look similar from a distance.
+
+A synthetic fixture invents every field, including the behavioural ones that
+decide whether a rule fires. Its access mask, its call trace and its process
+tree are all authored by whoever wants the result, so a rule firing on it says
+only that the author knew what the rule looked for. That is the failure the
+first decision was written against.
+
+A mutation starts from telemetry someone recorded and changes the value of one
+field, holding every other field at what was actually observed. The access
+mask, the call trace, the parent and child processes and the timestamps stay as
+recorded. What changes is a string the operator was free to choose in the first
+place: what the binary is called, and which directory it ran from.
+
+The two answer different questions. Running rules against unmutated captures
+asks whether a rule detects the technique as these operators happened to
+perform it. Running them against a renamed copy asks whether the rule's answer
+depends on a name, which is the question the phase 1 findings raised in prose
+and never measured.
+
+Three things keep this from drifting into fiction. Behavioural fields are on a
+hard allowlist that a test enforces, so no measurement can be produced by
+weakening the evidence a rule needs. A rename propagates to every field that
+refers to the object, because a half-renamed capture is incoherent and its
+numbers would mean nothing. And a control mutation of a field no rule reads
+must leave coverage identical, which is what separates fragile rules from a
+broken mutator.
+
+The limit is real and worth stating once. This models an operator who renames a
+file or moves it. Recompiling changes PE metadata too, which is why there is a
+separate tier for it. An operator who changes how the tool reads memory is
+outside what any of this shows.
