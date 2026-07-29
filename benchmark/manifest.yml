@@ -84,3 +84,52 @@ benign:
   # captures with no attack_mappings entry in _metadata. we cannot show these
   # are free of a given technique, so they are never counted as benign.
   require_labels: true
+
+# Mutation targets for the sensitivity analysis. Data, not code: what each
+# operator named their tool and their output, and what to rename it to.
+# Replacements are checked against the capture for collisions before use.
+mutation:
+  # T2 moves an operator-introduced binary into a directory the main published
+  # access-mask rule excludes wholesale. The direction is the point. Moving out
+  # of an excluded directory would raise coverage; moving in is the move an
+  # operator would actually make, and it tests the filter phase 1 found.
+  relocate_to: 'C:\Windows\System32\'
+  excluded_directories:
+    - 'C:\Program Files\'
+    - 'C:\Program Files (x86)\'
+    - 'C:\Windows\System32\'
+    - 'C:\Windows\SysWOW64\'
+  campaigns:
+    LSASS_campaign_01:
+      binaries:
+        - {path: 'C:\Users\stevie.marie\Downloads\winx64_payload.exe', rename_to: 'svcmon.exe'}
+      artifacts: []
+    LSASS_campaign_02:
+      binaries:
+        - {path: 'C:\Program Files\procdump64.exe', rename_to: 'svcmon64.exe'}
+        - {path: 'C:\Program Files\procdump.exe', rename_to: 'svcmon.exe'}
+      artifacts: ['lsass_dump-3.dmp', 'lsass_dump.dmp']
+    LSASS_campaign_03:
+      # rundll32 also opens the handle here, but it is a signed Windows binary
+      # the operator did not bring and cannot rename
+      binaries:
+        - {path: 'C:\Users\pupy.godoy\Downloads\winx64_payload.exe', rename_to: 'svcmon.exe'}
+      artifacts: ['lsass-comsvcs.dmp']
+    LSASS_campaign_04:
+      binaries:
+        - {path: 'C:\Users\pedro.gustavo\Downloads\winx64_payload.exe', rename_to: 'svcmon.exe'}
+      artifacts: ['lsass_628.dmp']
+    LSASS_campaign_05:
+      binaries:
+        - {path: 'C:\Program Files\SharpDump.exe', rename_to: 'svcmon.exe'}
+      artifacts: ['debug648.bin']
+    LSASS_campaign_06:
+      binaries:
+        - {path: 'C:\Windows\Temp\Outflank-Dumpert.exe', rename_to: 'svcmon.exe'}
+      artifacts: ['dumpert.dmp']
+    LSASS_campaign_07:
+      binaries:
+        - {path: 'C:\Windows\System32\nanodump.x64.exe', rename_to: 'svcmon.exe'}
+      artifacts: ['lsass_dump.dmp']
+  # renamed artifacts keep their stem shape so nothing else shifts
+  artifact_rename: 'cache{n}.tmp'

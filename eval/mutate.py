@@ -213,3 +213,88 @@ def changed_fields(before: dict, after: dict) -> set[str]:
     """Fields whose value differs. Used by the tests that police the allowlist."""
     return {key for key in set(before) | set(after)
             if before.get(key) != after.get(key)}
+
+
+# --------------------------------------------------------------------------
+# tiers, ordered by how much work the operator has to do
+# --------------------------------------------------------------------------
+
+TIER_NOTES = {
+    "T0": "baseline, nothing changed",
+    "T1": "binary and output file renamed, still in the same directory",
+    "T2": "T1 plus the binary moved into a directory the published rules exclude",
+    "T3": "T2 plus PE-header fields cleared, as a rebuild would",
+}
+
+
+def _basename(path: str) -> str:
+    return path.rsplit("\\", 1)[-1]
+
+
+def _directory(path: str) -> str:
+    return path[: len(path) - len(_basename(path))]
+
+
+def in_excluded_directory(path: str, excluded: Iterable[str]) -> bool:
+    lowered = path.lower()
+    return any(lowered.startswith(prefix.lower()) for prefix in excluded)
+
+
+def tiers_for(capture_id: str, manifest: dict) -> dict[str, MutationSpec]:
+    """Build T0 through T3 for one capture from the pinned mutation data.
+
+    T2 only moves a binary that is not already sitting in an excluded
+    directory. Three of the seven tools shipped from Program Files or System32
+    to begin with, and inventing a move for those would report an effort the
+    operator never had to make.
+    """
+    config = manifest["mutation"]
+    entry = config["campaigns"][capture_id]
+    excluded = config["excluded_directories"]
+    template = config.get("artifact_rename", "cache{n}.tmp")
+
+    renames: list[tuple[str, str]] = []
+    relocations: list[tuple[str, str]] = []
+    new_names: list[str] = []
+
+    for binary in entry.get("binaries") or []:
+        path = binary["path"]
+        old_name = _basename(path)
+        new_name = binary["rename_to"]
+        renames.append((old_name, new_name))
+        new_names.append(new_name)
+        if not in_excluded_directory(path, excluded):
+            # Move this binary and nothing else. Substituting the directory
+            # prefix would drag every unrelated file in the same folder along,
+            # including the dump the tool wrote, which is not what renaming and
+            # moving one binary looks like.
+            relocations.append((path, config["relocate_to"] + new_name))
+
+    for index, artifact in enumerate(entry.get("artifacts") or []):
+        suffix = "" if index == 0 else str(index)
+        renames.append((artifact, template.format(n=suffix)))
+
+    rename_only = tuple(renames)
+    relocated = rename_only + tuple(relocations)
+
+    return {
+        "T0": MutationSpec("T0", (), (), TIER_NOTES["T0"]),
+        "T1": MutationSpec("T1", rename_only, (), TIER_NOTES["T1"]),
+        "T2": MutationSpec("T2", relocated, (), TIER_NOTES["T2"]),
+        "T3": MutationSpec("T3", relocated, tuple(new_names), TIER_NOTES["T3"]),
+    }
+
+
+def control_spec(capture_id: str, manifest: dict) -> MutationSpec:
+    """A mutation of something no selected rule reads.
+
+    CurrentDirectory is recorded by Sysmon on process creation and is not
+    referenced by any rule in the T1003.001 selection. Changing it must leave
+    coverage exactly where T0 left it. If it does not, the mutator is corrupting
+    events and every other number in the sensitivity table is worthless.
+    """
+    return MutationSpec(
+        name="control",
+        substitutions=(("C:\\Windows\\Temp\\", "C:\\Windows\\Tmp2\\"),),
+        note="control, a path no selected rule requires",
+    )
