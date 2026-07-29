@@ -125,6 +125,9 @@ class MutationSpec:
     substitutions: tuple[tuple[str, str], ...] = ()
     pe_reset_for: tuple[str, ...] = ()
     note: str = ""
+    # when set, only these fields are rewritten. used by the control, which has
+    # to touch a field no rule reads and nothing else.
+    fields: tuple[str, ...] = ()
 
     def ordered(self) -> list[tuple[str, str]]:
         return sorted(self.substitutions, key=lambda pair: len(pair[0]), reverse=True)
@@ -181,13 +184,17 @@ def mutate_event(event: dict, spec: MutationSpec,
     patterns = patterns if patterns is not None else _compile(spec)
     out = dict(event)
 
-    for field in MUTABLE_FIELDS | STRUCTURED_PATH_FIELDS:
+    scope = frozenset(spec.fields) if spec.fields else (MUTABLE_FIELDS | STRUCTURED_PATH_FIELDS)
+    for field in scope:
         value = out.get(field)
         if not isinstance(value, str) or not value:
             continue
         rewritten = value
         for pattern, replacement in patterns:
-            rewritten = pattern.sub(replacement, rewritten)
+            # a plain replacement string would have its backslashes read as
+            # regex escapes, and every Windows path is full of them. the lambda
+            # makes the replacement literal.
+            rewritten = pattern.sub(lambda _match, text=replacement: text, rewritten)
         if rewritten != value:
             out[field] = rewritten
 
@@ -285,16 +292,18 @@ def tiers_for(capture_id: str, manifest: dict) -> dict[str, MutationSpec]:
     }
 
 
-def control_spec(capture_id: str, manifest: dict) -> MutationSpec:
-    """A mutation of something no selected rule reads.
+def control_spec() -> MutationSpec:
+    """A mutation of a field no selected rule reads.
 
-    CurrentDirectory is recorded by Sysmon on process creation and is not
-    referenced by any rule in the T1003.001 selection. Changing it must leave
-    coverage exactly where T0 left it. If it does not, the mutator is corrupting
-    events and every other number in the sensitivity table is worthless.
+    CurrentDirectory is recorded on process creation and appears in hundreds of
+    events, and no rule in the T1003.001 selection references it. Rewriting it
+    must leave coverage exactly where the baseline left it. If it does not, the
+    mutator is corrupting events and every other number in the sensitivity
+    table is worthless, so this is the check the rest of the phase rests on.
     """
     return MutationSpec(
         name="control",
-        substitutions=(("C:\\Windows\\Temp\\", "C:\\Windows\\Tmp2\\"),),
-        note="control, a path no selected rule requires",
+        substitutions=(("C:\\", "Q:\\"),),
+        fields=("CurrentDirectory",),
+        note="control, rewrites a field no selected rule requires",
     )

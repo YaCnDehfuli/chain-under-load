@@ -250,3 +250,42 @@ def test_event_count_and_order_are_preserved():
     before = [e.get("EventID") for e in corpus.events(capture)]
     after = [e.get("EventID") for e in mutate(corpus.events(capture), RENAME)]
     assert before == after
+
+
+# --------------------------------------------------------------------------
+# the control, and literal replacement of paths
+# --------------------------------------------------------------------------
+
+
+def test_a_replacement_containing_backslashes_is_literal():
+    """Windows paths are full of backslashes, which re.sub would read as escapes."""
+    spec = MutationSpec(name="t2", substitutions=(
+        (r"C:\Users\bob\Downloads\tool.exe", r"C:\Windows\System32\svcmon.exe"),
+    ))
+    out = mutate_event({"Image": r"C:\Users\bob\Downloads\tool.exe"}, spec)
+    assert out["Image"] == r"C:\Windows\System32\svcmon.exe"
+
+
+def test_the_control_touches_only_its_own_field():
+    from eval.mutate import control_spec
+    event = {
+        "CurrentDirectory": r"C:\Program Files\x",
+        "Image": r"C:\Windows\System32\nanodump.x64.exe",
+        "CommandLine": r"C:\Windows\System32\nanodump.x64.exe --write",
+        "GrantedAccess": "0x1010",
+    }
+    out = mutate_event(event, control_spec())
+    assert out["CurrentDirectory"] != event["CurrentDirectory"]
+    assert changed_fields(event, out) == {"CurrentDirectory"}
+
+
+@needs_corpus
+def test_the_control_field_is_read_by_no_selected_rule():
+    """If a rule read it, the control would not be a control."""
+    from eval.report import select_rules
+    from eval.mutate import control_spec
+    selected, _ = select_rules("T1003.001")
+    read: set[str] = set()
+    for rule, _reason in selected:
+        read |= rule.fields
+    assert set(control_spec().fields).isdisjoint(read)
