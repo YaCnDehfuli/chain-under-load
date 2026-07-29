@@ -399,13 +399,48 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--run", action="store_true", help="run and write results")
     parser.add_argument("--check", action="store_true",
                         help="fail if committed results differ from a fresh run")
+    parser.add_argument("--sensitivity", action="store_true",
+                        help="measure coverage at each mutation tier")
+    parser.add_argument("--check-sensitivity", action="store_true",
+                        help="fail if committed sensitivity differs from a fresh run")
     parser.add_argument("--technique", default="T1003.001")
     parser.add_argument("--fp-limit", type=int, default=None,
                         help="cap benign captures, for a quicker loop")
     args = parser.parse_args(argv)
 
-    if not (args.run or args.check):
-        parser.error("pass --run or --check")
+    if not (args.run or args.check or args.sensitivity or args.check_sensitivity):
+        parser.error("pass --run, --check, --sensitivity or --check-sensitivity")
+
+    if args.sensitivity or args.check_sensitivity:
+        fresh = measure_sensitivity(args.technique)
+        if fresh["validation_problems"]:
+            print("mutation specs did not validate:", file=sys.stderr)
+            for line in fresh["validation_problems"]:
+                print(f"  {line}", file=sys.stderr)
+            return 1
+        if args.check_sensitivity:
+            if not SENSITIVITY_PATH.exists():
+                print("no committed sensitivity results", file=sys.stderr)
+                return 1
+            committed = json.loads(SENSITIVITY_PATH.read_text())
+            diffs = _differences(committed, json.loads(json.dumps(fresh)))
+            if diffs:
+                print(f"committed sensitivity differs from a fresh run, "
+                      f"{len(diffs)} differences", file=sys.stderr)
+                for line in diffs[:25]:
+                    print(f"  {line}", file=sys.stderr)
+                print("regenerate with: python -m eval.report --sensitivity",
+                      file=sys.stderr)
+                return 1
+            print("sensitivity results match a fresh run")
+            return 0
+        SENSITIVITY_PATH.write_text(json.dumps(fresh, indent=2, sort_keys=True) + "\n")
+        SENSITIVITY_MD.write_text(sensitivity_markdown(fresh))
+        for entry in fresh["per_capture"].values():
+            counts = {t: len(v["published_fired"]) for t, v in entry["tiers"].items()}
+            print(f"  {entry['tool']:18s} {counts}")
+        print(f"written to {SENSITIVITY_PATH} and {SENSITIVITY_MD}")
+        return 0
 
     results = build(args.technique, fp_limit=args.fp_limit)
 
@@ -435,6 +470,123 @@ def main(argv: list[str] | None = None) -> int:
     print(f"written to {RESULTS_PATH} and {MARKDOWN_PATH}")
     return 0
 
+
+
+# --------------------------------------------------------------------------
+# sensitivity to what the operator can change
+# --------------------------------------------------------------------------
+
+SENSITIVITY_PATH = corpus.REPO_ROOT / "benchmark" / "sensitivity.json"
+SENSITIVITY_MD = corpus.REPO_ROOT / "benchmark" / "sensitivity.md"
+
+
+def _coverage(rules, capture, spec):
+    """Which rules fire on one capture under one mutation spec."""
+    from eval.mutate import mutate
+
+    stream = corpus.events(capture)
+    if spec.substitutions:
+        stream = mutate(stream, spec)
+    diagnostics, _samples, total = analyse(rules, stream)
+    fired = sorted(rule.id for rule in rules if diagnostics[rule.id].matched)
+    return fired, total
+
+
+def measure_sensitivity(technique: str = "T1003.001") -> dict:
+    """Coverage at each mutation tier, plus the control.
+
+    Reuses selection, scoring and classification from the baseline path, so a
+    tier result is comparable to the T0 number by construction rather than by
+    coincidence.
+    """
+    from eval.mutate import control_spec, tiers_for, validate
+
+    manifest = corpus.load_manifest()
+    selected, _skipped = select_rules(technique)
+    own_rules, _ = load_rules(sorted(OWN_RULES_DIR.glob("*.yml")))
+    own_for_technique = [r for r in own_rules if selects_technique(r, technique)]
+    rules = [r for r, _ in selected] + own_for_technique
+    published = {r.id for r, _ in selected}
+    titles = {r.id: r.title for r in rules}
+
+    per_capture: dict[str, dict] = {}
+    problems: list[str] = []
+
+    for capture in corpus.campaigns():
+        tiers = dict(tiers_for(capture.id, manifest))
+        tiers["control"] = control_spec()
+
+        events = list(corpus.events(capture))
+        for name, spec in tiers.items():
+            if spec.substitutions:
+                problems += [f"{capture.id} {name}: {p}" for p in validate(spec, events)]
+
+        entry: dict = {"tool": capture.tool, "tiers": {}}
+        for name, spec in tiers.items():
+            fired, total = _coverage(rules, capture, spec)
+            entry["tiers"][name] = {
+                "note": spec.note,
+                "events": total,
+                "fired": fired,
+                "published_fired": sorted(set(fired) & published),
+                "renames": [list(pair) for pair in spec.ordered()],
+                "pe_reset": list(spec.pe_reset_for),
+            }
+        per_capture[capture.id] = entry
+
+    return {
+        "technique": technique,
+        "sources": {k: v["commit"] for k, v in manifest["sources"].items()},
+        "validation_problems": problems,
+        "titles": titles,
+        "published_rule_ids": sorted(published),
+        "per_capture": per_capture,
+    }
+
+
+def sensitivity_markdown(results: dict) -> str:
+    tiers = ["T0", "T1", "T2", "T3"]
+    lines = [
+        "# Sensitivity to what the operator can change",
+        "",
+        "Generated by `python -m eval.report --sensitivity`. Method and the "
+        "argument for mutating a capture at all are in `docs/decisions.md`.",
+        "",
+        "Counts are published rules firing. T0 is the unmutated baseline.",
+        "",
+        "| tool | " + " | ".join(tiers) + " | control |",
+        "|---|" + "---|" * (len(tiers) + 1),
+    ]
+    for entry in results["per_capture"].values():
+        cells = [str(len(entry["tiers"][t]["published_fired"])) for t in tiers]
+        control = len(entry["tiers"]["control"]["published_fired"])
+        lines.append(f"| {entry['tool']} | " + " | ".join(cells) + f" | {control} |")
+
+    lines += ["", "## What each tier changes", ""]
+    for name in tiers + ["control"]:
+        sample = next(iter(results["per_capture"].values()))["tiers"][name]
+        lines.append(f"- `{name}`: {sample['note']}")
+
+    lines += ["", "## Rules lost at each tier", ""]
+    titles = results["titles"]
+    published = set(results["published_rule_ids"])
+    for entry in results["per_capture"].values():
+        base = set(entry["tiers"]["T0"]["published_fired"])
+        lines.append(f"### {entry['tool']}")
+        lines.append("")
+        for name in tiers[1:]:
+            now = set(entry["tiers"][name]["published_fired"])
+            lost = sorted(titles.get(r, r) for r in base - now)
+            gained = sorted(titles.get(r, r) for r in now - base)
+            if lost or gained:
+                if lost:
+                    lines.append(f"- {name} loses: {', '.join(lost)}")
+                if gained:
+                    lines.append(f"- {name} gains: {', '.join(gained)}")
+        if not any(set(entry["tiers"][n]["published_fired"]) != base for n in tiers[1:]):
+            lines.append("- unchanged at every tier")
+        lines.append("")
+    return "\n".join(lines) + "\n"
 
 if __name__ == "__main__":
     raise SystemExit(main())
