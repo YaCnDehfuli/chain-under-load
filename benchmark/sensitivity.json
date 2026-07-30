@@ -1,0 +1,1135 @@
+{
+  "per_capture": {
+    "LSASS_campaign_01": {
+      "tiers": {
+        "T0": {
+          "events": 53698,
+          "fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "678dfc63-fefb-47a5-a04c-26bcf8cc9f65"
+          ],
+          "note": "baseline, nothing changed",
+          "pe_reset": [],
+          "published_fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "678dfc63-fefb-47a5-a04c-26bcf8cc9f65"
+          ],
+          "renames": []
+        },
+        "T1": {
+          "events": 53698,
+          "fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "678dfc63-fefb-47a5-a04c-26bcf8cc9f65"
+          ],
+          "note": "binary and output file renamed, still in the same directory",
+          "pe_reset": [],
+          "published_fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "678dfc63-fefb-47a5-a04c-26bcf8cc9f65"
+          ],
+          "renames": [
+            [
+              "winx64_payload.exe",
+              "svcmon.exe"
+            ]
+          ]
+        },
+        "T2": {
+          "events": 53698,
+          "fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684"
+          ],
+          "note": "T1 plus the binary moved into a directory the published rules exclude",
+          "pe_reset": [],
+          "published_fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76"
+          ],
+          "renames": [
+            [
+              "C:\\Users\\stevie.marie\\Downloads\\winx64_payload.exe",
+              "C:\\Windows\\System32\\svcmon.exe"
+            ],
+            [
+              "winx64_payload.exe",
+              "svcmon.exe"
+            ]
+          ]
+        },
+        "T3": {
+          "events": 53698,
+          "fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684"
+          ],
+          "note": "T2 plus PE-header fields cleared, as a rebuild would",
+          "pe_reset": [
+            "svcmon.exe"
+          ],
+          "published_fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76"
+          ],
+          "renames": [
+            [
+              "C:\\Users\\stevie.marie\\Downloads\\winx64_payload.exe",
+              "C:\\Windows\\System32\\svcmon.exe"
+            ],
+            [
+              "winx64_payload.exe",
+              "svcmon.exe"
+            ]
+          ]
+        },
+        "control": {
+          "events": 53698,
+          "fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "678dfc63-fefb-47a5-a04c-26bcf8cc9f65"
+          ],
+          "note": "control, rewrites a field no selected rule requires",
+          "pe_reset": [],
+          "published_fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "678dfc63-fefb-47a5-a04c-26bcf8cc9f65"
+          ],
+          "renames": [
+            [
+              "C:\\",
+              "Q:\\"
+            ]
+          ]
+        }
+      },
+      "tool": "logonpasswords"
+    },
+    "LSASS_campaign_02": {
+      "tiers": {
+        "T0": {
+          "events": 42482,
+          "fired": [
+            "2e65275c-8288-4ab4-aeb7-6274f58b6b20",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "5afee48e-67dd-4e03-a783-f74259dcf998",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "8fbf3271-1ef6-4e94-8210-03c2317947f6",
+            "9bd012ee-0dff-44d7-84a0-aa698cfd87a3",
+            "a5a2d357-1ab8-4675-a967-ef9990a59391",
+            "ffa6861c-4461-4f59-8a41-578c39f3f23e"
+          ],
+          "note": "baseline, nothing changed",
+          "pe_reset": [],
+          "published_fired": [
+            "2e65275c-8288-4ab4-aeb7-6274f58b6b20",
+            "5afee48e-67dd-4e03-a783-f74259dcf998",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "8fbf3271-1ef6-4e94-8210-03c2317947f6",
+            "9bd012ee-0dff-44d7-84a0-aa698cfd87a3",
+            "a5a2d357-1ab8-4675-a967-ef9990a59391",
+            "ffa6861c-4461-4f59-8a41-578c39f3f23e"
+          ],
+          "renames": []
+        },
+        "T1": {
+          "events": 42482,
+          "fired": [
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "5afee48e-67dd-4e03-a783-f74259dcf998",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da"
+          ],
+          "note": "binary and output file renamed, still in the same directory",
+          "pe_reset": [],
+          "published_fired": [
+            "5afee48e-67dd-4e03-a783-f74259dcf998",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da"
+          ],
+          "renames": [
+            [
+              "lsass_dump-3.dmp",
+              "cache.tmp"
+            ],
+            [
+              "procdump64.exe",
+              "svcmon64.exe"
+            ],
+            [
+              "lsass_dump.dmp",
+              "cache1.tmp"
+            ],
+            [
+              "procdump.exe",
+              "svcmon.exe"
+            ]
+          ]
+        },
+        "T2": {
+          "events": 42482,
+          "fired": [
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "5afee48e-67dd-4e03-a783-f74259dcf998",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da"
+          ],
+          "note": "T1 plus the binary moved into a directory the published rules exclude",
+          "pe_reset": [],
+          "published_fired": [
+            "5afee48e-67dd-4e03-a783-f74259dcf998",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da"
+          ],
+          "renames": [
+            [
+              "lsass_dump-3.dmp",
+              "cache.tmp"
+            ],
+            [
+              "procdump64.exe",
+              "svcmon64.exe"
+            ],
+            [
+              "lsass_dump.dmp",
+              "cache1.tmp"
+            ],
+            [
+              "procdump.exe",
+              "svcmon.exe"
+            ]
+          ]
+        },
+        "T3": {
+          "events": 42482,
+          "fired": [
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "5afee48e-67dd-4e03-a783-f74259dcf998",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da"
+          ],
+          "note": "T2 plus PE-header fields cleared, as a rebuild would",
+          "pe_reset": [
+            "svcmon64.exe",
+            "svcmon.exe"
+          ],
+          "published_fired": [
+            "5afee48e-67dd-4e03-a783-f74259dcf998",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da"
+          ],
+          "renames": [
+            [
+              "lsass_dump-3.dmp",
+              "cache.tmp"
+            ],
+            [
+              "procdump64.exe",
+              "svcmon64.exe"
+            ],
+            [
+              "lsass_dump.dmp",
+              "cache1.tmp"
+            ],
+            [
+              "procdump.exe",
+              "svcmon.exe"
+            ]
+          ]
+        },
+        "control": {
+          "events": 42482,
+          "fired": [
+            "2e65275c-8288-4ab4-aeb7-6274f58b6b20",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "5afee48e-67dd-4e03-a783-f74259dcf998",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "8fbf3271-1ef6-4e94-8210-03c2317947f6",
+            "9bd012ee-0dff-44d7-84a0-aa698cfd87a3",
+            "a5a2d357-1ab8-4675-a967-ef9990a59391",
+            "ffa6861c-4461-4f59-8a41-578c39f3f23e"
+          ],
+          "note": "control, rewrites a field no selected rule requires",
+          "pe_reset": [],
+          "published_fired": [
+            "2e65275c-8288-4ab4-aeb7-6274f58b6b20",
+            "5afee48e-67dd-4e03-a783-f74259dcf998",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "8fbf3271-1ef6-4e94-8210-03c2317947f6",
+            "9bd012ee-0dff-44d7-84a0-aa698cfd87a3",
+            "a5a2d357-1ab8-4675-a967-ef9990a59391",
+            "ffa6861c-4461-4f59-8a41-578c39f3f23e"
+          ],
+          "renames": [
+            [
+              "C:\\",
+              "Q:\\"
+            ]
+          ]
+        }
+      },
+      "tool": "procdump"
+    },
+    "LSASS_campaign_03": {
+      "tiers": {
+        "T0": {
+          "events": 41954,
+          "fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "646ea171-dded-4578-8a4d-65e9822892e3",
+            "678dfc63-fefb-47a5-a04c-26bcf8cc9f65",
+            "a49fa4d5-11db-418c-8473-1e014a8dd462",
+            "ee2324b0-6673-4767-9e34-c84cdd893483",
+            "ffa6861c-4461-4f59-8a41-578c39f3f23e"
+          ],
+          "note": "baseline, nothing changed",
+          "pe_reset": [],
+          "published_fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "646ea171-dded-4578-8a4d-65e9822892e3",
+            "678dfc63-fefb-47a5-a04c-26bcf8cc9f65",
+            "a49fa4d5-11db-418c-8473-1e014a8dd462",
+            "ffa6861c-4461-4f59-8a41-578c39f3f23e"
+          ],
+          "renames": []
+        },
+        "T1": {
+          "events": 41954,
+          "fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "646ea171-dded-4578-8a4d-65e9822892e3",
+            "678dfc63-fefb-47a5-a04c-26bcf8cc9f65",
+            "a49fa4d5-11db-418c-8473-1e014a8dd462",
+            "ee2324b0-6673-4767-9e34-c84cdd893483"
+          ],
+          "note": "binary and output file renamed, still in the same directory",
+          "pe_reset": [],
+          "published_fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "646ea171-dded-4578-8a4d-65e9822892e3",
+            "678dfc63-fefb-47a5-a04c-26bcf8cc9f65",
+            "a49fa4d5-11db-418c-8473-1e014a8dd462"
+          ],
+          "renames": [
+            [
+              "winx64_payload.exe",
+              "svcmon.exe"
+            ],
+            [
+              "lsass-comsvcs.dmp",
+              "cache.tmp"
+            ]
+          ]
+        },
+        "T2": {
+          "events": 41954,
+          "fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "646ea171-dded-4578-8a4d-65e9822892e3",
+            "a49fa4d5-11db-418c-8473-1e014a8dd462",
+            "ee2324b0-6673-4767-9e34-c84cdd893483"
+          ],
+          "note": "T1 plus the binary moved into a directory the published rules exclude",
+          "pe_reset": [],
+          "published_fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "646ea171-dded-4578-8a4d-65e9822892e3",
+            "a49fa4d5-11db-418c-8473-1e014a8dd462"
+          ],
+          "renames": [
+            [
+              "C:\\Users\\pupy.godoy\\Downloads\\winx64_payload.exe",
+              "C:\\Windows\\System32\\svcmon.exe"
+            ],
+            [
+              "winx64_payload.exe",
+              "svcmon.exe"
+            ],
+            [
+              "lsass-comsvcs.dmp",
+              "cache.tmp"
+            ]
+          ]
+        },
+        "T3": {
+          "events": 41954,
+          "fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "646ea171-dded-4578-8a4d-65e9822892e3",
+            "a49fa4d5-11db-418c-8473-1e014a8dd462",
+            "ee2324b0-6673-4767-9e34-c84cdd893483"
+          ],
+          "note": "T2 plus PE-header fields cleared, as a rebuild would",
+          "pe_reset": [
+            "svcmon.exe"
+          ],
+          "published_fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "646ea171-dded-4578-8a4d-65e9822892e3",
+            "a49fa4d5-11db-418c-8473-1e014a8dd462"
+          ],
+          "renames": [
+            [
+              "C:\\Users\\pupy.godoy\\Downloads\\winx64_payload.exe",
+              "C:\\Windows\\System32\\svcmon.exe"
+            ],
+            [
+              "winx64_payload.exe",
+              "svcmon.exe"
+            ],
+            [
+              "lsass-comsvcs.dmp",
+              "cache.tmp"
+            ]
+          ]
+        },
+        "control": {
+          "events": 41954,
+          "fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "646ea171-dded-4578-8a4d-65e9822892e3",
+            "678dfc63-fefb-47a5-a04c-26bcf8cc9f65",
+            "a49fa4d5-11db-418c-8473-1e014a8dd462",
+            "ee2324b0-6673-4767-9e34-c84cdd893483",
+            "ffa6861c-4461-4f59-8a41-578c39f3f23e"
+          ],
+          "note": "control, rewrites a field no selected rule requires",
+          "pe_reset": [],
+          "published_fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "646ea171-dded-4578-8a4d-65e9822892e3",
+            "678dfc63-fefb-47a5-a04c-26bcf8cc9f65",
+            "a49fa4d5-11db-418c-8473-1e014a8dd462",
+            "ffa6861c-4461-4f59-8a41-578c39f3f23e"
+          ],
+          "renames": [
+            [
+              "C:\\",
+              "Q:\\"
+            ]
+          ]
+        }
+      },
+      "tool": "comsvcs"
+    },
+    "LSASS_campaign_04": {
+      "tiers": {
+        "T0": {
+          "events": 40568,
+          "fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "743c314e-3154-4e7c-b209-8211c9b1d2af",
+            "84c174ab-d3ef-481f-9c86-a50d0b8e3edb",
+            "962fe167-e48d-4fd6-9974-11e5b9a5d6d1",
+            "9f5c1d59-33be-4e60-bcab-85d2f566effd",
+            "a18dd26b-6450-46de-8c91-9659150cf088",
+            "a5a2d357-1ab8-4675-a967-ef9990a59391"
+          ],
+          "note": "baseline, nothing changed",
+          "pe_reset": [],
+          "published_fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "84c174ab-d3ef-481f-9c86-a50d0b8e3edb",
+            "962fe167-e48d-4fd6-9974-11e5b9a5d6d1",
+            "9f5c1d59-33be-4e60-bcab-85d2f566effd",
+            "a18dd26b-6450-46de-8c91-9659150cf088",
+            "a5a2d357-1ab8-4675-a967-ef9990a59391"
+          ],
+          "renames": []
+        },
+        "T1": {
+          "events": 40568,
+          "fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "743c314e-3154-4e7c-b209-8211c9b1d2af",
+            "84c174ab-d3ef-481f-9c86-a50d0b8e3edb",
+            "962fe167-e48d-4fd6-9974-11e5b9a5d6d1",
+            "9f5c1d59-33be-4e60-bcab-85d2f566effd",
+            "a18dd26b-6450-46de-8c91-9659150cf088"
+          ],
+          "note": "binary and output file renamed, still in the same directory",
+          "pe_reset": [],
+          "published_fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "84c174ab-d3ef-481f-9c86-a50d0b8e3edb",
+            "962fe167-e48d-4fd6-9974-11e5b9a5d6d1",
+            "9f5c1d59-33be-4e60-bcab-85d2f566effd",
+            "a18dd26b-6450-46de-8c91-9659150cf088"
+          ],
+          "renames": [
+            [
+              "winx64_payload.exe",
+              "svcmon.exe"
+            ],
+            [
+              "lsass_628.dmp",
+              "cache.tmp"
+            ]
+          ]
+        },
+        "T2": {
+          "events": 40568,
+          "fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "743c314e-3154-4e7c-b209-8211c9b1d2af",
+            "84c174ab-d3ef-481f-9c86-a50d0b8e3edb",
+            "962fe167-e48d-4fd6-9974-11e5b9a5d6d1"
+          ],
+          "note": "T1 plus the binary moved into a directory the published rules exclude",
+          "pe_reset": [],
+          "published_fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "84c174ab-d3ef-481f-9c86-a50d0b8e3edb",
+            "962fe167-e48d-4fd6-9974-11e5b9a5d6d1"
+          ],
+          "renames": [
+            [
+              "C:\\Users\\pedro.gustavo\\Downloads\\winx64_payload.exe",
+              "C:\\Windows\\System32\\svcmon.exe"
+            ],
+            [
+              "winx64_payload.exe",
+              "svcmon.exe"
+            ],
+            [
+              "lsass_628.dmp",
+              "cache.tmp"
+            ]
+          ]
+        },
+        "T3": {
+          "events": 40568,
+          "fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "743c314e-3154-4e7c-b209-8211c9b1d2af",
+            "84c174ab-d3ef-481f-9c86-a50d0b8e3edb",
+            "962fe167-e48d-4fd6-9974-11e5b9a5d6d1"
+          ],
+          "note": "T2 plus PE-header fields cleared, as a rebuild would",
+          "pe_reset": [
+            "svcmon.exe"
+          ],
+          "published_fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "84c174ab-d3ef-481f-9c86-a50d0b8e3edb",
+            "962fe167-e48d-4fd6-9974-11e5b9a5d6d1"
+          ],
+          "renames": [
+            [
+              "C:\\Users\\pedro.gustavo\\Downloads\\winx64_payload.exe",
+              "C:\\Windows\\System32\\svcmon.exe"
+            ],
+            [
+              "winx64_payload.exe",
+              "svcmon.exe"
+            ],
+            [
+              "lsass_628.dmp",
+              "cache.tmp"
+            ]
+          ]
+        },
+        "control": {
+          "events": 40568,
+          "fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "743c314e-3154-4e7c-b209-8211c9b1d2af",
+            "84c174ab-d3ef-481f-9c86-a50d0b8e3edb",
+            "962fe167-e48d-4fd6-9974-11e5b9a5d6d1",
+            "9f5c1d59-33be-4e60-bcab-85d2f566effd",
+            "a18dd26b-6450-46de-8c91-9659150cf088",
+            "a5a2d357-1ab8-4675-a967-ef9990a59391"
+          ],
+          "note": "control, rewrites a field no selected rule requires",
+          "pe_reset": [],
+          "published_fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "84c174ab-d3ef-481f-9c86-a50d0b8e3edb",
+            "962fe167-e48d-4fd6-9974-11e5b9a5d6d1",
+            "9f5c1d59-33be-4e60-bcab-85d2f566effd",
+            "a18dd26b-6450-46de-8c91-9659150cf088",
+            "a5a2d357-1ab8-4675-a967-ef9990a59391"
+          ],
+          "renames": [
+            [
+              "C:\\",
+              "Q:\\"
+            ]
+          ]
+        }
+      },
+      "tool": "out-minidump"
+    },
+    "LSASS_campaign_05": {
+      "tiers": {
+        "T0": {
+          "events": 59707,
+          "fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "9bd012ee-0dff-44d7-84a0-aa698cfd87a3"
+          ],
+          "note": "baseline, nothing changed",
+          "pe_reset": [],
+          "published_fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "9bd012ee-0dff-44d7-84a0-aa698cfd87a3"
+          ],
+          "renames": []
+        },
+        "T1": {
+          "events": 59707,
+          "fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da"
+          ],
+          "note": "binary and output file renamed, still in the same directory",
+          "pe_reset": [],
+          "published_fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da"
+          ],
+          "renames": [
+            [
+              "SharpDump.exe",
+              "svcmon.exe"
+            ],
+            [
+              "debug648.bin",
+              "cache.tmp"
+            ]
+          ]
+        },
+        "T2": {
+          "events": 59707,
+          "fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da"
+          ],
+          "note": "T1 plus the binary moved into a directory the published rules exclude",
+          "pe_reset": [],
+          "published_fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da"
+          ],
+          "renames": [
+            [
+              "SharpDump.exe",
+              "svcmon.exe"
+            ],
+            [
+              "debug648.bin",
+              "cache.tmp"
+            ]
+          ]
+        },
+        "T3": {
+          "events": 59707,
+          "fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da"
+          ],
+          "note": "T2 plus PE-header fields cleared, as a rebuild would",
+          "pe_reset": [
+            "svcmon.exe"
+          ],
+          "published_fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da"
+          ],
+          "renames": [
+            [
+              "SharpDump.exe",
+              "svcmon.exe"
+            ],
+            [
+              "debug648.bin",
+              "cache.tmp"
+            ]
+          ]
+        },
+        "control": {
+          "events": 59707,
+          "fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "9bd012ee-0dff-44d7-84a0-aa698cfd87a3"
+          ],
+          "note": "control, rewrites a field no selected rule requires",
+          "pe_reset": [],
+          "published_fired": [
+            "250ae82f-736e-4844-a68b-0b5e8cc887da",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "9bd012ee-0dff-44d7-84a0-aa698cfd87a3"
+          ],
+          "renames": [
+            [
+              "C:\\",
+              "Q:\\"
+            ]
+          ]
+        }
+      },
+      "tool": "sharpdump"
+    },
+    "LSASS_campaign_06": {
+      "tiers": {
+        "T0": {
+          "events": 58096,
+          "fired": [
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "93d94efc-d7ad-4161-ad7d-1638c4f908d8",
+            "9bd012ee-0dff-44d7-84a0-aa698cfd87a3",
+            "9f5c1d59-33be-4e60-bcab-85d2f566effd",
+            "fa34b441-961a-42fa-a100-ecc28c886725"
+          ],
+          "note": "baseline, nothing changed",
+          "pe_reset": [],
+          "published_fired": [
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "93d94efc-d7ad-4161-ad7d-1638c4f908d8",
+            "9bd012ee-0dff-44d7-84a0-aa698cfd87a3",
+            "9f5c1d59-33be-4e60-bcab-85d2f566effd",
+            "fa34b441-961a-42fa-a100-ecc28c886725"
+          ],
+          "renames": []
+        },
+        "T1": {
+          "events": 58096,
+          "fired": [
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "9f5c1d59-33be-4e60-bcab-85d2f566effd",
+            "fa34b441-961a-42fa-a100-ecc28c886725"
+          ],
+          "note": "binary and output file renamed, still in the same directory",
+          "pe_reset": [],
+          "published_fired": [
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "9f5c1d59-33be-4e60-bcab-85d2f566effd",
+            "fa34b441-961a-42fa-a100-ecc28c886725"
+          ],
+          "renames": [
+            [
+              "Outflank-Dumpert.exe",
+              "svcmon.exe"
+            ],
+            [
+              "dumpert.dmp",
+              "cache.tmp"
+            ]
+          ]
+        },
+        "T2": {
+          "events": 58096,
+          "fired": [
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da"
+          ],
+          "note": "T1 plus the binary moved into a directory the published rules exclude",
+          "pe_reset": [],
+          "published_fired": [
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da"
+          ],
+          "renames": [
+            [
+              "C:\\Windows\\Temp\\Outflank-Dumpert.exe",
+              "C:\\Windows\\System32\\svcmon.exe"
+            ],
+            [
+              "Outflank-Dumpert.exe",
+              "svcmon.exe"
+            ],
+            [
+              "dumpert.dmp",
+              "cache.tmp"
+            ]
+          ]
+        },
+        "T3": {
+          "events": 58096,
+          "fired": [
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da"
+          ],
+          "note": "T2 plus PE-header fields cleared, as a rebuild would",
+          "pe_reset": [
+            "svcmon.exe"
+          ],
+          "published_fired": [
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da"
+          ],
+          "renames": [
+            [
+              "C:\\Windows\\Temp\\Outflank-Dumpert.exe",
+              "C:\\Windows\\System32\\svcmon.exe"
+            ],
+            [
+              "Outflank-Dumpert.exe",
+              "svcmon.exe"
+            ],
+            [
+              "dumpert.dmp",
+              "cache.tmp"
+            ]
+          ]
+        },
+        "control": {
+          "events": 58096,
+          "fired": [
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "93d94efc-d7ad-4161-ad7d-1638c4f908d8",
+            "9bd012ee-0dff-44d7-84a0-aa698cfd87a3",
+            "9f5c1d59-33be-4e60-bcab-85d2f566effd",
+            "fa34b441-961a-42fa-a100-ecc28c886725"
+          ],
+          "note": "control, rewrites a field no selected rule requires",
+          "pe_reset": [],
+          "published_fired": [
+            "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+            "93d94efc-d7ad-4161-ad7d-1638c4f908d8",
+            "9bd012ee-0dff-44d7-84a0-aa698cfd87a3",
+            "9f5c1d59-33be-4e60-bcab-85d2f566effd",
+            "fa34b441-961a-42fa-a100-ecc28c886725"
+          ],
+          "renames": [
+            [
+              "C:\\",
+              "Q:\\"
+            ]
+          ]
+        }
+      },
+      "tool": "outflank-dumpert"
+    },
+    "LSASS_campaign_07": {
+      "tiers": {
+        "T0": {
+          "events": 57724,
+          "fired": [
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "9bd012ee-0dff-44d7-84a0-aa698cfd87a3",
+            "a5a2d357-1ab8-4675-a967-ef9990a59391",
+            "ffa6861c-4461-4f59-8a41-578c39f3f23e"
+          ],
+          "note": "baseline, nothing changed",
+          "pe_reset": [],
+          "published_fired": [
+            "9bd012ee-0dff-44d7-84a0-aa698cfd87a3",
+            "a5a2d357-1ab8-4675-a967-ef9990a59391",
+            "ffa6861c-4461-4f59-8a41-578c39f3f23e"
+          ],
+          "renames": []
+        },
+        "T1": {
+          "events": 57724,
+          "fired": [
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684"
+          ],
+          "note": "binary and output file renamed, still in the same directory",
+          "pe_reset": [],
+          "published_fired": [],
+          "renames": [
+            [
+              "nanodump.x64.exe",
+              "svcmon.exe"
+            ],
+            [
+              "lsass_dump.dmp",
+              "cache.tmp"
+            ]
+          ]
+        },
+        "T2": {
+          "events": 57724,
+          "fired": [
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684"
+          ],
+          "note": "T1 plus the binary moved into a directory the published rules exclude",
+          "pe_reset": [],
+          "published_fired": [],
+          "renames": [
+            [
+              "nanodump.x64.exe",
+              "svcmon.exe"
+            ],
+            [
+              "lsass_dump.dmp",
+              "cache.tmp"
+            ]
+          ]
+        },
+        "T3": {
+          "events": 57724,
+          "fired": [
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684"
+          ],
+          "note": "T2 plus PE-header fields cleared, as a rebuild would",
+          "pe_reset": [
+            "svcmon.exe"
+          ],
+          "published_fired": [],
+          "renames": [
+            [
+              "nanodump.x64.exe",
+              "svcmon.exe"
+            ],
+            [
+              "lsass_dump.dmp",
+              "cache.tmp"
+            ]
+          ]
+        },
+        "control": {
+          "events": 57724,
+          "fired": [
+            "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+            "9bd012ee-0dff-44d7-84a0-aa698cfd87a3",
+            "a5a2d357-1ab8-4675-a967-ef9990a59391",
+            "ffa6861c-4461-4f59-8a41-578c39f3f23e"
+          ],
+          "note": "control, rewrites a field no selected rule requires",
+          "pe_reset": [],
+          "published_fired": [
+            "9bd012ee-0dff-44d7-84a0-aa698cfd87a3",
+            "a5a2d357-1ab8-4675-a967-ef9990a59391",
+            "ffa6861c-4461-4f59-8a41-578c39f3f23e"
+          ],
+          "renames": [
+            [
+              "C:\\",
+              "Q:\\"
+            ]
+          ]
+        }
+      },
+      "tool": "nanodump"
+    }
+  },
+  "published_rule_ids": [
+    "03e2746e-2b31-42f1-ab7a-eb39365b2422",
+    "03f4ca17-de95-428d-a75a-4ee78b047256",
+    "06d71506-7beb-4f22-8888-e2e5e2ca7fd8",
+    "0b4ae027-2a2d-4b93-8c7e-962caaba5b2a",
+    "0e277796-5f23-4e49-a490-483131d4f6e1",
+    "0f920ebe-7aea-4c54-b202-9aa0c609cfe5",
+    "129966c9-de17-4334-a123-8b58172e664d",
+    "1a1ed54a-2ba4-4221-94d5-01dee560d71e",
+    "1f0b4cac-9c81-41f4-95d0-8475ff46b3e2",
+    "23ceaf5c-b6f1-4a32-8559-f2ff734be516",
+    "250ae82f-736e-4844-a68b-0b5e8cc887da",
+    "2704ab9e-afe2-4854-a3b1-0c0706d03578",
+    "2e65275c-8288-4ab4-aeb7-6274f58b6b20",
+    "2e69f167-47b5-4ae7-a390-47764529eff5",
+    "2f869d59-7f6a-4931-992c-cce556ff2d53",
+    "33efc23c-6ea2-4503-8cfe-bdf82ce8f719",
+    "36d88494-1d43-4dc0-b3fa-35c8fea0ca9d",
+    "472159c5-31b9-4f56-b794-b766faa8b0a7",
+    "4976aa50-8f41-45c6-8b15-ab3fc10e79ed",
+    "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+    "4be8b654-0c01-4c9d-a10c-6b28467fc651",
+    "4c0aaedc-154c-4427-ada0-d80ef9c9deb6",
+    "515c8be5-e5df-4c5e-8f6d-a4a2f05e4b48",
+    "55e29995-75e7-451a-bef0-6225e2f13597",
+    "589ac73f-8e12-409c-964e-31a2f5775ae2",
+    "5afee48e-67dd-4e03-a783-f74259dcf998",
+    "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+    "646ea171-dded-4578-8a4d-65e9822892e3",
+    "66e563f9-1cbd-4a22-a957-d8b7c0f44372",
+    "678dfc63-fefb-47a5-a04c-26bcf8cc9f65",
+    "6902955a-01b7-432c-b32a-6f5f81d8f625",
+    "69ca12af-119d-44ed-b50f-a47af0ebc364",
+    "736ffa74-5f6f-44ca-94ef-1c0df4f51d2a",
+    "78cc2dd2-7d20-4d32-93ff-057084c38b93",
+    "79aeeb41-8156-4fac-a0cd-076495ab82a1",
+    "79b06761-465f-4f88-9ef2-150e24d3d737",
+    "7aa7009a-28b9-4344-8c1f-159489a390df",
+    "84c174ab-d3ef-481f-9c86-a50d0b8e3edb",
+    "857c8db3-c89b-42fb-882b-f681c7cf4da2",
+    "8a1b2c3d-4e5f-6789-abcd-ef1234567890",
+    "8cde342c-ba48-4b74-b615-172c330f2e93",
+    "8fbf3271-1ef6-4e94-8210-03c2317947f6",
+    "910ab938-668b-401b-b08c-b596e80fdca5",
+    "93d94efc-d7ad-4161-ad7d-1638c4f908d8",
+    "961d0ba2-3eea-4303-a930-2cf78bbfcc5e",
+    "962fe167-e48d-4fd6-9974-11e5b9a5d6d1",
+    "9a4ccd1a-3526-4d99-b980-9f9c5d3a6ff3",
+    "9bd012ee-0dff-44d7-84a0-aa698cfd87a3",
+    "9f5c1d59-33be-4e60-bcab-85d2f566effd",
+    "a0a278fe-2c0e-4de2-ac3c-c68b08a9ba98",
+    "a18dd26b-6450-46de-8c91-9659150cf088",
+    "a18e0862-127b-43ca-be12-1a542c75c7c5",
+    "a49fa4d5-11db-418c-8473-1e014a8dd462",
+    "a5a2d357-1ab8-4675-a967-ef9990a59391",
+    "a642964e-bead-4bed-8910-1bb4d63e3b4d",
+    "a6b33c02-8305-488f-8585-03cb2a7763f2",
+    "aa1697b7-d611-4f9a-9cb2-5125b4ccfd5c",
+    "aa35a627-33fb-4d04-a165-d33b4afca3e8",
+    "b1876533-4ed5-4a83-90f3-b8645840a413",
+    "b1bd3a59-c1fd-4860-9f40-4dd161a7d1f5",
+    "b99a1518-1ad5-4f65-bc95-1ffff97a8fd0",
+    "bdc64095-d59a-42a2-8588-71fd9c9d9abc",
+    "c3e76af5-4ce0-4a14-9c9a-25ceb8fda182",
+    "c8da0dfd-4ed0-4b68-962d-13c9c884384e",
+    "ca621ba5-54ab-4035-9942-d378e6fcde3c",
+    "d0d2f720-d14f-448d-8242-51ff396a334e",
+    "d474c8fe-bb69-4ea0-b7d9-f682b56d52d3",
+    "dee0a7a3-f200-4112-a99b-952196d81e42",
+    "e074832a-eada-4fd7-94a1-10642b130e16",
+    "e5b33f7d-eb93-48b6-9851-09e1e610b6d7",
+    "e76c8240-d68f-4773-8880-5c6f63595aaf",
+    "eb1c4225-1c23-4241-8dd4-051389fde4ce",
+    "edadb1e5-5919-4e4c-8462-a9e643b02c4b",
+    "f0d1feba-4344-4ca9-8121-a6c97bd6df52",
+    "f239b326-2f41-4d6b-9dfa-c846a60ef505",
+    "f26307d8-14cd-47e3-a26b-4b4769f24af6",
+    "f8be3e82-46a3-4e4e-ada5-8e538ae8b9c9",
+    "fa34b441-961a-42fa-a100-ecc28c886725",
+    "fb656378-f909-47c1-8747-278bf09f4f4f",
+    "ffa6861c-4461-4f59-8a41-578c39f3f23e"
+  ],
+  "sources": {
+    "security_datasets": "d9d40ef123d2c87d5d3df28c96bcab4f0faccc87",
+    "sigmahq": "1aacbedf7fc04067e6b1b2594c4b7c1c2ff649a9"
+  },
+  "technique": "T1003.001",
+  "titles": {
+    "03e2746e-2b31-42f1-ab7a-eb39365b2422": "APT31 Judgement Panda Activity",
+    "03f4ca17-de95-428d-a75a-4ee78b047256": "HackTool - Impacket File Indicators",
+    "06d71506-7beb-4f22-8888-e2e5e2ca7fd8": "Mimikatz Use",
+    "0b4ae027-2a2d-4b93-8c7e-962caaba5b2a": "Time Travel Debugging Utility Usage",
+    "0e277796-5f23-4e49-a490-483131d4f6e1": "Dbghelp/Dbgcore DLL Loaded By Uncommon/Suspicious Process",
+    "0f920ebe-7aea-4c54-b202-9aa0c609cfe5": "Potential Credential Dumping Attempt Via PowerShell",
+    "129966c9-de17-4334-a123-8b58172e664d": "Potential Windows Defender AV Bypass Via Dump64.EXE Rename",
+    "1a1ed54a-2ba4-4221-94d5-01dee560d71e": "Renamed CreateDump Utility Execution",
+    "1f0b4cac-9c81-41f4-95d0-8475ff46b3e2": "PPL Tampering Via WerFaultSecure",
+    "23ceaf5c-b6f1-4a32-8559-f2ff734be516": "Dumping Process via Sqldumper.exe",
+    "250ae82f-736e-4844-a68b-0b5e8cc887da": "Potential Shellcode Injection",
+    "2704ab9e-afe2-4854-a3b1-0c0706d03578": "HackTool - Dumpert Process Dumper Execution",
+    "2e65275c-8288-4ab4-aeb7-6274f58b6b20": "Procdump Execution",
+    "2e69f167-47b5-4ae7-a390-47764529eff5": "Transferring Files with Credential Data via Network Shares - Zeek",
+    "2f869d59-7f6a-4931-992c-cce556ff2d53": "Potential Adplus.EXE Abuse",
+    "33efc23c-6ea2-4503-8cfe-bdf82ce8f719": "Lsass Full Dump Request Via DumpType Registry Settings",
+    "36d88494-1d43-4dc0-b3fa-35c8fea0ca9d": "HackTool - CreateMiniDump Execution",
+    "472159c5-31b9-4f56-b794-b766faa8b0a7": "Suspicious LSASS Access Via MalSecLogon",
+    "4976aa50-8f41-45c6-8b15-ab3fc10e79ed": "Credential Dumping Tools Service Execution - System",
+    "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76": "Potentially Suspicious AccessMask Requested From LSASS",
+    "4b447e9d-1c82-47f6-9a01-a1bb0a22d684": "LSASS Handle Request From Unexpected Process",
+    "4be8b654-0c01-4c9d-a10c-6b28467fc651": "LSASS Access From Potentially White-Listed Processes",
+    "4c0aaedc-154c-4427-ada0-d80ef9c9deb6": "Process Access via TrolleyExpress Exclusion",
+    "515c8be5-e5df-4c5e-8f6d-a4a2f05e4b48": "CreateDump Process Dump",
+    "55e29995-75e7-451a-bef0-6225e2f13597": "Potential Credential Dumping Via LSASS SilentProcessExit Technique",
+    "589ac73f-8e12-409c-964e-31a2f5775ae2": "HackTool - WSASS Execution",
+    "5afee48e-67dd-4e03-a783-f74259dcf998": "Potential LSASS Process Dump Via Procdump",
+    "5ef9853e-4d0e-4a70-846f-a9ca37d876da": "Potential Credential Dumping Activity Via LSASS",
+    "646ea171-dded-4578-8a4d-65e9822892e3": "Process Memory Dump Via Comsvcs.DLL",
+    "66e563f9-1cbd-4a22-a957-d8b7c0f44372": "HackTool - XORDump Execution",
+    "678dfc63-fefb-47a5-a04c-26bcf8cc9f65": "Uncommon GrantedAccess Flags On LSASS",
+    "6902955a-01b7-432c-b32a-6f5f81d8f625": "LSASS Process Dump Artefact In CrashDumps Folder",
+    "69ca12af-119d-44ed-b50f-a47af0ebc364": "LSASS Process Memory Dump Creation Via Taskmgr.EXE",
+    "736ffa74-5f6f-44ca-94ef-1c0df4f51d2a": "HackTool - CrackMapExec File Indicators",
+    "743c314e-3154-4e7c-b209-8211c9b1d2af": "PowerShell Script Block Calling MiniDumpWriteDump",
+    "78cc2dd2-7d20-4d32-93ff-057084c38b93": "Antivirus - Password Dumper Signature",
+    "79aeeb41-8156-4fac-a0cd-076495ab82a1": "NotPetya Ransomware Activity",
+    "79b06761-465f-4f88-9ef2-150e24d3d737": "Potential SysInternals ProcDump Evasion",
+    "7aa7009a-28b9-4344-8c1f-159489a390df": "HackTool - Windows Credential Editor (WCE) Execution",
+    "84c174ab-d3ef-481f-9c86-a50d0b8e3edb": "PowerShell Get-Process LSASS in ScriptBlock",
+    "857c8db3-c89b-42fb-882b-f681c7cf4da2": "Unsigned Image Loaded Into LSASS Process",
+    "8a1b2c3d-4e5f-6789-abcd-ef1234567890": "PUA - Memory Dump Mount Via MemProcFS",
+    "8cde342c-ba48-4b74-b615-172c330f2e93": "Suspicious Renamed Comsvcs DLL Loaded By Rundll32",
+    "8fbf3271-1ef6-4e94-8210-03c2317947f6": "Cred Dump Tools Dropped Files",
+    "910ab938-668b-401b-b08c-b596e80fdca5": "Transferring Files with Credential Data via Network Shares",
+    "93d94efc-d7ad-4161-ad7d-1638c4f908d8": "HackTool - Dumpert Process Dumper Default File",
+    "961d0ba2-3eea-4303-a930-2cf78bbfcc5e": "HackTool - Credential Dumping Tools Named Pipe Created",
+    "962fe167-e48d-4fd6-9974-11e5b9a5d6d1": "LSASS Access From Non System Account",
+    "9a4ccd1a-3526-4d99-b980-9f9c5d3a6ff3": "Potential Credential Dumping Via WER",
+    "9bd012ee-0dff-44d7-84a0-aa698cfd87a3": "LSASS Memory Access by Tool With Dump Keyword In Name",
+    "9f5c1d59-33be-4e60-bcab-85d2f566effd": "Suspicious Process Access to LSASS with Dbgcore/Dbghelp DLLs",
+    "a0a278fe-2c0e-4de2-ac3c-c68b08a9ba98": "LSASS Access Detected via Attack Surface Reduction",
+    "a18dd26b-6450-46de-8c91-9659150cf088": "Potentially Suspicious GrantedAccess Flags On LSASS",
+    "a18e0862-127b-43ca-be12-1a542c75c7c5": "LSASS Process Crashed - Application",
+    "a49fa4d5-11db-418c-8473-1e014a8dd462": "Lsass Memory Dump via Comsvcs DLL",
+    "a5a2d357-1ab8-4675-a967-ef9990a59391": "LSASS Process Memory Dump Files",
+    "a642964e-bead-4bed-8910-1bb4d63e3b4d": "HackTool - Mimikatz Execution",
+    "a6b33c02-8305-488f-8585-03cb2a7763f2": "Windows Credential Editor Registry",
+    "aa1697b7-d611-4f9a-9cb2-5125b4ccfd5c": "Password Dumper Activity on LSASS",
+    "aa35a627-33fb-4d04-a165-d33b4afca3e8": "Remote LSASS Process Access Through Windows Remote Management",
+    "b1876533-4ed5-4a83-90f3-b8645840a413": "HackTool - SafetyKatz Execution",
+    "b1bd3a59-c1fd-4860-9f40-4dd161a7d1f5": "HackTool - HandleKatz Duplicating LSASS Handle",
+    "b99a1518-1ad5-4f65-bc95-1ffff97a8fd0": "HackTool - Inveigh Execution",
+    "bdc64095-d59a-42a2-8588-71fd9c9d9abc": "Suspicious Unsigned Dbghelp/Dbgcore DLL Loaded",
+    "c3e76af5-4ce0-4a14-9c9a-25ceb8fda182": "WerFault LSASS Process Memory Dump",
+    "c8da0dfd-4ed0-4b68-962d-13c9c884384e": "Potential Credential Dumping Via LSASS Process Clone",
+    "ca621ba5-54ab-4035-9942-d378e6fcde3c": "HackTool - HandleKatz LSASS Dumper Execution",
+    "d0d2f720-d14f-448d-8242-51ff396a334e": "HackTool - Generic Process Access",
+    "d474c8fe-bb69-4ea0-b7d9-f682b56d52d3": "HackTool - Doppelanger LSASS Dumper Execution",
+    "dee0a7a3-f200-4112-a99b-952196d81e42": "DumpMinitool Execution",
+    "e074832a-eada-4fd7-94a1-10642b130e16": "HackTool - SafetyKatz Dump Indicator",
+    "e5b33f7d-eb93-48b6-9851-09e1e610b6d7": "Credential Dumping Attempt Via WerFault",
+    "e76c8240-d68f-4773-8880-5c6f63595aaf": "Time Travel Debugging Utility Usage - Image",
+    "eb1c4225-1c23-4241-8dd4-051389fde4ce": "Suspicious DumpMinitool Execution",
+    "edadb1e5-5919-4e4c-8462-a9e643b02c4b": "Process Memory Dump via RdrLeakDiag.EXE",
+    "ee2324b0-6673-4767-9e34-c84cdd893483": "LSASS Dump Via Comsvcs MiniDump Export",
+    "f0d1feba-4344-4ca9-8121-a6c97bd6df52": "Credential Dumping Tools Service Execution - Security",
+    "f239b326-2f41-4d6b-9dfa-c846a60ef505": "Password Dumper Remote Thread in LSASS",
+    "f26307d8-14cd-47e3-a26b-4b4769f24af6": "HackTool - CrackMapExec Process Patterns",
+    "f8be3e82-46a3-4e4e-ada5-8e538ae8b9c9": "Credential Dumping Activity By Python Based Tool",
+    "fa34b441-961a-42fa-a100-ecc28c886725": "LSASS Access From Program In Potentially Suspicious Folder",
+    "fb656378-f909-47c1-8747-278bf09f4f4f": "Potential Credential Dumping Attempt Via PowerShell Remote Thread",
+    "ffa6861c-4461-4f59-8a41-578c39f3f23e": "LSASS Dump Keyword In CommandLine"
+  },
+  "validation_problems": []
+}

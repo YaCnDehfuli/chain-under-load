@@ -70,3 +70,5 @@ jobs:
         run: python -m eval.corpus --fetch
       - name: results must match a fresh run
         run: python -m eval.report --check
+      - name: sensitivity must match a fresh run
+        run: python -m eval.report --check-sensitivity

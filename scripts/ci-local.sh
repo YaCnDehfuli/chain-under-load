@@ -57,6 +57,8 @@ if [ "$FAST" = "1" ]; then
 else
     run "job benchmark: corpus" "$PYTHON" -m eval.corpus --fetch
     run "job benchmark: results match a fresh run" "$PYTHON" -m eval.report --check
+    run "job benchmark: sensitivity matches a fresh run" \
+        "$PYTHON" -m eval.report --check-sensitivity
 fi
 
 echo
