@@ -8,6 +8,12 @@ T1003.001. Run against seven real dumping tools in 354,229 events of recorded
 Windows telemetry, each tool trips between 3 and 8 of them, median 5, and no
 single rule detects more than 4 of the 7.
 
+Rename the binary and the output file, changing nothing about how the tool
+reads memory, and that falls to between 0 and 7. nanodump goes to zero.
+procdump goes from 7 to 2. Move the renamed binary into `System32` and the
+access-mask rules drop out too, not because they read a name but because they
+exclude that directory themselves.
+
 [Findings](findings.md) | [Method](docs/method.md) | [Results](benchmark/results.md) | [Decisions](docs/decisions.md)
 
 ## Why measure at all
@@ -200,6 +206,40 @@ GrantedAccess Flags On LSASS` drops every source under `Program Files`,
 `C:\Program Files\procdump64.exe`, SharpDump from
 `C:\Program Files\SharpDump.exe`, and nanodump from
 `C:\Windows\System32\nanodump.x64.exe`.
+
+## What survives a rename
+
+The coverage above is measured against the names these operators happened to
+pick, which makes it an upper bound. Published rules firing after each change:
+
+| tool | baseline | renamed | relocated | rebuilt | control |
+|---|---|---|---|---|---|
+| out-minidump | 8 | 7 | 5 | 5 | 8 |
+| procdump | 7 | 2 | 2 | 2 | 7 |
+| comsvcs | 6 | 5 | 4 | 4 | 6 |
+| outflank-dumpert | 5 | 3 | 1 | 1 | 5 |
+| logonpasswords | 3 | 3 | 2 | 2 | 3 |
+| sharpdump | 3 | 2 | 2 | 2 | 3 |
+| nanodump | 3 | 0 | 0 | 0 | 3 |
+
+Nothing behavioural is altered. The access mask, the call trace and the process
+tree keep the values that were recorded, and only strings the operator chose
+freely change. The control column mutates a field no selected rule reads and
+comes back identical to the baseline on all seven, which is what makes the rest
+of the table readable as fragility rather than as damage.
+
+Relocation costs the access-mask rules, which read no filename at all. They are
+lost to their own filter, the one excluding every source under `Program Files`
+and `System32`.
+
+The six rules in `rules/` are unchanged at every tier, though they were written
+after reading these findings, so that is weaker evidence than it looks.
+[findings.md](findings.md) has the per-rule losses and the reasoning, including
+why the rebuild tier turned out flat.
+
+This measures sensitivity to renaming and relocation on one corpus. An operator
+who changes how the tool reads memory, rather than what it is called, is
+outside what any of it shows.
 
 ## What I wrote in response
 
