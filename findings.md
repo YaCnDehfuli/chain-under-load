@@ -151,6 +151,107 @@ This is one rule measured on one corpus. It has not been run anywhere near a
 production estate, and the false positive rate on a real fleet with real
 software will be higher.
 
+## Coverage under trivial renaming
+
+Everything above measures the tools as their operators happened to name them.
+That is an upper bound. This section measures what survives when the operator
+changes what an operator can change for free.
+
+Three tiers, ordered by effort. T1 renames the binary and the output file. T2
+also moves the binary into a directory the published rules exclude. T3 also
+clears the PE header, as a rebuild would. Nothing behavioural is touched, and
+the argument for perturbing a capture at all is in
+[docs/decisions.md](docs/decisions.md). Full output in
+`benchmark/sensitivity.md`.
+
+Published rules firing, per tool:
+
+| tool | T0 | T1 rename | T2 relocate | T3 rebuild | control |
+|---|---|---|---|---|---|
+| out-minidump | 8 | 7 | 5 | 5 | 8 |
+| procdump | 7 | 2 | 2 | 2 | 7 |
+| comsvcs | 6 | 5 | 4 | 4 | 6 |
+| outflank-dumpert | 5 | 3 | 1 | 1 | 5 |
+| logonpasswords | 3 | 3 | 2 | 2 | 3 |
+| sharpdump | 3 | 2 | 2 | 2 | 3 |
+| nanodump | 3 | 0 | 0 | 0 | 3 |
+
+The control column is the reason to believe the rest. It mutates
+`CurrentDirectory`, a field none of the 80 selected rules reads, and coverage
+is identical to T0 on all seven captures. A mutator that damaged events would
+show up there first.
+
+### Renaming a file costs more than moving it
+
+**nanodump goes to zero.** Phase 1 argued from the rule text that all three of
+its detections keyed on the string `dump`. Renaming the binary and the dump
+file removes all three, and nothing replaces them. The behaviour is unchanged:
+it still opens LSASS with `0x1010` and still writes a minidump.
+
+procdump loses five of seven to a rename: `Procdump Execution`, `Cred Dump
+Tools Dropped Files`, `LSASS Memory Access by Tool With Dump Keyword In Name`,
+`LSASS Process Memory Dump Files` and `LSASS Dump Keyword In CommandLine`. What
+survives is the access-mask pair, which never read a name.
+
+### Moving into an excluded directory costs the mask rules
+
+T2 is where `Uncommon GrantedAccess Flags On LSASS` and `Potentially Suspicious
+GrantedAccess Flags On LSASS` drop out, along with `Suspicious Process Access to
+LSASS with Dbgcore/Dbghelp DLLs`.
+
+These rules do not read a filename. They are lost to their own filter: the one
+that excludes every `SourceImage` under `Program Files`, `System32` and
+`SysWOW64`, which phase 1 flagged from reading the rule and this measures.
+Moving a renamed binary into `System32` is one command, and it removes the
+behavioural detections that survived the rename.
+
+outflank-dumpert shows both effects in sequence, 5 to 3 on the rename and 3 to
+1 on the move.
+
+### The PE-header tier is flat, which was not the expectation
+
+T3 equals T2 for every tool. Renaming a file leaves its version resource
+intact, so a rule reading `OriginalFileName` should have survived T1 and T2 and
+failed here. That distinction is real in principle and does not appear in this
+corpus.
+
+Fourteen of the 80 selected rules read PE-header fields. Exactly one of them,
+`Process Memory Dump Via Comsvcs.DLL`, ever fires on these captures, and it
+reads the PE header of `rundll32.exe`, a signed Windows binary the operator did
+not bring and cannot rename. The other thirteen target tooling this corpus does
+not contain: createdump, dump64, WerFault, adplus, DumpMinitool.
+
+So the rename-resistant detection layer exists in SigmaHQ and does not cover
+any of these seven tools. Two of the fourteen, `Renamed CreateDump Utility
+Execution` and `Potential Windows Defender AV Bypass Via Dump64.EXE Rename`,
+are written specifically to catch renaming, which makes their absence here the
+sharper version of the point rather than a footnote.
+
+### The rules in this repo
+
+Unchanged at every tier, on every tool. That is the design claim phase 1 made
+in prose, now measured: keying on the caller and the access mask rather than on
+a name leaves nothing for a rename to remove. The T2 relocation into `System32`
+does not help either, because the filters name a binary and its expected
+directory together rather than excluding directories wholesale.
+
+This is a weaker result than it looks. The rules were written after reading the
+phase 1 findings, so surviving a rename is what they were built to do, and a
+sensitivity analysis of one's own design choice is close to circular. What it
+rules out is a rule that accidentally depended on a name, which is worth
+knowing and was not otherwise checkable.
+
+### What this does not show
+
+An operator who changes behaviour rather than names is outside all of it. Every
+tier here keeps the access mask, the call trace and the process tree exactly as
+recorded. A tool that reads LSASS a different way would need a different
+capture, not a mutation.
+
+The replacement names are recorded in `benchmark/sensitivity.json`. They were
+chosen to be unremarkable and checked against each capture so that no
+replacement collides with a name already present.
+
 ## The rest of the chain
 
 The other five rules cover stages that appear in the same captures. Coverage is
