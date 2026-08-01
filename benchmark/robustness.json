@@ -1,0 +1,3611 @@
+{
+  "clean_baseline": {
+    "measured": false,
+    "note": "needs the Nextron evtx-baseline run in scripts/, see contrib/"
+  },
+  "effective_families": 39,
+  "families": [
+    {
+      "index": 0,
+      "members": [
+        "Unusual File Download from Direct IP Address"
+      ],
+      "rules": [
+        "025bd229-fd1f-4fdb-97ab-20006e1a5368"
+      ]
+    },
+    {
+      "index": 1,
+      "members": [
+        "PowerShell Core DLL Loaded By Non PowerShell Process"
+      ],
+      "rules": [
+        "092bc4b9-3d1d-43b4-a6b4-8c8acd83522f"
+      ]
+    },
+    {
+      "index": 2,
+      "members": [
+        "PSScriptPolicyTest Creation By Uncommon Process"
+      ],
+      "rules": [
+        "1027d292-dd87-4a1a-8701-2abe04d7783c"
+      ]
+    },
+    {
+      "index": 3,
+      "members": [
+        "Usage Of Web Request Commands And Cmdlets - ScriptBlock"
+      ],
+      "rules": [
+        "1139d2e2-84b1-4226-b445-354492eba8ba"
+      ]
+    },
+    {
+      "index": 4,
+      "members": [
+        "Potential Raspberry Robin Registry Set Internet Settings ZoneMap"
+      ],
+      "rules": [
+        "16a4c7b3-4681-49d0-8d58-3e9b796dcb43"
+      ]
+    },
+    {
+      "index": 5,
+      "members": [
+        "Elevated System Shell Spawned From Uncommon Parent Location",
+        "Elevated System Shell Spawned"
+      ],
+      "rules": [
+        "178e615d-e666-498b-9630-9ed363038101",
+        "61065c72-5d7d-44ef-bf41-6a36684b545f"
+      ]
+    },
+    {
+      "index": 6,
+      "members": [
+        "Hacktool Execution - Imphash"
+      ],
+      "rules": [
+        "24e3e58a-646b-4b50-adef-02ef935b9fc8"
+      ]
+    },
+    {
+      "index": 7,
+      "members": [
+        "Potential Shellcode Injection"
+      ],
+      "rules": [
+        "250ae82f-736e-4844-a68b-0b5e8cc887da"
+      ]
+    },
+    {
+      "index": 8,
+      "members": [
+        "PUA - Sysinternal Tool Execution - Registry",
+        "PUA - Sysinternals Tools Execution - Registry"
+      ],
+      "rules": [
+        "25ffa65d-76d8-4da5-a832-3f2b0136e133",
+        "c7da8edc-49ae-45a2-9e61-9fd860e4e73d"
+      ]
+    },
+    {
+      "index": 9,
+      "members": [
+        "Suspicious SYSTEM User Process Creation",
+        "Process Memory Dump Via Comsvcs.DLL",
+        "Potentially Suspicious Rundll32 Activity",
+        "LSASS Dump Via Comsvcs MiniDump Export"
+      ],
+      "rules": [
+        "2617e7ed-adb7-40ba-b0f3-8f9945fe6c09",
+        "646ea171-dded-4578-8a4d-65e9822892e3",
+        "e593cf51-88db-4ee1-b920-37e89012a3c9",
+        "ee2324b0-6673-4767-9e34-c84cdd893483"
+      ]
+    },
+    {
+      "index": 10,
+      "members": [
+        "Creation of an Executable by an Executable"
+      ],
+      "rules": [
+        "297afac9-5d02-4138-8c58-b977bac60556"
+      ]
+    },
+    {
+      "index": 11,
+      "members": [
+        "Procdump Execution",
+        "Potential LSASS Process Dump Via Procdump",
+        "Potential Execution of Sysinternals Tools"
+      ],
+      "rules": [
+        "2e65275c-8288-4ab4-aeb7-6274f58b6b20",
+        "5afee48e-67dd-4e03-a783-f74259dcf998",
+        "7cccd811-7ae9-4ebe-9afd-cb5c406b824b"
+      ]
+    },
+    {
+      "index": 12,
+      "members": [
+        "Suspicious High IntegrityLevel Conhost Legacy Option"
+      ],
+      "rules": [
+        "3037d961-21e9-4732-b27a-637bcc7bf539"
+      ]
+    },
+    {
+      "index": 13,
+      "members": [
+        "DMP/HDMP File Creation"
+      ],
+      "rules": [
+        "3a525307-d100-48ae-b3b9-0964699d7f97"
+      ]
+    },
+    {
+      "index": 14,
+      "members": [
+        "Potentially Suspicious AccessMask Requested From LSASS"
+      ],
+      "rules": [
+        "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76"
+      ]
+    },
+    {
+      "index": 15,
+      "members": [
+        "LSASS Handle Request From Unexpected Process"
+      ],
+      "rules": [
+        "4b447e9d-1c82-47f6-9a01-a1bb0a22d684"
+      ]
+    },
+    {
+      "index": 16,
+      "members": [
+        "Alternate PowerShell Hosts Pipe",
+        "New PowerShell Instance Created"
+      ],
+      "rules": [
+        "58cb02d5-78ce-4692-b3e1-dce850aae41a",
+        "ac7102b4-9e1e-4802-9b4f-17c5524c015c"
+      ]
+    },
+    {
+      "index": 17,
+      "members": [
+        "Potential Credential Dumping Activity Via LSASS"
+      ],
+      "rules": [
+        "5ef9853e-4d0e-4a70-846f-a9ca37d876da"
+      ]
+    },
+    {
+      "index": 18,
+      "members": [
+        "New Application in AppCompat"
+      ],
+      "rules": [
+        "60936b49-fca0-4f32-993d-7415edcf9a5d"
+      ]
+    },
+    {
+      "index": 19,
+      "members": [
+        "Alternate PowerShell Hosts - PowerShell Module"
+      ],
+      "rules": [
+        "64e8e417-c19a-475a-8d19-98ea705394cc"
+      ]
+    },
+    {
+      "index": 20,
+      "members": [
+        "System Drawing DLL Load"
+      ],
+      "rules": [
+        "666ecfc7-229d-42b8-821e-1a8f8cb7057c"
+      ]
+    },
+    {
+      "index": 21,
+      "members": [
+        "Uncommon GrantedAccess Flags On LSASS"
+      ],
+      "rules": [
+        "678dfc63-fefb-47a5-a04c-26bcf8cc9f65"
+      ]
+    },
+    {
+      "index": 22,
+      "members": [
+        "Sysmon File Executable Creation Detected"
+      ],
+      "rules": [
+        "693a44e9-7f26-4cb6-b787-214867672d3a"
+      ]
+    },
+    {
+      "index": 23,
+      "members": [
+        "PowerShell Script Block Calling MiniDumpWriteDump",
+        "PowerShell Get-Process LSASS in ScriptBlock",
+        "Malicious PowerShell Commandlets - ScriptBlock",
+        "Suspicious Process Discovery With Get-Process"
+      ],
+      "rules": [
+        "743c314e-3154-4e7c-b209-8211c9b1d2af",
+        "84c174ab-d3ef-481f-9c86-a50d0b8e3edb",
+        "89819aa4-bbd6-46bc-88ec-c7f7fe30efa6",
+        "af4c87ce-bdda-4215-b998-15220772e993"
+      ]
+    },
+    {
+      "index": 24,
+      "members": [
+        "Malicious PowerShell Commandlets - PoshModule"
+      ],
+      "rules": [
+        "7d0d0329-0ef1-4e84-a9f5-49500f9d7c6c"
+      ]
+    },
+    {
+      "index": 25,
+      "members": [
+        "ADS Zone.Identifier Deleted"
+      ],
+      "rules": [
+        "7eac0a16-5832-4e81-865f-0268a6d19e4b"
+      ]
+    },
+    {
+      "index": 26,
+      "members": [
+        "Bad Opsec Powershell Code Artifacts"
+      ],
+      "rules": [
+        "8d31a8ce-46b5-4dd6-bdc3-680931f1db86"
+      ]
+    },
+    {
+      "index": 27,
+      "members": [
+        "Cred Dump Tools Dropped Files"
+      ],
+      "rules": [
+        "8fbf3271-1ef6-4e94-8210-03c2317947f6"
+      ]
+    },
+    {
+      "index": 28,
+      "members": [
+        "HackTool - Dumpert Process Dumper Default File"
+      ],
+      "rules": [
+        "93d94efc-d7ad-4161-ad7d-1638c4f908d8"
+      ]
+    },
+    {
+      "index": 29,
+      "members": [
+        "LSASS Access From Non System Account"
+      ],
+      "rules": [
+        "962fe167-e48d-4fd6-9974-11e5b9a5d6d1"
+      ]
+    },
+    {
+      "index": 30,
+      "members": [
+        "LSASS Memory Access by Tool With Dump Keyword In Name"
+      ],
+      "rules": [
+        "9bd012ee-0dff-44d7-84a0-aa698cfd87a3"
+      ]
+    },
+    {
+      "index": 31,
+      "members": [
+        "WinAPI Function Calls Via PowerShell Scripts",
+        "Malicious PowerShell Keywords"
+      ],
+      "rules": [
+        "9f22ccd5-a435-453b-af96-bf99cbb594d4",
+        "f62176f3-8128-4faa-bf6c-83261322e5eb"
+      ]
+    },
+    {
+      "index": 32,
+      "members": [
+        "Suspicious Process Access to LSASS with Dbgcore/Dbghelp DLLs"
+      ],
+      "rules": [
+        "9f5c1d59-33be-4e60-bcab-85d2f566effd"
+      ]
+    },
+    {
+      "index": 33,
+      "members": [
+        "Potentially Suspicious GrantedAccess Flags On LSASS"
+      ],
+      "rules": [
+        "a18dd26b-6450-46de-8c91-9659150cf088"
+      ]
+    },
+    {
+      "index": 34,
+      "members": [
+        "LSASS Process Memory Dump Files"
+      ],
+      "rules": [
+        "a5a2d357-1ab8-4675-a967-ef9990a59391"
+      ]
+    },
+    {
+      "index": 35,
+      "members": [
+        "Hidden Executable In NTFS Alternate Data Stream"
+      ],
+      "rules": [
+        "b69888d4-380c-45ce-9cf9-d9ce46e67821"
+      ]
+    },
+    {
+      "index": 36,
+      "members": [
+        "LSASS Access From Program In Potentially Suspicious Folder"
+      ],
+      "rules": [
+        "fa34b441-961a-42fa-a100-ecc28c886725"
+      ]
+    },
+    {
+      "index": 37,
+      "members": [
+        "Amsi.DLL Load By Uncommon Process"
+      ],
+      "rules": [
+        "facd1549-e416-48e0-b8c4-41d7215eedc8"
+      ]
+    },
+    {
+      "index": 38,
+      "members": [
+        "LSASS Dump Keyword In CommandLine"
+      ],
+      "rules": [
+        "ffa6861c-4461-4f59-8a41-578c39f3f23e"
+      ]
+    }
+  ],
+  "field_groups": {
+    "count": 32,
+    "note": "rules grouped by the fields they require, not by what they matched"
+  },
+  "grouping_disagreements": [
+    {
+      "family": [
+        "Suspicious SYSTEM User Process Creation",
+        "Process Memory Dump Via Comsvcs.DLL",
+        "Potentially Suspicious Rundll32 Activity",
+        "LSASS Dump Via Comsvcs MiniDump Export"
+      ],
+      "note": "same events matched, different fields required"
+    },
+    {
+      "family": [
+        "Procdump Execution",
+        "Potential LSASS Process Dump Via Procdump",
+        "Potential Execution of Sysinternals Tools"
+      ],
+      "note": "same events matched, different fields required"
+    }
+  ],
+  "non_target_corpus_events": 514202,
+  "rules": [
+    {
+      "clean_baseline_per_100k": null,
+      "family": 0,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "TargetFilename"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": [
+          "Contents"
+        ]
+      },
+      "id": "025bd229-fd1f-4fdb-97ab-20006e1a5368",
+      "keyed_on": "runtime-controlled",
+      "level": "high",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "Contents",
+        "TargetFilename"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "Unusual File Download from Direct IP Address",
+      "tools_covered": [
+        "comsvcs",
+        "logonpasswords",
+        "nanodump",
+        "out-minidump",
+        "outflank-dumpert",
+        "sharpdump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 1,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [
+          "Description",
+          "OriginalFileName"
+        ],
+        "rendered": [],
+        "runtime_controlled": [
+          "ImageLoaded"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "092bc4b9-3d1d-43b4-a6b4-8c8acd83522f",
+      "keyed_on": "artifact-embedded",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T3",
+      "telemetry_required": [
+        "Description",
+        "ImageLoaded",
+        "OriginalFileName"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "PowerShell Core DLL Loaded By Non PowerShell Process",
+      "tools_covered": [
+        "out-minidump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "0badd08f-c6a3-4630-90d3-6875cca440be",
+      "keyed_on": "unclassified",
+      "level": "informational",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [],
+      "tiers_surviving": [],
+      "title": "User Logoff Event",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [
+          "OriginalFileName"
+        ],
+        "rendered": [],
+        "runtime_controlled": [
+          "CommandLine",
+          "Image"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "0e4164da-94bc-450d-a7be-a4b176179f1f",
+      "keyed_on": "runtime-controlled",
+      "level": "low",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "CommandLine",
+        "Image",
+        "OriginalFileName"
+      ],
+      "tiers_surviving": [],
+      "title": "Firewall Configuration Discovery Via Netsh.EXE",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [
+          "OriginalFileName"
+        ],
+        "rendered": [],
+        "runtime_controlled": [
+          "Image"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "0ef56343-059e-4cb6-adc1-4c3c967c5e46",
+      "keyed_on": "artifact-embedded",
+      "level": "low",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T3",
+      "telemetry_required": [
+        "Image",
+        "OriginalFileName"
+      ],
+      "tiers_surviving": [],
+      "title": "Suspicious Execution of Systeminfo",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 2,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "TargetFilename"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "1027d292-dd87-4a1a-8701-2abe04d7783c",
+      "keyed_on": "runtime-controlled",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "TargetFilename"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "PSScriptPolicyTest Creation By Uncommon Process",
+      "tools_covered": [
+        "out-minidump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 3,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "ScriptBlockText"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "1139d2e2-84b1-4226-b445-354492eba8ba",
+      "keyed_on": "runtime-controlled",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "ScriptBlockText"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "Usage Of Web Request Commands And Cmdlets - ScriptBlock",
+      "tools_covered": [
+        "out-minidump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "ParentImage"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "15619216-e993-4721-b590-4c520615a67d",
+      "keyed_on": "runtime-controlled",
+      "level": "high",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "ParentImage"
+      ],
+      "tiers_surviving": [],
+      "title": "Potential Meterpreter/CobaltStrike Activity",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 4,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "Image"
+        ],
+        "self_named": [
+          "TargetObject"
+        ],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "16a4c7b3-4681-49d0-8d58-3e9b796dcb43",
+      "keyed_on": "runtime-controlled",
+      "level": "low",
+      "lost_at": "T2",
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "Image",
+        "TargetObject"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1"
+      ],
+      "title": "Potential Raspberry Robin Registry Set Internet Settings ZoneMap",
+      "tools_covered": [
+        "comsvcs",
+        "logonpasswords",
+        "nanodump",
+        "out-minidump",
+        "outflank-dumpert",
+        "procdump",
+        "sharpdump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 5,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [
+          "OriginalFileName"
+        ],
+        "rendered": [],
+        "runtime_controlled": [
+          "Image"
+        ],
+        "self_named": [],
+        "system_observed": [
+          "LogonId",
+          "User"
+        ],
+        "unclassified": []
+      },
+      "id": "178e615d-e666-498b-9630-9ed363038101",
+      "keyed_on": "artifact-embedded",
+      "level": "medium",
+      "lost_at": "T2",
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T3",
+      "telemetry_required": [
+        "Image",
+        "LogonId",
+        "OriginalFileName",
+        "User"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1"
+      ],
+      "title": "Elevated System Shell Spawned From Uncommon Parent Location",
+      "tools_covered": [
+        "logonpasswords"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "CommandLine",
+          "Image"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "1cdd9a09-06c9-4769-99ff-626e2b3991b8",
+      "keyed_on": "runtime-controlled",
+      "level": "high",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "CommandLine",
+        "Image"
+      ],
+      "tiers_surviving": [],
+      "title": "Suspicious Double Extension File Execution",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "Image",
+          "TargetFilename"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "1cf465a1-2609-4c15-9b66-c32dbe4bfd67",
+      "keyed_on": "runtime-controlled",
+      "level": "high",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "Image",
+        "TargetFilename"
+      ],
+      "tiers_surviving": [],
+      "title": "Legitimate Application Writing Files In Uncommon Location",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [
+          "OriginalFileName"
+        ],
+        "rendered": [],
+        "runtime_controlled": [
+          "CommandLine",
+          "Image"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "1e33157c-53b1-41ad-bbcc-780b80b58288",
+      "keyed_on": "runtime-controlled",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "CommandLine",
+        "Image",
+        "OriginalFileName"
+      ],
+      "tiers_surviving": [],
+      "title": "WSF/JSE/JS/VBA/VBE File Execution Via Cscript/Wscript",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 6,
+      "field_classes": {
+        "artifact_derived": [
+          "Hashes"
+        ],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "24e3e58a-646b-4b50-adef-02ef935b9fc8",
+      "keyed_on": "fingerprint",
+      "level": "critical",
+      "lost_at": "T4",
+      "matches_hypothesis": true,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T4",
+      "telemetry_required": [
+        "Hashes"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3"
+      ],
+      "title": "Hacktool Execution - Imphash",
+      "tools_covered": [
+        "outflank-dumpert"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 7,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "CallTrace"
+        ],
+        "self_named": [],
+        "system_observed": [
+          "GrantedAccess"
+        ],
+        "unclassified": []
+      },
+      "id": "250ae82f-736e-4844-a68b-0b5e8cc887da",
+      "keyed_on": "runtime-controlled",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": 232,
+      "non_target_per_100k": 45.118,
+      "populations": [
+        "S-aug",
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "CallTrace",
+        "GrantedAccess"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "Potential Shellcode Injection",
+      "tools_covered": [
+        "comsvcs",
+        "logonpasswords",
+        "out-minidump",
+        "sharpdump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 8,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [
+          "TargetObject"
+        ],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "25ffa65d-76d8-4da5-a832-3f2b0136e133",
+      "keyed_on": "self-named",
+      "level": "low",
+      "lost_at": null,
+      "matches_hypothesis": true,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [
+        "TargetObject"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "PUA - Sysinternal Tool Execution - Registry",
+      "tools_covered": [
+        "procdump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 9,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "CommandLine",
+          "Image"
+        ],
+        "self_named": [],
+        "system_observed": [
+          "IntegrityLevel",
+          "User"
+        ],
+        "unclassified": []
+      },
+      "id": "2617e7ed-adb7-40ba-b0f3-8f9945fe6c09",
+      "keyed_on": "runtime-controlled",
+      "level": "high",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "CommandLine",
+        "Image",
+        "IntegrityLevel",
+        "User"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "Suspicious SYSTEM User Process Creation",
+      "tools_covered": [
+        "comsvcs"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [
+          "Details",
+          "TargetObject"
+        ],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "277dc340-0540-42e7-8efb-5ff460045e07",
+      "keyed_on": "self-named",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [
+        "Details",
+        "TargetObject"
+      ],
+      "tiers_surviving": [],
+      "title": "Service Binary in User Controlled Folder",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 10,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "Image",
+          "TargetFilename"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "297afac9-5d02-4138-8c58-b977bac60556",
+      "keyed_on": "runtime-controlled",
+      "level": "low",
+      "lost_at": "T2",
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "Image",
+        "TargetFilename"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1"
+      ],
+      "title": "Creation of an Executable by an Executable",
+      "tools_covered": [
+        "nanodump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 11,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "Image"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "2e65275c-8288-4ab4-aeb7-6274f58b6b20",
+      "keyed_on": "runtime-controlled",
+      "level": "medium",
+      "lost_at": "T1",
+      "matches_hypothesis": true,
+      "non_target_fires": 0,
+      "non_target_per_100k": 0.0,
+      "populations": [
+        "S-aug",
+        "S-tag",
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "Image"
+      ],
+      "tiers_surviving": [
+        "T0"
+      ],
+      "title": "Procdump Execution",
+      "tools_covered": [
+        "procdump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 12,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "CommandLine"
+        ],
+        "self_named": [],
+        "system_observed": [
+          "IntegrityLevel"
+        ],
+        "unclassified": []
+      },
+      "id": "3037d961-21e9-4732-b27a-637bcc7bf539",
+      "keyed_on": "runtime-controlled",
+      "level": "informational",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "CommandLine",
+        "IntegrityLevel"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "Suspicious High IntegrityLevel Conhost Legacy Option",
+      "tools_covered": [
+        "nanodump",
+        "outflank-dumpert",
+        "procdump",
+        "sharpdump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "39a94fd1-8c9a-4ff6-bf22-c058762f8014",
+      "keyed_on": "unclassified",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [],
+      "tiers_surviving": [],
+      "title": "DPAPI Domain Master Key Backup Attempt",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 13,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "TargetFilename"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "3a525307-d100-48ae-b3b9-0964699d7f97",
+      "keyed_on": "runtime-controlled",
+      "level": "low",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "TargetFilename"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "DMP/HDMP File Creation",
+      "tools_covered": [
+        "nanodump",
+        "out-minidump",
+        "outflank-dumpert",
+        "procdump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 14,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "4a1b6da0-d94f-4fc3-98fc-2d9cb9e5ee76",
+      "keyed_on": "unclassified",
+      "level": "medium",
+      "lost_at": "T2",
+      "matches_hypothesis": false,
+      "non_target_fires": 42,
+      "non_target_per_100k": 8.168,
+      "populations": [
+        "S-aug",
+        "S-tag",
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [],
+      "tiers_surviving": [
+        "T0",
+        "T1"
+      ],
+      "title": "Potentially Suspicious AccessMask Requested From LSASS",
+      "tools_covered": [
+        "comsvcs",
+        "logonpasswords",
+        "out-minidump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 15,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "TargetImage"
+        ],
+        "self_named": [],
+        "system_observed": [
+          "GrantedAccess"
+        ],
+        "unclassified": []
+      },
+      "id": "4b447e9d-1c82-47f6-9a01-a1bb0a22d684",
+      "keyed_on": "runtime-controlled",
+      "level": "high",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": 8,
+      "non_target_per_100k": 1.556,
+      "populations": [
+        "own"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "GrantedAccess",
+        "TargetImage"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "LSASS Handle Request From Unexpected Process",
+      "tools_covered": [
+        "comsvcs",
+        "logonpasswords",
+        "nanodump",
+        "out-minidump",
+        "outflank-dumpert",
+        "procdump",
+        "sharpdump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [
+          "OriginalFileName"
+        ],
+        "rendered": [],
+        "runtime_controlled": [
+          "CommandLine",
+          "Image"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "4f4eaa9f-5ad4-410c-a4be-bc6132b0175a",
+      "keyed_on": "runtime-controlled",
+      "level": "low",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "CommandLine",
+        "Image",
+        "OriginalFileName"
+      ],
+      "tiers_surviving": [],
+      "title": "CMD Shell Output Redirect",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "502b42de-4306-40b4-9596-6f590c81f073",
+      "keyed_on": "unclassified",
+      "level": "low",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [],
+      "tiers_surviving": [],
+      "title": "Local Accounts Discovery",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [],
+        "system_observed": [
+          "PreviousCreationUtcTime"
+        ],
+        "unclassified": []
+      },
+      "id": "558eebe5-f2ba-4104-b339-36f7902bcc1a",
+      "keyed_on": "system-observed",
+      "level": "low",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [
+        "PreviousCreationUtcTime"
+      ],
+      "tiers_surviving": [],
+      "title": "File Creation Date Changed to Another Year",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [
+          "OriginalFileName"
+        ],
+        "rendered": [],
+        "runtime_controlled": [
+          "CommandLine",
+          "Image"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "575dce0c-8139-4e30-9295-1ee75969f7fe",
+      "keyed_on": "runtime-controlled",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "CommandLine",
+        "Image",
+        "OriginalFileName"
+      ],
+      "tiers_surviving": [],
+      "title": "Potential Reconnaissance Activity Via GatherNetworkInfo.VBS",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 16,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [
+          "PipeName"
+        ],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "58cb02d5-78ce-4692-b3e1-dce850aae41a",
+      "keyed_on": "self-named",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": true,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [
+        "PipeName"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "Alternate PowerShell Hosts Pipe",
+      "tools_covered": [
+        "out-minidump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 11,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "CommandLine"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "5afee48e-67dd-4e03-a783-f74259dcf998",
+      "keyed_on": "runtime-controlled",
+      "level": "high",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": 0,
+      "non_target_per_100k": 0.0,
+      "populations": [
+        "S-aug",
+        "S-tag",
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "CommandLine"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "Potential LSASS Process Dump Via Procdump",
+      "tools_covered": [
+        "procdump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 17,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "CallTrace",
+          "TargetImage"
+        ],
+        "self_named": [],
+        "system_observed": [
+          "GrantedAccess"
+        ],
+        "unclassified": []
+      },
+      "id": "5ef9853e-4d0e-4a70-846f-a9ca37d876da",
+      "keyed_on": "runtime-controlled",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": 7,
+      "non_target_per_100k": 1.361,
+      "populations": [
+        "S-aug",
+        "S-tag",
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "CallTrace",
+        "GrantedAccess",
+        "TargetImage"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "Potential Credential Dumping Activity Via LSASS",
+      "tools_covered": [
+        "out-minidump",
+        "outflank-dumpert",
+        "procdump",
+        "sharpdump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 18,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [
+          "TargetObject"
+        ],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "60936b49-fca0-4f32-993d-7415edcf9a5d",
+      "keyed_on": "self-named",
+      "level": "informational",
+      "lost_at": null,
+      "matches_hypothesis": true,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [
+        "TargetObject"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "New Application in AppCompat",
+      "tools_covered": [
+        "comsvcs",
+        "logonpasswords",
+        "nanodump",
+        "out-minidump",
+        "outflank-dumpert",
+        "sharpdump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 5,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [
+          "OriginalFileName"
+        ],
+        "rendered": [],
+        "runtime_controlled": [
+          "Image"
+        ],
+        "self_named": [],
+        "system_observed": [
+          "LogonId",
+          "User"
+        ],
+        "unclassified": []
+      },
+      "id": "61065c72-5d7d-44ef-bf41-6a36684b545f",
+      "keyed_on": "artifact-embedded",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T3",
+      "telemetry_required": [
+        "Image",
+        "LogonId",
+        "OriginalFileName",
+        "User"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "Elevated System Shell Spawned",
+      "tools_covered": [
+        "logonpasswords"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [
+          "OriginalFileName"
+        ],
+        "rendered": [],
+        "runtime_controlled": [
+          "CommandLine",
+          "Image"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "63332011-f057-496c-ad8d-d2b6afb27f96",
+      "keyed_on": "artifact-embedded",
+      "level": "informational",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T3",
+      "telemetry_required": [
+        "CommandLine",
+        "Image",
+        "OriginalFileName"
+      ],
+      "tiers_surviving": [],
+      "title": "Suspicious Tasklist Discovery Command",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 9,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "646ea171-dded-4578-8a4d-65e9822892e3",
+      "keyed_on": "unclassified",
+      "level": "high",
+      "lost_at": null,
+      "matches_hypothesis": true,
+      "non_target_fires": 0,
+      "non_target_per_100k": 0.0,
+      "populations": [
+        "S-aug",
+        "S-tag",
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "Process Memory Dump Via Comsvcs.DLL",
+      "tools_covered": [
+        "comsvcs"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 19,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "ContextInfo"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "64e8e417-c19a-475a-8d19-98ea705394cc",
+      "keyed_on": "runtime-controlled",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "ContextInfo"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "Alternate PowerShell Hosts - PowerShell Module",
+      "tools_covered": [
+        "comsvcs",
+        "out-minidump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "TargetFilename"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "65236ec7-ace0-4f0c-82fd-737b04fd4dcb",
+      "keyed_on": "runtime-controlled",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "TargetFilename"
+      ],
+      "tiers_surviving": [],
+      "title": "EVTX Created In Uncommon Location",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 20,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "ImageLoaded"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "666ecfc7-229d-42b8-821e-1a8f8cb7057c",
+      "keyed_on": "runtime-controlled",
+      "level": "low",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "ImageLoaded"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "System Drawing DLL Load",
+      "tools_covered": [
+        "out-minidump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 21,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "TargetImage"
+        ],
+        "self_named": [],
+        "system_observed": [
+          "GrantedAccess"
+        ],
+        "unclassified": []
+      },
+      "id": "678dfc63-fefb-47a5-a04c-26bcf8cc9f65",
+      "keyed_on": "runtime-controlled",
+      "level": "medium",
+      "lost_at": "T2",
+      "matches_hypothesis": false,
+      "non_target_fires": 6,
+      "non_target_per_100k": 1.167,
+      "populations": [
+        "S-aug",
+        "S-tag",
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "GrantedAccess",
+        "TargetImage"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1"
+      ],
+      "title": "Uncommon GrantedAccess Flags On LSASS",
+      "tools_covered": [
+        "comsvcs",
+        "logonpasswords"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 22,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "693a44e9-7f26-4cb6-b787-214867672d3a",
+      "keyed_on": "unclassified",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": true,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "Sysmon File Executable Creation Detected",
+      "tools_covered": [
+        "comsvcs",
+        "logonpasswords",
+        "nanodump",
+        "outflank-dumpert",
+        "procdump",
+        "sharpdump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 23,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "ScriptBlockText"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "743c314e-3154-4e7c-b209-8211c9b1d2af",
+      "keyed_on": "runtime-controlled",
+      "level": "high",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": 0,
+      "non_target_per_100k": 0.0,
+      "populations": [
+        "own"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "ScriptBlockText"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "PowerShell Script Block Calling MiniDumpWriteDump",
+      "tools_covered": [
+        "out-minidump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [
+          "OriginalFileName"
+        ],
+        "rendered": [],
+        "runtime_controlled": [
+          "Image"
+        ],
+        "self_named": [],
+        "system_observed": [
+          "User"
+        ],
+        "unclassified": []
+      },
+      "id": "79ce34ca-af29-4d0e-b832-fc1b377020db",
+      "keyed_on": "artifact-embedded",
+      "level": "high",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T3",
+      "telemetry_required": [
+        "Image",
+        "OriginalFileName",
+        "User"
+      ],
+      "tiers_surviving": [],
+      "title": "Whoami.EXE Execution From Privileged Process",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 11,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "CommandLine"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "7cccd811-7ae9-4ebe-9afd-cb5c406b824b",
+      "keyed_on": "runtime-controlled",
+      "level": "low",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "CommandLine"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "Potential Execution of Sysinternals Tools",
+      "tools_covered": [
+        "procdump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 24,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "Payload"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "7d0d0329-0ef1-4e84-a9f5-49500f9d7c6c",
+      "keyed_on": "runtime-controlled",
+      "level": "high",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "Payload"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "Malicious PowerShell Commandlets - PoshModule",
+      "tools_covered": [
+        "out-minidump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 25,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "TargetFilename"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "7eac0a16-5832-4e81-865f-0268a6d19e4b",
+      "keyed_on": "runtime-controlled",
+      "level": "low",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "TargetFilename"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "ADS Zone.Identifier Deleted",
+      "tools_covered": [
+        "nanodump",
+        "outflank-dumpert",
+        "sharpdump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "Image"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "7f4c43f9-b1a5-4c7d-b24a-b41bf3a3ebf2",
+      "keyed_on": "runtime-controlled",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "Image"
+      ],
+      "tiers_surviving": [],
+      "title": "Registry Tampering by Potentially Suspicious Processes",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 23,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "ScriptBlockText"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "84c174ab-d3ef-481f-9c86-a50d0b8e3edb",
+      "keyed_on": "runtime-controlled",
+      "level": "high",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": 0,
+      "non_target_per_100k": 0.0,
+      "populations": [
+        "S-aug",
+        "S-tag",
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "ScriptBlockText"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "PowerShell Get-Process LSASS in ScriptBlock",
+      "tools_covered": [
+        "out-minidump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 23,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "ScriptBlockText"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "89819aa4-bbd6-46bc-88ec-c7f7fe30efa6",
+      "keyed_on": "runtime-controlled",
+      "level": "high",
+      "lost_at": "T1",
+      "matches_hypothesis": true,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "ScriptBlockText"
+      ],
+      "tiers_surviving": [
+        "T0"
+      ],
+      "title": "Malicious PowerShell Commandlets - ScriptBlock",
+      "tools_covered": [
+        "out-minidump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 26,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "Payload"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "8d31a8ce-46b5-4dd6-bdc3-680931f1db86",
+      "keyed_on": "runtime-controlled",
+      "level": "critical",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "Payload"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "Bad Opsec Powershell Code Artifacts",
+      "tools_covered": [
+        "out-minidump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 27,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "TargetFilename"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "8fbf3271-1ef6-4e94-8210-03c2317947f6",
+      "keyed_on": "runtime-controlled",
+      "level": "high",
+      "lost_at": "T1",
+      "matches_hypothesis": true,
+      "non_target_fires": 0,
+      "non_target_per_100k": 0.0,
+      "populations": [
+        "S-aug",
+        "S-tag",
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "TargetFilename"
+      ],
+      "tiers_surviving": [
+        "T0"
+      ],
+      "title": "Cred Dump Tools Dropped Files",
+      "tools_covered": [
+        "procdump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 28,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "TargetFilename"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "93d94efc-d7ad-4161-ad7d-1638c4f908d8",
+      "keyed_on": "runtime-controlled",
+      "level": "critical",
+      "lost_at": "T1",
+      "matches_hypothesis": true,
+      "non_target_fires": 0,
+      "non_target_per_100k": 0.0,
+      "populations": [
+        "S-aug",
+        "S-tag",
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "TargetFilename"
+      ],
+      "tiers_surviving": [
+        "T0"
+      ],
+      "title": "HackTool - Dumpert Process Dumper Default File",
+      "tools_covered": [
+        "outflank-dumpert"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [
+          "TargetObject"
+        ],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "93ff0ceb-e0ef-4586-8cd8-a6c277d738e3",
+      "keyed_on": "self-named",
+      "level": "low",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [
+        "TargetObject"
+      ],
+      "tiers_surviving": [],
+      "title": "Scheduled Task Created - Registry",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 29,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [],
+        "system_observed": [
+          "AccessMask",
+          "ObjectType"
+        ],
+        "unclassified": [
+          "ObjectName"
+        ]
+      },
+      "id": "962fe167-e48d-4fd6-9974-11e5b9a5d6d1",
+      "keyed_on": "system-observed",
+      "level": "medium",
+      "lost_at": "T2",
+      "matches_hypothesis": false,
+      "non_target_fires": 10,
+      "non_target_per_100k": 1.945,
+      "populations": [
+        "S-aug",
+        "S-tag",
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [
+        "AccessMask",
+        "ObjectName",
+        "ObjectType"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1"
+      ],
+      "title": "LSASS Access From Non System Account",
+      "tools_covered": [
+        "out-minidump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "ScriptBlockText"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "96cd126d-f970-49c4-848a-da3a09f55c55",
+      "keyed_on": "runtime-controlled",
+      "level": "low",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "ScriptBlockText"
+      ],
+      "tiers_surviving": [],
+      "title": "Potential PowerShell Obfuscation Using Alias Cmdlets",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [
+          "TargetObject"
+        ],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "96f697b0-b499-4e5d-9908-a67bec11cdb6",
+      "keyed_on": "self-named",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [
+        "TargetObject"
+      ],
+      "tiers_surviving": [],
+      "title": "Removal of Potential COM Hijacking Registry Keys",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 30,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "SourceImage",
+          "TargetImage"
+        ],
+        "self_named": [],
+        "system_observed": [
+          "GrantedAccess"
+        ],
+        "unclassified": []
+      },
+      "id": "9bd012ee-0dff-44d7-84a0-aa698cfd87a3",
+      "keyed_on": "runtime-controlled",
+      "level": "high",
+      "lost_at": "T1",
+      "matches_hypothesis": true,
+      "non_target_fires": 0,
+      "non_target_per_100k": 0.0,
+      "populations": [
+        "S-aug",
+        "S-tag",
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "GrantedAccess",
+        "SourceImage",
+        "TargetImage"
+      ],
+      "tiers_surviving": [
+        "T0"
+      ],
+      "title": "LSASS Memory Access by Tool With Dump Keyword In Name",
+      "tools_covered": [
+        "nanodump",
+        "outflank-dumpert",
+        "procdump",
+        "sharpdump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 31,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "ScriptBlockText"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "9f22ccd5-a435-453b-af96-bf99cbb594d4",
+      "keyed_on": "runtime-controlled",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "ScriptBlockText"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "WinAPI Function Calls Via PowerShell Scripts",
+      "tools_covered": [
+        "out-minidump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 32,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "CallTrace",
+          "SourceImage",
+          "TargetImage"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "9f5c1d59-33be-4e60-bcab-85d2f566effd",
+      "keyed_on": "runtime-controlled",
+      "level": "high",
+      "lost_at": "T2",
+      "matches_hypothesis": false,
+      "non_target_fires": 0,
+      "non_target_per_100k": 0.0,
+      "populations": [
+        "S-aug",
+        "S-tag",
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "CallTrace",
+        "SourceImage",
+        "TargetImage"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1"
+      ],
+      "title": "Suspicious Process Access to LSASS with Dbgcore/Dbghelp DLLs",
+      "tools_covered": [
+        "out-minidump",
+        "outflank-dumpert"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "a07f0359-4c90-4dc4-a681-8ffea40b4f47",
+      "keyed_on": "unclassified",
+      "level": "high",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [],
+      "tiers_surviving": [],
+      "title": "Service Binary in Suspicious Folder",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 33,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "TargetImage"
+        ],
+        "self_named": [],
+        "system_observed": [
+          "GrantedAccess"
+        ],
+        "unclassified": []
+      },
+      "id": "a18dd26b-6450-46de-8c91-9659150cf088",
+      "keyed_on": "runtime-controlled",
+      "level": "medium",
+      "lost_at": "T2",
+      "matches_hypothesis": false,
+      "non_target_fires": 0,
+      "non_target_per_100k": 0.0,
+      "populations": [
+        "S-aug",
+        "S-tag",
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "GrantedAccess",
+        "TargetImage"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1"
+      ],
+      "title": "Potentially Suspicious GrantedAccess Flags On LSASS",
+      "tools_covered": [
+        "out-minidump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "CommandLine"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "a29c1813-ab1f-4dde-b489-330b952e91ae",
+      "keyed_on": "runtime-controlled",
+      "level": "low",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "CommandLine"
+      ],
+      "tiers_surviving": [],
+      "title": "Suspicious Network Command",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "CallTrace",
+          "SourceImage",
+          "TargetImage"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "a49fa4d5-11db-418c-8473-1e014a8dd462",
+      "keyed_on": "runtime-controlled",
+      "level": "high",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": 0,
+      "non_target_per_100k": 0.0,
+      "populations": [
+        "S-aug",
+        "S-tag",
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "CallTrace",
+        "SourceImage",
+        "TargetImage"
+      ],
+      "tiers_surviving": [],
+      "title": "Lsass Memory Dump via Comsvcs DLL",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 34,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "a5a2d357-1ab8-4675-a967-ef9990a59391",
+      "keyed_on": "unclassified",
+      "level": "high",
+      "lost_at": "T1",
+      "matches_hypothesis": false,
+      "non_target_fires": 0,
+      "non_target_per_100k": 0.0,
+      "populations": [
+        "S-aug",
+        "S-tag",
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [],
+      "tiers_surviving": [
+        "T0"
+      ],
+      "title": "LSASS Process Memory Dump Files",
+      "tools_covered": [
+        "nanodump",
+        "out-minidump",
+        "procdump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 16,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [
+          "PipeName"
+        ],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "ac7102b4-9e1e-4802-9b4f-17c5524c015c",
+      "keyed_on": "self-named",
+      "level": "informational",
+      "lost_at": null,
+      "matches_hypothesis": true,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [
+        "PipeName"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "New PowerShell Instance Created",
+      "tools_covered": [
+        "out-minidump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 23,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "ScriptBlockText"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "af4c87ce-bdda-4215-b998-15220772e993",
+      "keyed_on": "runtime-controlled",
+      "level": "low",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "ScriptBlockText"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "Suspicious Process Discovery With Get-Process",
+      "tools_covered": [
+        "out-minidump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "ScriptBlockText"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "b26647de-4feb-4283-af6b-6117661283c5",
+      "keyed_on": "runtime-controlled",
+      "level": "low",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "ScriptBlockText"
+      ],
+      "tiers_surviving": [],
+      "title": "Powershell Suspicious Win32_PnPEntity",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "Image"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "b5de0c9a-6f19-43e0-af4e-55ad01f550af",
+      "keyed_on": "runtime-controlled",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "Image"
+      ],
+      "tiers_surviving": [],
+      "title": "Unsigned DLL Loaded by Windows Utility",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 35,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": [
+          "Hash"
+        ]
+      },
+      "id": "b69888d4-380c-45ce-9cf9-d9ce46e67821",
+      "keyed_on": "unclassified",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": true,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [
+        "Hash"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "Hidden Executable In NTFS Alternate Data Stream",
+      "tools_covered": [
+        "comsvcs",
+        "logonpasswords",
+        "nanodump",
+        "out-minidump",
+        "outflank-dumpert",
+        "sharpdump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [
+          "OriginalFileName"
+        ],
+        "rendered": [],
+        "runtime_controlled": [
+          "CommandLine",
+          "Image"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "bd8b828d-0dca-48e1-8a63-8a58ecf2644f",
+      "keyed_on": "runtime-controlled",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "CommandLine",
+        "Image",
+        "OriginalFileName"
+      ],
+      "tiers_surviving": [],
+      "title": "Group Membership Reconnaissance Via Whoami.EXE",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "c3e5c1b1-45e9-4632-b242-27939c170239",
+      "keyed_on": "unclassified",
+      "level": "high",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [],
+      "tiers_surviving": [],
+      "title": "Sysmon Blocked File Shredding",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 8,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [
+          "TargetObject"
+        ],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "c7da8edc-49ae-45a2-9e61-9fd860e4e73d",
+      "keyed_on": "self-named",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": true,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [
+        "TargetObject"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "PUA - Sysinternals Tools Execution - Registry",
+      "tools_covered": [
+        "procdump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "db809f10-56ce-4420-8c86-d6a7d793c79c",
+      "keyed_on": "unclassified",
+      "level": "low",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [],
+      "tiers_surviving": [],
+      "title": "Potential Defense Evasion Via Raw Disk Access By Uncommon Tools",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "CommandLine",
+          "Image"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "e56d3073-83ff-4021-90fe-c658e0709e72",
+      "keyed_on": "runtime-controlled",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "CommandLine",
+        "Image"
+      ],
+      "tiers_surviving": [],
+      "title": "Gpresult Display Group Policy Information",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 9,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "e593cf51-88db-4ee1-b920-37e89012a3c9",
+      "keyed_on": "unclassified",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": true,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "Potentially Suspicious Rundll32 Activity",
+      "tools_covered": [
+        "comsvcs"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "ImageLoaded"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "e700ff14-1bff-4d1d-9438-738dff5f0466",
+      "keyed_on": "runtime-controlled",
+      "level": "low",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "ImageLoaded"
+      ],
+      "tiers_surviving": [],
+      "title": "BITS Client BitsProxy DLL Loaded By Uncommon Process",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "ecbc5e16-58e0-4521-9c60-eb9a7ea4ad34",
+      "keyed_on": "unclassified",
+      "level": "high",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [],
+      "tiers_surviving": [],
+      "title": "Meterpreter or Cobalt Strike Getsystem Service Installation - Security",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 9,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "CommandLine"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "ee2324b0-6673-4767-9e34-c84cdd893483",
+      "keyed_on": "runtime-controlled",
+      "level": "high",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": 0,
+      "non_target_per_100k": 0.0,
+      "populations": [
+        "own"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "CommandLine"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "LSASS Dump Via Comsvcs MiniDump Export",
+      "tools_covered": [
+        "comsvcs"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 31,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "ScriptBlockText"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "f62176f3-8128-4faa-bf6c-83261322e5eb",
+      "keyed_on": "runtime-controlled",
+      "level": "medium",
+      "lost_at": null,
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "ScriptBlockText"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "Malicious PowerShell Keywords",
+      "tools_covered": [
+        "out-minidump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 36,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "SourceImage",
+          "TargetImage"
+        ],
+        "self_named": [],
+        "system_observed": [
+          "GrantedAccess"
+        ],
+        "unclassified": []
+      },
+      "id": "fa34b441-961a-42fa-a100-ecc28c886725",
+      "keyed_on": "runtime-controlled",
+      "level": "medium",
+      "lost_at": "T2",
+      "matches_hypothesis": false,
+      "non_target_fires": 0,
+      "non_target_per_100k": 0.0,
+      "populations": [
+        "S-aug",
+        "S-tag",
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "GrantedAccess",
+        "SourceImage",
+        "TargetImage"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1"
+      ],
+      "title": "LSASS Access From Program In Potentially Suspicious Folder",
+      "tools_covered": [
+        "outflank-dumpert"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 37,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [
+          "ImageLoaded"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "facd1549-e416-48e0-b8c4-41d7215eedc8",
+      "keyed_on": "runtime-controlled",
+      "level": "low",
+      "lost_at": "T2",
+      "matches_hypothesis": false,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "ImageLoaded"
+      ],
+      "tiers_surviving": [
+        "T0",
+        "T1"
+      ],
+      "title": "Amsi.DLL Load By Uncommon Process",
+      "tools_covered": [
+        "out-minidump"
+      ]
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": null,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [
+          "OriginalFileName"
+        ],
+        "rendered": [],
+        "runtime_controlled": [
+          "CommandLine",
+          "Image"
+        ],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "fd877b94-9bb5-4191-bb25-d79cbd93c167",
+      "keyed_on": "runtime-controlled",
+      "level": "high",
+      "lost_at": null,
+      "matches_hypothesis": null,
+      "non_target_fires": null,
+      "non_target_per_100k": null,
+      "populations": [
+        "W"
+      ],
+      "reached_at": "T1",
+      "telemetry_required": [
+        "CommandLine",
+        "Image",
+        "OriginalFileName"
+      ],
+      "tiers_surviving": [],
+      "title": "Dumping of Sensitive Hives Via Reg.EXE",
+      "tools_covered": []
+    },
+    {
+      "clean_baseline_per_100k": null,
+      "family": 38,
+      "field_classes": {
+        "artifact_derived": [],
+        "artifact_embedded": [],
+        "rendered": [],
+        "runtime_controlled": [],
+        "self_named": [],
+        "system_observed": [],
+        "unclassified": []
+      },
+      "id": "ffa6861c-4461-4f59-8a41-578c39f3f23e",
+      "keyed_on": "unclassified",
+      "level": "high",
+      "lost_at": null,
+      "matches_hypothesis": true,
+      "non_target_fires": 0,
+      "non_target_per_100k": 0.0,
+      "populations": [
+        "S-aug",
+        "S-tag",
+        "W"
+      ],
+      "reached_at": null,
+      "telemetry_required": [],
+      "tiers_surviving": [
+        "T0",
+        "T1",
+        "T2",
+        "T3",
+        "T4"
+      ],
+      "title": "LSASS Dump Keyword In CommandLine",
+      "tools_covered": [
+        "comsvcs",
+        "nanodump",
+        "procdump"
+      ]
+    }
+  ],
+  "rules_firing": 83,
+  "taxonomy_gaps": {
+    "fields": [
+      "Contents",
+      "Hash",
+      "ObjectName"
+    ],
+    "known": {
+      "Contents": "the zone-identifier stream, which records where a file was downloaded from rather than what it is called now",
+      "Hash": "artifact-derived in principle, a FileCreateStreamHash digest, but the identity tier rotates only Hashes",
+      "ObjectName": "a path, but the object accessed rather than the accessor, so renaming the tool does not touch it"
+    },
+    "note": "fields no provenance class covers, so no tier is predicted to defeat a rule resting on one"
+  },
+  "threshold": 0.9,
+  "unclassified_fields": [
+    "Contents",
+    "Hash",
+    "ObjectName"
+  ]
+}
