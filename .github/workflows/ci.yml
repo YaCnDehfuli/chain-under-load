@@ -43,8 +43,19 @@ jobs:
         run: python -m scripts.convert_rules --check
 
   benchmark:
-    # fetches roughly 1.5 GB and takes about twenty minutes, so it is cached
-    # and does not run on pull requests from forks
+    # fetches roughly 1.5 GB, so the corpus is cached. Two of the three checks
+    # here are derivations of a committed measurement rather than measurements,
+    # which is what keeps them inside a commit loop:
+    #
+    #   --check              the Phase 1 benchmark, measured
+    #   --check-sensitivity  the tier ladder, derived from selection.json
+    #   --check-robustness   the per-rule record, derived from selection.json
+    #
+    # --check-selection is the measurement all three of the derived files come
+    # from, and it is in the release job below because it does not fit a commit
+    # loop. The derived checks still recompile the rule population, so a
+    # selection file that no longer matches the rules fails here rather than
+    # surviving until the release run.
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
@@ -68,7 +79,37 @@ jobs:
           key: corpus-${{ hashFiles('benchmark/manifest.yml') }}
       - name: fetch and verify
         run: python -m eval.corpus --fetch
-      - name: results must match a fresh run
+      - name: phase 1 results must match a fresh run
         run: python -m eval.report --check
-      - name: sensitivity must match a fresh run
+      - name: the tier ladder must match the committed selection run
         run: python -m eval.report --check-sensitivity
+      - name: the robustness record must match the committed selection run
+        run: python -m eval.report --check-robustness
+
+  # Hours, and the full rule population over every tier. Scheduled only, so it
+  # never blocks a commit.
+  release-checks:
+    if: github.event_name == 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+      - run: pip install -r requirements.txt pyyaml
+      - name: cache corpus
+        uses: actions/cache@v4
+        with:
+          path: corpus
+          key: corpus-${{ hashFiles('benchmark/manifest.yml') }}
+      - run: python -m eval.corpus --fetch
+      - name: the wide run must match a fresh run
+        run: python -m eval.report --check-selection
+      - name: the prescreen excludes no rule that would fire
+        # exhaustive, one whole capture with and without the screen. if this
+        # fails, no wide-population number can be published until it passes.
+        env:
+          RELEASE_CHECKS: "1"
+        run: python -m pytest tests/test_prescreen.py -q
