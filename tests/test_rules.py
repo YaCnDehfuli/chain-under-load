@@ -13,7 +13,7 @@ from pathlib import Path
 import pytest
 
 from eval import corpus
-from eval.chain import technique_of
+from eval.transfer import technique_of
 from eval.runner import load_rules
 
 RULES_DIR = corpus.REPO_ROOT / "rules"
@@ -74,12 +74,12 @@ def test_the_lsass_rule_still_detects_every_captured_tool(rules):
     assert not missed, f"no longer detects: {missed}"
 
 
-@pytest.mark.skipif(not CHAIN_JSON.exists(), reason="chain results not generated")
-def test_committed_chain_results_cover_every_rule(rules):
+@pytest.mark.skipif(not CHAIN_JSON.exists(), reason="transfer results not generated")
+def test_committed_transfer_results_cover_every_rule(rules):
     results = json.loads(CHAIN_JSON.read_text())
     for rule in rules:
         assert rule.id in results["benign"], (
-            f"{rule.path.name} has no committed measurement, rerun eval.chain"
+            f"{rule.path.name} has no committed measurement, rerun eval.transfer"
         )
 
 
@@ -113,7 +113,7 @@ def test_rule_paths_in_results_are_repo_relative():
     """Shape only, so this runs without the corpus on disk.
 
     Rules live under rules/ in the repo and under corpus/ once fetched. The
-    unit test job deliberately skips the corpus fetch, so existence of a
+    unit test job skips the corpus fetch on purpose, so existence of a
     corpus path is checked separately.
     """
     results = json.loads(RESULTS_JSON.read_text())

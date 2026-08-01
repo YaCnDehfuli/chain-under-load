@@ -41,7 +41,7 @@ class Capture:
     """One recorded telemetry window."""
 
     id: str
-    group: str  # lsass_campaign, atomic, or chain
+    group: str  # lsass_campaign, atomic, or transfer
     archive: Path
     techniques: frozenset[str]
     labelled: bool
@@ -185,13 +185,18 @@ def campaigns(manifest: dict | None = None) -> list[Capture]:
     return out
 
 
-def chain_captures(manifest: dict | None = None) -> list[Capture]:
+def transfer_captures(manifest: dict | None = None) -> list[Capture]:
+    """Captures the rules are transferred to, rather than measured on.
+
+    A different intrusion on different hosts, used to ask whether rules tuned on
+    one lab fire anywhere else. Never used for per-rule scoring.
+    """
     manifest = manifest or load_manifest()
     root = SOURCE_DIRS["security_datasets"]
     return [
-        Capture(id=e["id"], group="chain", archive=root / e["archive"],
+        Capture(id=e["id"], group="transfer", archive=root / e["archive"],
                 techniques=frozenset(), labelled=False)
-        for e in manifest["chain_captures"]
+        for e in manifest["transfer_captures"]
     ]
 
 
