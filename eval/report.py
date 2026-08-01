@@ -14,7 +14,7 @@ import sys
 from pathlib import Path
 from typing import Iterable, Sequence
 
-from eval import corpus
+from eval import corpus, mutate, prescreen, selection
 from eval.classify import (
     DETECTED,
     MISS_LOGIC,
@@ -394,53 +394,311 @@ def _differences(committed, fresh, path: str = "") -> list[str]:
     return out
 
 
+
+
+# --------------------------------------------------------------------------
+# rule populations
+# --------------------------------------------------------------------------
+
+
+def selects_wide(rule: CompiledRule, channels: set[str], event_ids: set[str]) -> bool:
+    """Whether a rule is in the wide population.
+
+    Mechanical, and checkable from the rule and the corpus alone:
+
+      it compiles, which `load_rules` has already decided by returning it
+      its product is windows, or it names no product at all
+      the windows pipelines recognised its logsource
+      the corpus contains events of the kind it reads
+
+    The third condition is the one that took a measurement to get right. Allowing
+    product-agnostic rules is meant to admit rules that apply to Windows without
+    saying so. Without the pipeline check it also admits rules written for
+    entirely different telemetry: `db_anomalous_query.yml` is a `category:
+    database` rule whose detection is the bare keywords `drop`, `truncate` and
+    `dump`, and since the windows pipelines map no database category it pins no
+    Channel and no EventID and gets evaluated against every Sysmon event in the
+    corpus.
+
+    Requiring the pipelines to have pinned a Channel or an EventID separates
+    "applies to Windows without saying so" from "is not about Windows at all". A
+    rule that pins neither is unbounded against this corpus, and a fire from it
+    is an artifact of running it somewhere it was never meant to run.
+
+    The last condition uses the same pinned values the evaluator uses, so it
+    cannot disagree with the runner about which events a rule looks at. It is a
+    statement about this corpus, not about the rule.
+    """
+    product = (rule.rule.logsource.product or "").lower()
+    if product not in ("", "windows"):
+        return False
+    if rule.channels is None and rule.event_ids is None:
+        return False
+    return prescreen.reachable_logsource(rule, channels, event_ids)
+
+
+def corpus_logsource_index() -> tuple[set[str], set[str]]:
+    """Channel and EventID values present anywhere in the campaign set."""
+    channels: set[str] = set()
+    event_ids: set[str] = set()
+    for capture in corpus.campaigns():
+        found_channels, found_ids = prescreen.logsource_index(corpus.events(capture))
+        channels |= found_channels
+        event_ids |= found_ids
+    return channels, event_ids
+
+
+def own_rules_for(technique: str) -> list[CompiledRule]:
+    """This repository's rules that select the technique."""
+    paths = sorted(OWN_RULES_DIR.glob("*.yml")) if OWN_RULES_DIR.exists() else []
+    compiled, _skipped = load_rules(paths)
+    return [rule for rule in compiled if selects_technique(rule, technique)]
+
+
+def populations(technique: str = "T1003.001"):
+    """The four populations, the union to run once, and why each rule is in or out.
+
+    `selects_technique` already returns "tag" or "logsource" and Phase 1 already
+    records that reason per rule, so splitting the scoped population into its
+    tag-only part exposes a distinction the code was computing and discarding.
+
+    This repository's own rules are a population rather than a control. They were
+    written after reading the Phase 1 findings, so a tier they survive is a
+    feasibility demonstration and not evidence about published rules, and keeping
+    them in a named population is what stops them being counted as either.
+
+    Returns the union of rules to evaluate, the id sets naming each population,
+    rule titles, and, for every rule the wide population holds and the scoped one
+    does not, which criterion excluded it. That last part is the taxonomy
+    evidence, so it is recorded rather than summarised.
+    """
+    compiled, skipped = load_rules(sigma_rule_paths())
+    channels, event_ids = corpus_logsource_index()
+
+    reasons: dict[str, str] = {}
+    tag_only: set[str] = set()
+    augmented: set[str] = set()
+    wide: set[str] = set()
+    union: dict[str, CompiledRule] = {}
+    excluded_from_scope: dict[str, dict] = {}
+
+    for rule in compiled:
+        reason = selects_technique(rule, technique)
+        in_wide = selects_wide(rule, channels, event_ids)
+        if not (reason or in_wide):
+            continue
+        union[rule.id] = rule
+        if reason:
+            reasons[rule.id] = reason
+            augmented.add(rule.id)
+            if reason == "tag":
+                tag_only.add(rule.id)
+        if in_wide:
+            wide.add(rule.id)
+        if in_wide and not reason:
+            excluded_from_scope[rule.id] = {
+                "title": rule.title,
+                "file": rule_path(rule),
+                "attack_tags": sorted(t for t in rule.tags
+                                      if t.lower().startswith("attack.t")),
+                "category": rule.rule.logsource.category or "",
+                # why the scoped selection cannot see it, in its own terms
+                "missing_tag": f"attack.{technique.lower()}" not in
+                               {t.lower() for t in rule.tags},
+                "wrong_logsource": (rule.rule.logsource.category or "") != "process_access",
+            }
+
+    own: set[str] = set()
+    for rule in own_rules_for(technique):
+        union[rule.id] = rule
+        own.add(rule.id)
+
+    rules = [union[rid] for rid in sorted(union)]
+    titles = {rule.id: rule.title for rule in rules}
+    members = {
+        selection.TAG_ONLY: tag_only,
+        selection.AUGMENTED: augmented,
+        selection.WIDE: wide,
+        selection.OWN: own,
+    }
+    provenance = {
+        "excluded_from_scope": excluded_from_scope,
+        "skipped": len(skipped),
+        "reasons": reasons,
+    }
+    return rules, members, titles, provenance
+
+
+# --------------------------------------------------------------------------
+# the runs
+# --------------------------------------------------------------------------
+
+
+def _emit(path, markdown_path, results: dict, body: str) -> None:
+    path.write_text(json.dumps(results, indent=2, sort_keys=True) + "\n")
+    markdown_path.write_text(body)
+    print(f"written to {path} and {markdown_path}")
+
+
+def _drifted(name: str, path, committed_view, fresh_view, regenerate: str) -> int:
+    if not path.exists():
+        print(f"no committed {name} to compare", file=sys.stderr)
+        return 1
+    diffs = _differences(committed_view, fresh_view)
+    if diffs:
+        print(f"committed {name} differs from a fresh run, {len(diffs)} differences",
+              file=sys.stderr)
+        for line in diffs[:25]:
+            print(f"  {line}", file=sys.stderr)
+        if len(diffs) > 25:
+            print(f"  ... and {len(diffs) - 25} more", file=sys.stderr)
+        print(f"regenerate with: {regenerate}", file=sys.stderr)
+        return 1
+    print(f"{name} matches a fresh run")
+    return 0
+
+
+def _run_selection(technique: str, check: bool, only: str | None = None) -> int:
+    rules, members, titles, provenance = populations(technique)
+    plans = mutate.load_plans()
+
+    problems = mutate.validate(
+        plans, lambda capture_id: corpus.events(_capture(capture_id)))
+    if problems:
+        print("mutation targets did not validate:", file=sys.stderr)
+        for line in problems:
+            print(f"  {line}", file=sys.stderr)
+        return 1
+
+    per_capture: dict[str, dict] = {}
+    for capture in corpus.campaigns():
+        if only and capture.tool != only:
+            continue
+        if capture.id not in plans:
+            raise mutate.MutationError(f"{capture.id} has no mutation target")
+        print(f"{capture.id} {capture.tool}: {len(rules)} rules over "
+              f"{len(mutate.TIERS)} tiers and the control", flush=True)
+        per_capture[capture.id] = selection.run_capture(
+            rules, capture, plans[capture.id])
+
+    results = selection.build(per_capture, members, titles, technique)
+    results["provenance"] = provenance
+    results["control_problems"] = selection.control_problems(results)
+    results["control_effects"] = selection.control_effects(results)
+
+    if check:
+        committed = json.loads(selection.SELECTION_PATH.read_text()) \
+            if selection.SELECTION_PATH.exists() else {}
+        return _drifted("the wide run", selection.SELECTION_PATH,
+                        selection.comparable(committed),
+                        selection.comparable(results),
+                        "python -m eval.report --run-selection")
+
+    # Written before the control is ruled on, so a control failure costs a
+    # verdict rather than half an hour of measurement.
+    _emit(selection.SELECTION_PATH, selection.SELECTION_MD, results,
+          selection.markdown(results))
+    for name, data in results["populations"].items():
+        print(f"{name:6s} {data['rules']:5d} rules  " + "  ".join(
+            f"{tool}:{'/'.join(str(counts['credited'][t]) for t in mutate.TIERS)}"
+            for tool, counts in data["per_tool"].items()))
+
+    if results["control_problems"]:
+        print("the control moved coverage it had no business moving, so no tier "
+              "number in this run is publishable:", file=sys.stderr)
+        for line in results["control_problems"]:
+            print(f"  {line}", file=sys.stderr)
+        return 1
+    outside = [line for line in results["control_effects"]
+               if line not in results["control_problems"]]
+    print(f"control: nothing moved in {'/'.join(selection.CONTROL_POPULATIONS)}, "
+          f"{len(outside)} movements recorded in the wide population")
+    return 0
+
+
+def _capture(capture_id: str):
+    for capture in corpus.campaigns():
+        if capture.id == capture_id:
+            return capture
+    raise corpus.CorpusError(f"no capture {capture_id}")
+
+
+def _derived(technique: str, check: bool, which: str) -> int:
+    """Rebuild a derived record from the committed selection run.
+
+    Derived rather than measured, so this is cheap enough to check on every
+    commit. It reads the committed selection output but recompiles the rule
+    population, which means a selection file that no longer matches the rules
+    fails here rather than surviving until the expensive run.
+    """
+    from eval import robustness, sensitivity
+
+    if not selection.SELECTION_PATH.exists():
+        print("no selection results, run --run-selection first", file=sys.stderr)
+        return 1
+    measured = json.loads(selection.SELECTION_PATH.read_text())
+    rules, members, _titles, _provenance = populations(technique)
+
+    if which == "sensitivity":
+        results = sensitivity.build(measured, members)
+        path, markdown_path = sensitivity.SENSITIVITY_PATH, sensitivity.SENSITIVITY_MD
+        body = sensitivity.markdown(results)
+        regenerate = "python -m eval.report --run-sensitivity"
+        name = "the tier ladder"
+    else:
+        if not RESULTS_PATH.exists():
+            print("no benchmark results, run --run first", file=sys.stderr)
+            return 1
+        results = robustness.build(rules, measured,
+                                   json.loads(RESULTS_PATH.read_text()), members)
+        path, markdown_path = robustness.ROBUSTNESS_PATH, robustness.ROBUSTNESS_MD
+        body = robustness.markdown(results)
+        regenerate = "python -m eval.report --run-robustness"
+        name = "the robustness record"
+
+    if check:
+        committed = json.loads(path.read_text()) if path.exists() else {}
+        return _drifted(name, path, committed, json.loads(json.dumps(results)),
+                        regenerate)
+
+    _emit(path, markdown_path, results, body)
+    return 0
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="run the benchmark")
     parser.add_argument("--run", action="store_true", help="run and write results")
     parser.add_argument("--check", action="store_true",
                         help="fail if committed results differ from a fresh run")
-    parser.add_argument("--sensitivity", action="store_true",
-                        help="measure coverage at each mutation tier")
+    parser.add_argument("--run-selection", action="store_true",
+                        help="run every population at every tier, the expensive pass")
+    parser.add_argument("--check-selection", action="store_true",
+                        help="fail if committed selection results differ")
+    parser.add_argument("--run-sensitivity", action="store_true",
+                        help="derive the tier ladder from the committed selection run")
     parser.add_argument("--check-sensitivity", action="store_true",
-                        help="fail if committed sensitivity differs from a fresh run")
+                        help="fail if the committed tier results differ")
+    parser.add_argument("--run-robustness", action="store_true",
+                        help="derive the per-rule record from the committed runs")
+    parser.add_argument("--check-robustness", action="store_true",
+                        help="fail if the committed robustness record differs")
+    parser.add_argument("--only-tool", default=None,
+                        help="restrict the selection run to one tool, for a quicker loop")
     parser.add_argument("--technique", default="T1003.001")
     parser.add_argument("--fp-limit", type=int, default=None,
                         help="cap benign captures, for a quicker loop")
     args = parser.parse_args(argv)
 
-    if not (args.run or args.check or args.sensitivity or args.check_sensitivity):
-        parser.error("pass --run, --check, --sensitivity or --check-sensitivity")
+    if args.run_selection or args.check_selection:
+        return _run_selection(args.technique, check=args.check_selection,
+                              only=args.only_tool)
+    if args.run_sensitivity or args.check_sensitivity:
+        return _derived(args.technique, args.check_sensitivity, "sensitivity")
+    if args.run_robustness or args.check_robustness:
+        return _derived(args.technique, args.check_robustness, "robustness")
 
-    if args.sensitivity or args.check_sensitivity:
-        fresh = measure_sensitivity(args.technique)
-        if fresh["validation_problems"]:
-            print("mutation specs did not validate:", file=sys.stderr)
-            for line in fresh["validation_problems"]:
-                print(f"  {line}", file=sys.stderr)
-            return 1
-        if args.check_sensitivity:
-            if not SENSITIVITY_PATH.exists():
-                print("no committed sensitivity results", file=sys.stderr)
-                return 1
-            committed = json.loads(SENSITIVITY_PATH.read_text())
-            diffs = _differences(committed, json.loads(json.dumps(fresh)))
-            if diffs:
-                print(f"committed sensitivity differs from a fresh run, "
-                      f"{len(diffs)} differences", file=sys.stderr)
-                for line in diffs[:25]:
-                    print(f"  {line}", file=sys.stderr)
-                print("regenerate with: python -m eval.report --sensitivity",
-                      file=sys.stderr)
-                return 1
-            print("sensitivity results match a fresh run")
-            return 0
-        SENSITIVITY_PATH.write_text(json.dumps(fresh, indent=2, sort_keys=True) + "\n")
-        SENSITIVITY_MD.write_text(sensitivity_markdown(fresh))
-        for entry in fresh["per_capture"].values():
-            counts = {t: len(v["published_fired"]) for t, v in entry["tiers"].items()}
-            print(f"  {entry['tool']:18s} {counts}")
-        print(f"written to {SENSITIVITY_PATH} and {SENSITIVITY_MD}")
-        return 0
+    if not (args.run or args.check):
+        parser.error("pass --run, --check, or one of the --run-/--check- variants")
 
     results = build(args.technique, fp_limit=args.fp_limit)
 
@@ -449,18 +707,8 @@ def main(argv: list[str] | None = None) -> int:
             print("no committed results to compare", file=sys.stderr)
             return 1
         committed = json.loads(RESULTS_PATH.read_text())
-        diffs = _differences(_comparable(committed), _comparable(results))
-        if diffs:
-            print(f"committed results differ from a fresh run, "
-                  f"{len(diffs)} differences", file=sys.stderr)
-            for line in diffs[:25]:
-                print(f"  {line}", file=sys.stderr)
-            if len(diffs) > 25:
-                print(f"  ... and {len(diffs) - 25} more", file=sys.stderr)
-            print("regenerate with: python -m eval.report --run", file=sys.stderr)
-            return 1
-        print("results match a fresh run")
-        return 0
+        return _drifted("the benchmark", RESULTS_PATH, _comparable(committed),
+                        _comparable(results), "python -m eval.report --run")
 
     RESULTS_PATH.write_text(json.dumps(results, indent=2, sort_keys=True) + "\n")
     MARKDOWN_PATH.write_text(markdown(results))
@@ -470,123 +718,6 @@ def main(argv: list[str] | None = None) -> int:
     print(f"written to {RESULTS_PATH} and {MARKDOWN_PATH}")
     return 0
 
-
-
-# --------------------------------------------------------------------------
-# sensitivity to what the operator can change
-# --------------------------------------------------------------------------
-
-SENSITIVITY_PATH = corpus.REPO_ROOT / "benchmark" / "sensitivity.json"
-SENSITIVITY_MD = corpus.REPO_ROOT / "benchmark" / "sensitivity.md"
-
-
-def _coverage(rules, capture, spec):
-    """Which rules fire on one capture under one mutation spec."""
-    from eval.mutate import mutate
-
-    stream = corpus.events(capture)
-    if spec.substitutions:
-        stream = mutate(stream, spec)
-    diagnostics, _samples, total = analyse(rules, stream)
-    fired = sorted(rule.id for rule in rules if diagnostics[rule.id].matched)
-    return fired, total
-
-
-def measure_sensitivity(technique: str = "T1003.001") -> dict:
-    """Coverage at each mutation tier, plus the control.
-
-    Reuses selection, scoring and classification from the baseline path, so a
-    tier result is comparable to the T0 number by construction rather than by
-    coincidence.
-    """
-    from eval.mutate import control_spec, tiers_for, validate
-
-    manifest = corpus.load_manifest()
-    selected, _skipped = select_rules(technique)
-    own_rules, _ = load_rules(sorted(OWN_RULES_DIR.glob("*.yml")))
-    own_for_technique = [r for r in own_rules if selects_technique(r, technique)]
-    rules = [r for r, _ in selected] + own_for_technique
-    published = {r.id for r, _ in selected}
-    titles = {r.id: r.title for r in rules}
-
-    per_capture: dict[str, dict] = {}
-    problems: list[str] = []
-
-    for capture in corpus.campaigns():
-        tiers = dict(tiers_for(capture.id, manifest))
-        tiers["control"] = control_spec()
-
-        events = list(corpus.events(capture))
-        for name, spec in tiers.items():
-            if spec.substitutions:
-                problems += [f"{capture.id} {name}: {p}" for p in validate(spec, events)]
-
-        entry: dict = {"tool": capture.tool, "tiers": {}}
-        for name, spec in tiers.items():
-            fired, total = _coverage(rules, capture, spec)
-            entry["tiers"][name] = {
-                "note": spec.note,
-                "events": total,
-                "fired": fired,
-                "published_fired": sorted(set(fired) & published),
-                "renames": [list(pair) for pair in spec.ordered()],
-                "pe_reset": list(spec.pe_reset_for),
-            }
-        per_capture[capture.id] = entry
-
-    return {
-        "technique": technique,
-        "sources": {k: v["commit"] for k, v in manifest["sources"].items()},
-        "validation_problems": problems,
-        "titles": titles,
-        "published_rule_ids": sorted(published),
-        "per_capture": per_capture,
-    }
-
-
-def sensitivity_markdown(results: dict) -> str:
-    tiers = ["T0", "T1", "T2", "T3"]
-    lines = [
-        "# Sensitivity to what the operator can change",
-        "",
-        "Generated by `python -m eval.report --sensitivity`. Method and the "
-        "argument for mutating a capture at all are in `docs/decisions.md`.",
-        "",
-        "Counts are published rules firing. T0 is the unmutated baseline.",
-        "",
-        "| tool | " + " | ".join(tiers) + " | control |",
-        "|---|" + "---|" * (len(tiers) + 1),
-    ]
-    for entry in results["per_capture"].values():
-        cells = [str(len(entry["tiers"][t]["published_fired"])) for t in tiers]
-        control = len(entry["tiers"]["control"]["published_fired"])
-        lines.append(f"| {entry['tool']} | " + " | ".join(cells) + f" | {control} |")
-
-    lines += ["", "## What each tier changes", ""]
-    for name in tiers + ["control"]:
-        sample = next(iter(results["per_capture"].values()))["tiers"][name]
-        lines.append(f"- `{name}`: {sample['note']}")
-
-    lines += ["", "## Rules lost at each tier", ""]
-    titles = results["titles"]
-    published = set(results["published_rule_ids"])
-    for entry in results["per_capture"].values():
-        base = set(entry["tiers"]["T0"]["published_fired"])
-        lines.append(f"### {entry['tool']}")
-        lines.append("")
-        for name in tiers[1:]:
-            now = set(entry["tiers"][name]["published_fired"])
-            lost = sorted(titles.get(r, r) for r in base - now)
-            gained = sorted(titles.get(r, r) for r in now - base)
-            if lost or gained:
-                if lost:
-                    lines.append(f"- {name} loses: {', '.join(lost)}")
-                if gained:
-                    lines.append(f"- {name} gains: {', '.join(gained)}")
-        if not any(set(entry["tiers"][n]["published_fired"]) != base for n in tiers[1:]):
-            lines.append("- unchanged at every tier")
-        lines.append("")
-    return "\n".join(lines) + "\n"
 
 if __name__ == "__main__":
     raise SystemExit(main())
