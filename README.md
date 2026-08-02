@@ -1,20 +1,29 @@
-# chain-under-load
+# detections-under-load
 
-A measurement harness for detection rules, and what it found when pointed at
-the published Sigma rules for LSASS credential dumping.
+A measurement harness for detection rules, and what it found when pointed at the
+published Sigma rules for LSASS credential dumping.
 
-Result first, so the rest has context: 80 published rules select for
-T1003.001. Run against seven real dumping tools in 354,229 events of recorded
-Windows telemetry, each tool trips between 3 and 8 of them, median 5, and no
-single rule detects more than 4 of the 7.
+Result first, so the rest has context. 80 published rules select for T1003.001.
+Run against seven real dumping tools in 354,229 events of recorded Windows
+telemetry, each tool trips between 3 and 8 of them, median 5, and no single rule
+detects more than 4 of the 7.
 
-Rename the binary and the output file, changing nothing about how the tool
-reads memory, and that falls to between 0 and 7. nanodump goes to zero.
-procdump goes from 7 to 2. Move the renamed binary into `System32` and the
-access-mask rules drop out too, not because they read a name but because they
-exclude that directory themselves.
+Rename what the operator brought, changing nothing about how the tool reads
+memory, and 12 of those 35 detections go. Move it one directory, into the folders
+the access-mask rules exclude themselves, and 8 more go. nanodump goes to zero on
+the rename alone and nothing in 3,747 published rules replaces it.
 
-[Findings](findings.md) | [Method](docs/method.md) | [Results](benchmark/results.md) | [Decisions](docs/decisions.md)
+For procdump, coverage goes *up* if you stop selecting by technique. The
+tag-scoped selection falls from 7 rules to 3, while three rules that were silent
+at the baseline start firing at the rename, because a suppression filter stops
+applying. All three are in the same repository, tagged for a different technique,
+where no T1003.001 selection reaches them.
+
+[Findings](findings.md) | [Method](docs/method.md) | [Results](benchmark/results.md) | [Selection scope](benchmark/selection.md) | [Robustness](benchmark/robustness.md) | [Decisions](docs/decisions.md) | [Contributions](contrib/)
+
+> The repository is still published at `chain-under-load`. Renaming it is an
+> owner action that has not been performed; `docs/decisions.md` records why the
+> chain framing was dropped and what the name should be.
 
 ## Why measure at all
 
@@ -71,13 +80,19 @@ be checkable by someone who does not trust me.
 
 ```mermaid
 flowchart LR
-  M[manifest.yml<br/>pinned commits + sha256] --> C[eval/corpus.py<br/>fetch, split]
+  M[manifest.yml<br/>pinned commits, sha256,<br/>mutation targets] --> C[eval/corpus.py<br/>fetch, split]
+  M --> U[eval/mutate.py<br/>tiers + control]
   C -->|attack captures| A[eval/runner.py<br/>compile + match]
   C -->|benign captures| A
   S[SigmaHQ rules<br/>pinned] --> A
+  U --> P[eval/prescreen.py<br/>drop what cannot match]
+  P --> A
   A --> K[eval/classify.py<br/>why it missed]
+  A --> L[eval/selection.py<br/>populations x tiers]
   K --> R[eval/report.py<br/>score + emit]
-  R --> O[results.json<br/>results.md]
+  R --> O[results.json]
+  L --> N[selection.json]
+  N --> D[eval/sensitivity.py<br/>eval/robustness.py<br/>derived, not measured again]
   A -.independent check.-> Z[eval/crosscheck.py<br/>Zircolite]
 ```
 
@@ -158,6 +173,38 @@ json; only the unarguable one leads.
 Rules from this repo are counted separately from published ones, because they
 were written after reading these results.
 
+### eval/mutate.py
+
+Replays a capture as the same intrusion carried out with more care: the
+artifacts the operator brought get names the operator chose, then move, then lose
+their version resource, then lose their recorded fingerprints. Which fields a
+tier may rewrite follows from where their values come from rather than from a
+list, and nothing the operating system reported about behaviour is ever
+rewritten.
+
+Beside the ladder, and not a rung of it, sits the control. It rewrites one field
+no selected rule reads, and coverage after it has to be identical to the
+baseline. If it is not, this harness is damaging events rather than the rules
+being fragile, and the run refuses to write its output.
+
+### eval/prescreen.py
+
+Drops rules that cannot match a capture, so the wide population is tractable in
+pure python. Three-valued and sound in one direction only: a rule is excluded on
+proven impossibility and everything else is admitted, including every construct
+the module will not reason about. The cheap half of the soundness argument runs
+on every commit, the exhaustive half at release.
+
+### eval/selection.py
+
+The one expensive pass. Three published rule populations, plus this repository's
+own, over the same seven captures, the same tiers and the same control. Coverage
+is credited only on events naming an artifact the operator brought or wrote,
+because a capture is a full recording window and most of it is background.
+`benchmark/sensitivity.json` and `benchmark/robustness.json` are derived from
+what it wrote rather than measured again, which is what stops two published
+tables from disagreeing about what coverage means.
+
 ### eval/crosscheck.py
 
 The cross-check against an engine I did not write. The same rules and captures
@@ -196,9 +243,13 @@ image name.
 
 **Access masks removed as too noisy.** nanodump opened LSASS with
 `GrantedAccess` `0x1010`, and `0x1010`, `0x1400` and `0x1410` are all commented
-out of the two main mask rules with the note "Too many false positives". That is
-a trade the rule authors made knowingly. It costs nanodump and the in-process
-mimikatz read, which are the tools using the removed masks.
+out of the two main process-access mask rules. That is a trade the rule authors
+made knowingly, and it costs nanodump and the in-process mimikatz read, which are
+the tools using the removed masks. The Security-channel rule for the same
+sub-technique still selects on `0x1010`, so the repository treats the same mask
+two ways;
+[contrib/lsass-access-mask-exclusions.md](contrib/lsass-access-mask-exclusions.md)
+has the counts.
 
 **A directory filter the tools walk through.** `Potentially Suspicious
 GrantedAccess Flags On LSASS` drops every source under `Program Files`,
@@ -210,36 +261,63 @@ GrantedAccess Flags On LSASS` drops every source under `Program Files`,
 ## What survives a rename
 
 The coverage above is measured against the names these operators happened to
-pick, which makes it an upper bound. Published rules firing after each change:
+pick, which makes it an upper bound. Every capture was replayed through five
+tiers of adversary effort, each a superset of the one below: rename what the
+operator brought, move it into a directory the mask rules exclude, clear the PE
+version resource, rotate the recorded fingerprints. Nothing the operating system
+reported about behaviour is rewritten at any tier.
 
-| tool | baseline | renamed | relocated | rebuilt | control |
+| tool | T0 | T1 rename | T2 relocate | T3 strip-pe | T4 new identity |
 |---|---|---|---|---|---|
-| out-minidump | 8 | 7 | 5 | 5 | 8 |
-| procdump | 7 | 2 | 2 | 2 | 7 |
-| comsvcs | 6 | 5 | 4 | 4 | 6 |
-| outflank-dumpert | 5 | 3 | 1 | 1 | 5 |
-| logonpasswords | 3 | 3 | 2 | 2 | 3 |
-| sharpdump | 3 | 2 | 2 | 2 | 3 |
-| nanodump | 3 | 0 | 0 | 0 | 3 |
-
-Nothing behavioural is altered. The access mask, the call trace and the process
-tree keep the values that were recorded, and only strings the operator chose
-freely change. The control column mutates a field no selected rule reads and
-comes back identical to the baseline on all seven, which is what makes the rest
-of the table readable as fragility rather than as damage.
+| out-minidump | 8 | 7 | 4 | 4 | 4 |
+| procdump | 7 | 3 | 3 | 3 | 3 |
+| comsvcs | 6 | 5 | 4 | 4 | 4 |
+| outflank-dumpert | 5 | 3 | 1 | 1 | 1 |
+| logonpasswords | 3 | 3 | 1 | 1 | 1 |
+| sharpdump | 3 | 2 | 2 | 2 | 2 |
+| nanodump | 3 | 0 | 0 | 0 | 0 |
 
 Relocation costs the access-mask rules, which read no filename at all. They are
-lost to their own filter, the one excluding every source under `Program Files`
-and `System32`.
+lost to their own filters, the ones excluding every source under `Program Files`,
+`System32` and `SysWOW64`. logonpasswords shows that alone: it reads LSASS from
+an injected thread, so the rename costs it nothing and the move costs it two of
+three.
 
-The six rules in `rules/` are unchanged at every tier, though they were written
-after reading these findings, so that is weaker evidence than it looks.
-[findings.md](findings.md) has the per-rule losses and the reasoning, including
-why the rebuild tier turned out flat.
+Clearing the version resource and rotating the fingerprints move nothing here.
+That is not because those tiers do nothing, but because the layer that reads a
+version resource or a fingerprint to catch a renamed tool is not in the
+population being measured.
 
-This measures sensitivity to renaming and relocation on one corpus. An operator
-who changes how the tool reads memory, rather than what it is called, is
-outside what any of it shows.
+Beside the ladder, and not a rung of it, a control rewrites a field no rule in
+the technique-scoped selection reads. It moves nothing there, on all seven captures. It does move
+one rule in the wide population, which reads the field it rewrites, and that is
+what makes it a control rather than a formality: a mutation nothing can see
+passes by construction.
+
+This measures sensitivity to renaming and relocation on one corpus, with a model
+of an operator rather than a recording of one. Someone who changes how the tool
+reads memory, rather than what it is called, is outside what any of it shows.
+
+## Coverage depends on which rules you selected
+
+Everything above is scoped to the rules carrying `attack.t1003.001`. That scoping
+is not neutral. Three populations run over the same captures and tiers: the
+tag-only set, the augmented set the benchmark scores, and every SigmaHQ rule that
+compiles, is `product: windows` or product-agnostic, and reads an event type the
+corpus contains. Coverage is credited only on events naming an artifact the
+operator brought or wrote, because a capture is a full recording window and 98%
+of it is background.
+
+| tool | `S-tag` T0 | `S-tag` T1 | `W` T0 | `W` T1 | what `W` adds at T1 |
+|---|---|---|---|---|---|
+| procdump | 7 | 3 | 14 | 13 | Renamed ProcDump Execution, and two rules reading the Sysinternals registry key |
+| outflank-dumpert | 5 | 3 | 14 | 12 | a rule keyed on the tool's import hash, lost only at T4 |
+| nanodump | 3 | 0 | 12 | 9 | nothing about credential access |
+
+The full table, and every rule in the compensating layer by name, is in
+[benchmark/selection.md](benchmark/selection.md). The rules in `rules/` are a
+fourth population, reported apart from all three, because they were written after
+reading the results above.
 
 ## What I wrote in response
 
@@ -264,14 +342,28 @@ PowerShell is left unfiltered because Out-Minidump is PowerShell.
 The low counts are the corpus rather than the rules. Only three of the seven
 intrusions inject into another process, and only one uses comsvcs.
 
-## Does any of it generalise
+## Does any of it transfer
 
 The whole set was pointed at the APT29 evaluation captures, 783,367 events
 across two days and several hosts, which none of these rules was written for.
 Three of the six fire on both days with no tuning. The three that stay quiet are
 the narrow ones, none of which describes how that intrusion moved.
 
-That is one more dataset, not a deployment.
+That is a transfer test and one more dataset, not a deployment, and nothing here
+reconstructs the intrusion's steps. `docs/decisions.md` says why the module doing
+it is no longer called a chain.
+
+## What was offered upstream
+
+Three drafts in [`contrib/`](contrib), in ascending order of how arguable they
+are, none of them sent anywhere. One encoding defect: `HackTool - Dumpert Process
+Dumper Execution` reads an import hash as an MD5 and therefore cannot fire on the
+tool it is named after, which is measured before and after the one-line
+correction. One tuning tradeoff: the access-mask exclusions are a documented
+choice, and the measurement offered is about one mask that three rules in the
+same repository already treat two different ways. One proposal: the rule that
+catches a renamed ProcDump is correctly tagged for masquerading, and the problem
+is that nothing connects it to the credential-dumping rules it complements.
 
 ## Where the rules run
 
@@ -290,16 +382,27 @@ in `eval/`, not by either SIEM.
 
 ```bash
 pip install -r requirements.txt pyyaml
-python -m eval.corpus --fetch     # about 1.5 GB, pinned by commit and sha256
-python -m eval.report --run       # benchmark/results.json and results.md
-python -m eval.chain --run        # benchmark/chain.json and chain.md
-python -m eval.crosscheck         # agreement against Zircolite
-python -m pytest tests -q         # 61 tests
+python -m eval.corpus --fetch          # about 1.5 GB, pinned by commit and sha256
+python -m eval.report --run            # benchmark/results.json and results.md
+python -m eval.transfer --run          # benchmark/chain.json and chain.md
+python -m eval.crosscheck              # agreement against Zircolite
+python -m pytest tests -q               # unit tests, no corpus needed
+
+# the one expensive pass, and the two records derived from it
+python -m eval.report --run-selection    # benchmark/selection.json and .md
+python -m eval.report --run-sensitivity  # benchmark/sensitivity.json and .md
+python -m eval.report --run-robustness   # benchmark/robustness.json and .md
+
+scripts/ci-local.sh --fast             # what a push runs, minus the corpus
+scripts/ci-local.sh                    # add the drift checks
+scripts/ci-local.sh --release          # add the wide run and the exhaustive prescreen
 ```
 
 ## Limits
 
-Seven tools is seven tools, and one lab is one lab. A field missing from a
+Seven tools is seven tools, and one lab is one lab. The tiers are a model of an
+operator rather than a recording of one, and everything the model refuses to
+rewrite makes the measured loss smaller than it would otherwise look. A field missing from a
 capture is not proof it would be missing in production, which is why telemetry
 gaps are separated from logic misses instead of counted against the rules. The
 benign corpus is 91 atomic attack simulations, real host telemetry but a quiet
