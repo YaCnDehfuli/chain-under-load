@@ -1,29 +1,48 @@
-# detections-under-load
+# detection-under-load
 
-A measurement harness for detection rules, and what it found when pointed at the
-published Sigma rules for LSASS credential dumping.
+Detection Under Load is a reproducible benchmark for detection-rule robustness.
+It runs published Sigma rules against real Windows telemetry, explains why rules
+miss, and then measures how much coverage survives small choices an operator
+controls: names, paths, PE metadata, and recorded artifact identity.
 
-Result first, so the rest has context. 80 published rules select for T1003.001.
-Run against seven real dumping tools in 354,229 events of recorded Windows
-telemetry, each tool trips between 3 and 8 of them, median 5, and no single rule
-detects more than 4 of the 7.
+The first study focuses on LSASS credential dumping, ATT&CK T1003.001. It is
+intentionally narrow because the corpus is unusually controlled: seven captures
+of the same technique, in the same lab and Sysmon configuration, with the
+dumping tool as the main variable.
 
-Rename what the operator brought, changing nothing about how the tool reads
-memory, and 12 of those 35 detections go. Move it one directory, into the folders
-the access-mask rules exclude themselves, and 8 more go. nanodump goes to zero on
-the rename alone and nothing in 3,747 published rules replaces it.
+![Detection Under Load benchmark overview](docs/assets/detection-under-load-overview.svg)
 
-For procdump, coverage goes *up* if you stop selecting by technique. The
-tag-scoped selection falls from 7 rules to 3, while three rules that were silent
-at the baseline start firing at the rename, because a suppression filter stops
-applying. All three are in the same repository, tagged for a different technique,
-where no T1003.001 selection reaches them.
+## Current result
+
+80 published Sigma rules select for T1003.001. Run against seven real dumping
+tools in 354,229 recorded Windows events, each tool triggers between 3 and 8
+published rules, with a median of 5. No single published rule detects more than
+4 of the 7 tools.
+
+| measurement | result |
+|---|---|
+| Published T1003.001 rules selected | 80 |
+| LSASS dumping captures | 7 |
+| Windows events in the attack captures | 354,229 |
+| Published rules firing per tool | 3 to 8 |
+| Median published coverage per tool | 5 rules |
+| Baseline detections lost after rename | 12 of 35 |
+| Additional detections lost after relocation | 8 |
+| nanodump after rename | 0 published detections |
+
+The main finding is not that "Sigma fails." It is more specific: a meaningful
+slice of published coverage depends on strings an operator can choose freely, or
+on directory filters that exclude the very activity they are meant to protect.
+The repository keeps telemetry gaps, out-of-scope tool-specific rules, and
+rule-logic misses separate so the number is explainable rather than just loud.
+
+For procdump, coverage goes up if you stop selecting only by technique tag. The
+tag-scoped selection falls from 7 rules to 3 after rename, while three rules
+tagged for a different technique begin firing because a suppression filter stops
+applying. That is a coverage-mapping finding, not a reason to loosen every
+selection blindly.
 
 [Findings](findings.md) | [Method](docs/method.md) | [Results](benchmark/results.md) | [Selection scope](benchmark/selection.md) | [Robustness](benchmark/robustness.md) | [Decisions](docs/decisions.md) | [Contributions](contrib/)
-
-> The repository is still published at `chain-under-load`. Renaming it is an
-> owner action that has not been performed; `docs/decisions.md` records why the
-> chain framing was dropped and what the name should be.
 
 ## Why measure at all
 
@@ -381,7 +400,7 @@ in `eval/`, not by either SIEM.
 ## Running it
 
 ```bash
-pip install -r requirements.txt pyyaml
+python -m pip install -r requirements.txt pyyaml
 python -m eval.corpus --fetch          # about 1.5 GB, pinned by commit and sha256
 python -m eval.report --run            # benchmark/results.json and results.md
 python -m eval.transfer --run          # benchmark/chain.json and chain.md

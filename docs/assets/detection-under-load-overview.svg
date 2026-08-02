@@ -1,0 +1,103 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="560" viewBox="0 0 1240 560" role="img" aria-labelledby="title desc">
+  <title id="title">Detection Under Load benchmark overview</title>
+  <desc id="desc">A benchmark flow from pinned public telemetry and Sigma rules through native evaluation, miss classification, adversary-controlled mutation tiers, and reviewable benchmark records.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#07111f"/>
+      <stop offset="1" stop-color="#10151b"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#122239"/>
+      <stop offset="1" stop-color="#15251f"/>
+    </linearGradient>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+      <path d="M0,0 L10,5 L0,10 z" fill="#8fb1c8"/>
+    </marker>
+    <style>
+      .bg { fill: url(#bg); }
+      .card { fill: url(#card); stroke: #304961; stroke-width: 1.5; rx: 12; }
+      .title { fill: #eff7ff; font: 700 24px Arial, sans-serif; }
+      .label { fill: #eff7ff; font: 700 17px Arial, sans-serif; }
+      .small { fill: #aec2d2; font: 13px Arial, sans-serif; }
+      .tiny { fill: #8ca5b8; font: 12px Arial, sans-serif; }
+      .line { stroke: #8fb1c8; stroke-width: 2.4; fill: none; marker-end: url(#arrow); }
+      .node { fill: #1fb6ff; stroke: #cdf3ff; stroke-width: 1.2; }
+      .ok { fill: #33d17a; }
+      .warn { fill: #ffd166; }
+      .bad { fill: #ff6b6b; }
+      .chip { fill: #102d3b; stroke: #28627c; stroke-width: 1; rx: 8; }
+    </style>
+  </defs>
+  <rect class="bg" width="1240" height="560"/>
+  <text class="title" x="42" y="54">Detection Under Load</text>
+  <text class="small" x="42" y="80">Execution-based measurement of Sigma rule coverage, miss reasons, and robustness under operator-controlled changes.</text>
+
+  <rect class="card" x="42" y="124" width="218" height="150"/>
+  <text class="label" x="64" y="158">Pinned inputs</text>
+  <text class="small" x="64" y="186">7 LSASS captures</text>
+  <text class="small" x="64" y="208">SigmaHQ rules</text>
+  <text class="small" x="64" y="230">sha256 + commits</text>
+  <rect class="chip" x="168" y="143" width="58" height="24"/>
+  <text class="tiny" x="181" y="160">fixed</text>
+
+  <path class="line" d="M260 199 H332"/>
+
+  <rect class="card" x="332" y="124" width="220" height="150"/>
+  <text class="label" x="354" y="158">Native evaluator</text>
+  <text class="small" x="354" y="186">pySigma AST</text>
+  <text class="small" x="354" y="208">logsource pipelines</text>
+  <text class="small" x="354" y="230">event predicates</text>
+  <circle class="node" cx="502" cy="154" r="7"/>
+
+  <path class="line" d="M552 199 H624"/>
+
+  <rect class="card" x="624" y="124" width="236" height="150"/>
+  <text class="label" x="646" y="158">Miss classifier</text>
+  <text class="small" x="646" y="186">detected</text>
+  <text class="small" x="646" y="208">telemetry gap</text>
+  <text class="small" x="646" y="230">out of scope / logic miss</text>
+  <circle class="warn" cx="804" cy="155" r="7"/>
+
+  <path class="line" d="M860 199 H932"/>
+
+  <rect class="card" x="932" y="124" width="236" height="150"/>
+  <text class="label" x="954" y="158">Baseline result</text>
+  <text class="small" x="954" y="186">80 published rules</text>
+  <text class="small" x="954" y="208">3-8 fire per tool</text>
+  <text class="small" x="954" y="230">median 5</text>
+  <circle class="ok" cx="1118" cy="155" r="7"/>
+
+  <path class="line" d="M1050 274 V330 H190 V360"/>
+
+  <rect class="card" x="42" y="360" width="236" height="142"/>
+  <text class="label" x="64" y="394">Mutation ladder</text>
+  <text class="small" x="64" y="422">rename artifacts</text>
+  <text class="small" x="64" y="444">relocate tools</text>
+  <text class="small" x="64" y="466">strip PE / rotate identity</text>
+
+  <path class="line" d="M278 431 H350"/>
+
+  <rect class="card" x="350" y="360" width="236" height="142"/>
+  <text class="label" x="372" y="394">Control mutation</text>
+  <text class="small" x="372" y="422">field no selected rule reads</text>
+  <text class="small" x="372" y="444">coverage must stay fixed</text>
+  <text class="tiny" x="372" y="468">otherwise no tier is publishable</text>
+
+  <path class="line" d="M586 431 H658"/>
+
+  <rect class="card" x="658" y="360" width="224" height="142"/>
+  <text class="label" x="680" y="394">Cross-check</text>
+  <text class="small" x="680" y="422">Zircolite comparison</text>
+  <text class="small" x="680" y="444">23 process-access rules</text>
+  <text class="small" x="680" y="466">match counts agree</text>
+
+  <path class="line" d="M882 431 H954"/>
+
+  <rect class="card" x="954" y="360" width="214" height="142"/>
+  <text class="label" x="976" y="394">Reviewable records</text>
+  <text class="small" x="976" y="422">results.json</text>
+  <text class="small" x="976" y="444">selection.json</text>
+  <text class="small" x="976" y="466">robustness.json</text>
+
+  <text class="tiny" x="42" y="536">Boundary: this is a benchmark over one public T1003.001 corpus, not a deployment false-positive guarantee.</text>
+</svg>
