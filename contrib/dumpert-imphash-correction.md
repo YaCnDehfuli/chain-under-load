@@ -73,7 +73,7 @@ written correctly, which is what makes the failure of the tool-specific rule
 visible: two rules carry one value, and only the one that spells it right fires.
 
 Reproduce with `python -m eval.report --run-selection` in
-[this repository](https://github.com/yacndehfuli/chain-under-load), or directly:
+[this repository](https://github.com/yacndehfuli/detection-under-load), or directly:
 
 ```bash
 python - <<'EOF'
