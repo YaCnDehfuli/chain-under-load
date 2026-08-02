@@ -26,29 +26,90 @@ RELEASE=0
 [ "${1:-}" = "--fast" ] && FAST=1
 [ "${1:-}" = "--release" ] && RELEASE=1
 
+BAR_WIDTH=28
+step=0
+passed=0
 failed=0
+failed_steps=()
+pipeline_started=$SECONDS
+
+if [ "$FAST" = "1" ]; then
+    mode="fast"
+    total_steps=4
+elif [ "$RELEASE" = "1" ]; then
+    mode="release"
+    total_steps=10
+else
+    mode="benchmark"
+    total_steps=8
+fi
+
+progress() {
+    local completed="$1" status="$2" label="$3"
+    local percent filled remaining done_bar todo_bar
+    percent=$((completed * 100 / total_steps))
+    filled=$((completed * BAR_WIDTH / total_steps))
+    remaining=$((BAR_WIDTH - filled))
+    printf -v done_bar '%*s' "$filled" ''
+    printf -v todo_bar '%*s' "$remaining" ''
+    done_bar=${done_bar// /#}
+    todo_bar=${todo_bar// /-}
+    printf '[%s%s] %3d%% | %-5s | %s\n' \
+        "$done_bar" "$todo_bar" "$percent" "$status" "$label"
+}
+
+print_command() {
+    printf '  command:'
+    printf ' %q' "$@"
+    printf '\n'
+}
+
 run() {
-    local name="$1"; shift
+    local name="$1" started elapsed status
+    shift
+    step=$((step + 1))
+
     echo
-    echo "===== $name ====="
+    progress "$((step - 1))" "RUN" "$step/$total_steps $name"
+    print_command "$@"
+    started=$SECONDS
+
     if "$@"; then
-        echo "PASS  $name"
+        elapsed=$((SECONDS - started))
+        passed=$((passed + 1))
+        progress "$step" "PASS" "$name (${elapsed}s)"
     else
-        echo "FAIL  $name"
+        status=$?
+        elapsed=$((SECONDS - started))
         failed=1
+        failed_steps+=("$name (exit $status)")
+        progress "$step" "FAIL" "$name (exit $status, ${elapsed}s)"
     fi
 }
+
+echo "Detection Under Load | local verification pipeline"
+echo "  mode:      $mode"
+echo "  stages:    $total_steps"
+echo "  python:    $PYTHON"
+echo "  started:   $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+progress 0 "READY" "pipeline initialized"
 
 # job: tests. CI has no corpus at this point, so neither does this. Running it
 # in a scratch copy is the only way to be sure a test is not quietly relying on
 # a corpus that happens to be sitting in the working tree.
 tests_without_corpus() {
-    local scratch status
-    scratch="$(mktemp -d)"
+    local scratch scratch_root status
+    scratch_root="${TMPDIR:-${RUNNER_TEMP:-/tmp}}"
+    if [ ! -d "$scratch_root" ] || [ ! -w "$scratch_root" ]; then
+        scratch_root="$PWD"
+    fi
+    scratch="$(mktemp -d "$scratch_root/detection-under-load.XXXXXX")" || return 1
     git ls-files -z | while IFS= read -r -d '' f; do
         mkdir -p "$scratch/$(dirname "$f")"
         cp "$f" "$scratch/$f"
     done
+    echo "  isolation: tracked files copied to a corpus-free workspace"
+    printf '  executing: PYTHONPATH=<scratch> %q -m pytest tests -q\n' "$PYTHON"
     ( cd "$scratch" && PYTHONPATH="$scratch" "$PYTHON" -m pytest tests -q )
     status=$?
     rm -rf "$scratch"
@@ -65,7 +126,8 @@ run "job rules: converted queries are current" \
 
 if [ "$FAST" = "1" ]; then
     echo
-    echo "skipped the benchmark job, pass no arguments to include it"
+    echo "  note: benchmark stages skipped in --fast mode"
+    echo "  next: run scripts/ci-local.sh to include corpus and drift checks"
 else
     run "job benchmark: corpus" "$PYTHON" -m eval.corpus --fetch
     run "job benchmark: phase 1 results match a fresh run" \
@@ -86,9 +148,18 @@ if [ "$RELEASE" = "1" ]; then
 fi
 
 echo
+pipeline_elapsed=$((SECONDS - pipeline_started))
+failure_count=${#failed_steps[@]}
+progress "$total_steps" "$([ "$failed" = "0" ] && printf PASS || printf FAIL)" \
+    "pipeline complete (${pipeline_elapsed}s)"
+printf '  summary: %d passed, %d failed, %ds elapsed\n' \
+    "$passed" "$failure_count" "$pipeline_elapsed"
+
 if [ "$failed" = "0" ]; then
     echo "all jobs passed"
 else
+    echo "failed stages:"
+    printf '  - %s\n' "${failed_steps[@]}"
     echo "at least one job failed, do not push"
 fi
 exit "$failed"
