@@ -344,8 +344,7 @@ external validation here.
 the committed measurements `tests/test_rules.py` reads, and renaming an output
 file to fix a framing problem in a module name would be churn for its own sake.
 
-The repository name follows the same argument. `detections-under-load` says what
+The repository name follows the same argument. `detection-under-load` says what
 the harness does, which is to put published detections under adversary load and
-report what survives. Renaming the repository is an owner action that has not
-been performed, so this entry is the record of the decision rather than evidence
-that it happened.
+report what survives. The public repository was renamed from
+`chain-under-load` after the chain framing was removed.
