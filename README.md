@@ -1,4 +1,11 @@
-# detection-under-load
+# Detection Under Load
+
+[![CI](https://github.com/YaCnDehfuli/detection-under-load/actions/workflows/ci.yml/badge.svg)](https://github.com/YaCnDehfuli/detection-under-load/actions/workflows/ci.yml)
+[![Python](https://img.shields.io/badge/Python-3.11+-3776AB?logo=python&logoColor=white)](https://www.python.org/)
+[![Sigma](https://img.shields.io/badge/Detection-Sigma-6A5ACD)](https://sigmahq.io/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-2ea44f.svg)](LICENSE)
+
+**Technical focus:** detection engineering · Sigma · MITRE ATT&CK · Sysmon · KQL · Splunk SPL · false-positive measurement
 
 Detection Under Load is a reproducible benchmark for detection-rule robustness.
 It runs published Sigma rules against real Windows telemetry, explains why rules
@@ -432,3 +439,8 @@ None of this is a verdict on SigmaHQ. Their rules cover far more ground than
 these seven captures can show, and a rule that misses here may be carrying its
 weight somewhere this corpus cannot see. Full limitations in
 [docs/method.md](docs/method.md).
+
+
+## License
+
+[MIT](LICENSE). Third-party datasets and Sigma rules retain their original terms.
