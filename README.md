@@ -406,13 +406,46 @@ in `eval/`, not by either SIEM.
 
 ## Running it
 
+### Clean-checkout verification
+
+This is the shortest reviewer path from a new checkout to an observable pipeline run:
+
 ```bash
+git clone https://github.com/YaCnDehfuli/detection-under-load.git
+cd detection-under-load
+python -m venv .venv
+source .venv/bin/activate
 python -m pip install -r requirements.txt pyyaml
+scripts/ci-local.sh --fast
+```
+
+The harness writes a durable progress record instead of relying on an animated
+terminal spinner, so the same signal remains readable in a terminal, redirected
+log, or CI transcript. Every stage shows its position, exact command, live
+stdout/stderr, pass/fail state, and elapsed time:
+
+```text
+[----------------------------]   0% | READY | pipeline initialized
+[----------------------------]   0% | RUN   | 1/4 job tests (no corpus, as CI sees it)
+[#######---------------------]  25% | PASS  | job tests (no corpus, as CI sees it)
+[##############--------------]  50% | PASS  | job rules: seed taxonomy cache
+[#####################-------]  75% | PASS  | job rules: sigma check
+[############################] 100% | PASS  | pipeline complete
+  summary: 4 passed, 0 failed
+```
+
+Use `--fast` for the first proof of life. The default mode adds the pinned
+roughly 1.5 GB corpus and benchmark drift checks; `--release` also runs the
+wide population and exhaustive prescreen checks.
+
+### Individual commands
+
+```bash
 python -m eval.corpus --fetch          # about 1.5 GB, pinned by commit and sha256
 python -m eval.report --run            # benchmark/results.json and results.md
 python -m eval.transfer --run          # benchmark/chain.json and chain.md
 python -m eval.crosscheck              # agreement against Zircolite
-python -m pytest tests -q               # unit tests, no corpus needed
+python -m pytest tests -q              # unit tests, no corpus needed
 
 # the one expensive pass, and the two records derived from it
 python -m eval.report --run-selection    # benchmark/selection.json and .md
@@ -420,8 +453,8 @@ python -m eval.report --run-sensitivity  # benchmark/sensitivity.json and .md
 python -m eval.report --run-robustness   # benchmark/robustness.json and .md
 
 scripts/ci-local.sh --fast             # what a push runs, minus the corpus
-scripts/ci-local.sh                    # add the drift checks
-scripts/ci-local.sh --release          # add the wide run and the exhaustive prescreen
+scripts/ci-local.sh                    # add the corpus and drift checks
+scripts/ci-local.sh --release          # add the wide run and exhaustive prescreen
 ```
 
 ## Limits
