@@ -105,21 +105,22 @@ be checkable by someone who does not trust me.
 ## Pipeline
 
 ```mermaid
-flowchart LR
-  M[manifest.yml<br/>pinned commits, sha256,<br/>mutation targets] --> C[eval/corpus.py<br/>fetch, split]
-  M --> U[eval/mutate.py<br/>tiers + control]
-  C -->|attack captures| A[eval/runner.py<br/>compile + match]
-  C -->|benign captures| A
-  S[SigmaHQ rules<br/>pinned] --> A
-  U --> P[eval/prescreen.py<br/>drop what cannot match]
-  P --> A
-  A --> K[eval/classify.py<br/>why it missed]
-  A --> L[eval/selection.py<br/>populations x tiers]
-  K --> R[eval/report.py<br/>score + emit]
-  R --> O[results.json]
-  L --> N[selection.json]
-  N --> D[eval/sensitivity.py<br/>eval/robustness.py<br/>derived, not measured again]
-  A -.independent check.-> Z[eval/crosscheck.py<br/>Zircolite]
+flowchart LR 
+M[manifest.yml<br/>pinned commits, sha256,<br/>mutation targets] --> C[eval/corpus.py<br/>fetch, split] 
+M --> U[eval/mutate.py<br/>tiers + control] 
+C -->|attack captures| A[eval/runner.py<br/>compile + match] 
+C -->|benign captures| A 
+S[SigmaHQ rules<br/>pinned] --> A 
+U --> P[eval/prescreen.py<br/>drop what cannot match] 
+P --> A 
+A --> K[eval/classify.py<br/>why it missed] 
+A --> L[eval/selection.py<br/>populations x tiers] 
+K --> R[eval/report.py<br/>score + emit] 
+R --> O[results.json] 
+L --> N[selection.json] 
+N --> D[eval/sensitivity.py<br/>eval/robustness.py<br/>derived, not measured again] 
+A -. independent check .-> Z[eval/crosscheck.py<br/>Zircolite]
+
 ```
 
 ### benchmark/manifest.yml
