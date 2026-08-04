@@ -423,13 +423,15 @@ scripts/ci-local.sh --fast
 The harness writes a durable progress record instead of relying on an animated
 terminal spinner, so the same signal remains readable in a terminal, redirected
 log, or CI transcript. Every stage shows its position, exact command, live
-stdout/stderr, pass/fail state, and elapsed time:
+stdout/stderr, pass/fail state, and elapsed time. Long or quiet stages also emit
+a `LIVE` heartbeat every 15 seconds:
 
 ```text
 [----------------------------]   0% | READY | pipeline initialized
 [----------------------------]   0% | RUN   | 1/4 job tests (no corpus, as CI sees it)
 [#######---------------------]  25% | PASS  | job tests (no corpus, as CI sees it)
 [##############--------------]  50% | PASS  | job rules: seed taxonomy cache
+[##############--------------]  50% | LIVE  | 3/4 job rules: sigma check (15s elapsed)
 [#####################-------]  75% | PASS  | job rules: sigma check
 [############################] 100% | PASS  | pipeline complete
   summary: 4 passed, 0 failed

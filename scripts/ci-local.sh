@@ -27,11 +27,19 @@ RELEASE=0
 [ "${1:-}" = "--release" ] && RELEASE=1
 
 BAR_WIDTH=28
+HEARTBEAT_SECONDS="${HEARTBEAT_SECONDS:-15}"
 step=0
 passed=0
 failed=0
 failed_steps=()
 pipeline_started=$SECONDS
+
+case "$HEARTBEAT_SECONDS" in
+    ''|*[!0-9]*|0)
+        echo "HEARTBEAT_SECONDS must be a positive integer" >&2
+        exit 2
+        ;;
+esac
 
 if [ "$FAST" = "1" ]; then
     mode="fast"
@@ -64,8 +72,24 @@ print_command() {
     printf '\n'
 }
 
+activity_heartbeat() {
+    local command_pid="$1" name="$2" started="$3"
+    local elapsed next_heartbeat="$HEARTBEAT_SECONDS"
+
+    while kill -0 "$command_pid" 2>/dev/null; do
+        sleep 1
+        kill -0 "$command_pid" 2>/dev/null || break
+        elapsed=$((SECONDS - started))
+        if [ "$elapsed" -ge "$next_heartbeat" ]; then
+            progress "$((step - 1))" "LIVE" \
+                "$step/$total_steps $name (${elapsed}s elapsed)"
+            next_heartbeat=$((next_heartbeat + HEARTBEAT_SECONDS))
+        fi
+    done
+}
+
 run() {
-    local name="$1" started elapsed status
+    local name="$1" started elapsed status command_pid heartbeat_pid
     shift
     step=$((step + 1))
 
@@ -74,12 +98,24 @@ run() {
     print_command "$@"
     started=$SECONDS
 
-    if "$@"; then
+    "$@" &
+    command_pid=$!
+    activity_heartbeat "$command_pid" "$name" "$started" &
+    heartbeat_pid=$!
+
+    if wait "$command_pid"; then
+        status=0
+    else
+        status=$?
+    fi
+    kill "$heartbeat_pid" 2>/dev/null || true
+    wait "$heartbeat_pid" 2>/dev/null || true
+
+    if [ "$status" = "0" ]; then
         elapsed=$((SECONDS - started))
         passed=$((passed + 1))
         progress "$step" "PASS" "$name (${elapsed}s)"
     else
-        status=$?
         elapsed=$((SECONDS - started))
         failed=1
         failed_steps+=("$name (exit $status)")
@@ -91,6 +127,7 @@ echo "Detection Under Load | local verification pipeline"
 echo "  mode:      $mode"
 echo "  stages:    $total_steps"
 echo "  python:    $PYTHON"
+echo "  heartbeat: ${HEARTBEAT_SECONDS}s for quiet stages"
 echo "  started:   $(date -u '+%Y-%m-%dT%H:%M:%SZ')"
 progress 0 "READY" "pipeline initialized"
 
